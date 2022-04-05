@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
 use Livewire\Component;
@@ -43,6 +43,6 @@ class ListUsers extends Component
             // $query->orwhere('address', 'like', '%'.$this->search.'%');
         })->orderBy('created_at', 'desc')->paginate($this->paginate);
 
-        return view('livewire.admin.list-users', compact('users'));
+        return view('livewire.admin.users.list-users', compact('users'));
     }
 }

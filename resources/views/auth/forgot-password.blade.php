@@ -55,8 +55,10 @@
                         @csrf
 
                         <div class="intro-x mt-8">
-                            <input class="@error('email') border-danger @enderror intro-x login__input form-control py-3 px-4 block" id="email" type="email"
-                                name="email" value="{{ old('email') }}" placeholder="Correo electrónico">
+                            <input
+                                class="@error('email') border-danger @enderror intro-x login__input form-control py-3 px-4 block"
+                                id="email" type="email" name="email" value="{{ old('email') }}"
+                                placeholder="Correo electrónico">
                         </div>
 
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
@@ -64,6 +66,13 @@
                                 class="btn btn-primary py-3 px-4 w-full xl:w-64 xl:mr-3 align-top">{{ __('Email Password Reset Link') }}</button>
                         </div>
                     </form>
+                    <div data-url="{{ route('dark-mode-switcher2') }}"
+                        class="dark-mode-switcher cursor-pointer shadow-md fixed bottom-0 right-0 box border rounded-full w-40 h-12 flex items-center justify-center z-50 mb-10 mr-10">
+                        <div class="mr-4 text-slate-600 dark:text-slate-200">Dark Mode</div>
+                        <div
+                            class="dark-mode-switcher__toggle {{ session('dark_mode') ? 'dark-mode-switcher__toggle--active' : '' }} border">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END: Login Form -->

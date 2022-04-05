@@ -9,10 +9,10 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ $content2 }}</li>
             @endisset
             @isset($content3)
-            <li class="breadcrumb-item active" aria-current="page">{{ $content3 }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $content3 }}</li>
             @endisset
             @isset($content4)
-            <li class="breadcrumb-item active" aria-current="page">{{ $content4 }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $content4 }}</li>
             @endisset
         </ol>
     </nav>
@@ -20,35 +20,35 @@
 
     <!-- BEGIN: Search -->
     <div x-data="{ message: '' }" class="intro-x relative mr-3 sm:mr-6">
-        <div class="search hidden sm:block">
-            <input type="text" class="search__input form-control border-transparent" placeholder="Buscar..."
+        <div class="search sm:block">
+            <input type="text" class="hidden md:block search__input form-control border-transparent"
+                placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
+
+            <input type="text" class="md:hidden form-control border-transparent" placeholder="Buscar..."
                 x-model="message" @input="Livewire.emit('updateSearch', message)">
-            <i data-feather="search" class="search__icon dark:text-slate-500"></i>
+            <i data-lucide="search" class="search__icon dark:text-slate-500"></i>
         </div>
-        {{-- <a class="notification sm:hidden" href=""> <i data-feather="search"
-                class="notification__icon dark:text-slate-500"></i> </a>
-        <div class="search-result">
+        {{-- <a class="notification sm:hidden" href=""> <i data-lucide="search"
+                class="notification__icon dark:text-slate-500"></i> </a> --}}
+        {{-- <div class="search-result">
             <div class="search-result__content">
                 <div class="search-result__content__title">Pages</div>
                 <div class="mb-5">
                     <a href="" class="flex items-center">
                         <div
                             class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full">
-                            <i class="w-4 h-4" data-feather="inbox"></i>
-                        </div>
+                            <i class="w-4 h-4" data-lucide="inbox"></i> </div>
                         <div class="ml-3">Mail Settings</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
                         <div class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full">
-                            <i class="w-4 h-4" data-feather="users"></i>
-                        </div>
+                            <i class="w-4 h-4" data-lucide="users"></i> </div>
                         <div class="ml-3">Users & Permissions</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
                         <div
                             class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full">
-                            <i class="w-4 h-4" data-feather="credit-card"></i>
-                        </div>
+                            <i class="w-4 h-4" data-lucide="credit-card"></i> </div>
                         <div class="ml-3">Transactions Report</div>
                     </a>
                 </div>
@@ -56,77 +56,69 @@
                 <div class="mb-5">
                     <a href="" class="flex items-center mt-2">
                         <div class="w-8 h-8 image-fit">
-                            <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
+                            <img alt="Midone - HTML Admin Template" class="rounded-full"
+                                src="dist/images/profile-6.jpg">
+                        </div>
+                        <div class="ml-3">Angelina Jolie</div>
+                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">angelinajolie@left4code.com
+                        </div>
+                    </a>
+                    <a href="" class="flex items-center mt-2">
+                        <div class="w-8 h-8 image-fit">
+                            <img alt="Midone - HTML Admin Template" class="rounded-full"
                                 src="dist/images/profile-5.jpg">
                         </div>
-                        <div class="ml-3">Arnold Schwarzenegger</div>
+                        <div class="ml-3">Leonardo DiCaprio</div>
                         <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
-                            arnoldschwarzenegger@left4code.com</div>
+                            leonardodicaprio@left4code.com</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
                         <div class="w-8 h-8 image-fit">
-                            <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
+                            <img alt="Midone - HTML Admin Template" class="rounded-full"
+                                src="dist/images/profile-5.jpg">
+                        </div>
+                        <div class="ml-3">Johnny Depp</div>
+                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">johnnydepp@left4code.com
+                        </div>
+                    </a>
+                    <a href="" class="flex items-center mt-2">
+                        <div class="w-8 h-8 image-fit">
+                            <img alt="Midone - HTML Admin Template" class="rounded-full"
                                 src="dist/images/profile-4.jpg">
                         </div>
-                        <div class="ml-3">Kevin Spacey</div>
+                        <div class="ml-3">Denzel Washington</div>
                         <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
-                            kevinspacey@left4code.com</div>
-                    </a>
-                    <a href="" class="flex items-center mt-2">
-                        <div class="w-8 h-8 image-fit">
-                            <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                                src="dist/images/profile-3.jpg">
-                        </div>
-                        <div class="ml-3">Kevin Spacey</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
-                            kevinspacey@left4code.com</div>
-                    </a>
-                    <a href="" class="flex items-center mt-2">
-                        <div class="w-8 h-8 image-fit">
-                            <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                                src="dist/images/profile-10.jpg">
-                        </div>
-                        <div class="ml-3">Keanu Reeves</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
-                            keanureeves@left4code.com</div>
+                            denzelwashington@left4code.com</div>
                     </a>
                 </div>
                 <div class="search-result__content__title">Products</div>
                 <a href="" class="flex items-center mt-2">
                     <div class="w-8 h-8 image-fit">
-                        <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                            src="dist/images/preview-4.jpg">
-                    </div>
-                    <div class="ml-3">Nike Tanjun</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor
-                    </div>
-                </a>
-                <a href="" class="flex items-center mt-2">
-                    <div class="w-8 h-8 image-fit">
-                        <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                            src="dist/images/preview-12.jpg">
-                    </div>
-                    <div class="ml-3">Dell XPS 13</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">PC &amp; Laptop
-                    </div>
-                </a>
-                <a href="" class="flex items-center mt-2">
-                    <div class="w-8 h-8 image-fit">
-                        <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                            src="dist/images/preview-3.jpg">
+                        <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-5.jpg">
                     </div>
                     <div class="ml-3">Nike Air Max 270</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor
-                    </div>
+                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor</div>
                 </a>
                 <a href="" class="flex items-center mt-2">
                     <div class="w-8 h-8 image-fit">
-                        <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                            src="dist/images/preview-8.jpg">
+                        <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-3.jpg">
                     </div>
-                    <div class="ml-3">Apple MacBook Pro 13</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">PC &amp; Laptop
+                    <div class="ml-3">Sony A7 III</div>
+                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Photography</div>
+                </a>
+                <a href="" class="flex items-center mt-2">
+                    <div class="w-8 h-8 image-fit">
+                        <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-15.jpg">
                     </div>
+                    <div class="ml-3">Samsung Q90 QLED TV</div>
+                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Electronic</div>
+                </a>
+                <a href="" class="flex items-center mt-2">
+                    <div class="w-8 h-8 image-fit">
+                        <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-2.jpg">
+                    </div>
+                    <div class="ml-3">Nike Tanjun</div>
+                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor</div>
                 </a>
             </div>
         </div> --}}
@@ -136,9 +128,9 @@
     <!-- BEGIN: Notifications -->
     <div class="intro-x dropdown mr-auto sm:mr-6">
         <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button"
-            aria-expanded="false" data-tw-toggle="dropdown"> <i data-feather="bell"
-                class="notification__icon dark:text-slate-500"></i> </div>
-        <div class="notification-content pt-2 dropdown-menu">
+            aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="bell"
+                class="notification__icon dark:text-slate-500">a</i> </div>
+        {{-- <div class="notification-content pt-2 dropdown-menu">
             <div class="notification-content__box dropdown-content">
                 <div class="notification-content__title">Notifications</div>
                 <div class="cursor-pointer relative flex items-center ">
@@ -233,7 +225,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- END: Notifications -->
 

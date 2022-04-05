@@ -4,7 +4,7 @@
     </h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="{{route('admin.register')}}">
+            <a href="">
                 <button class="btn btn-primary shadow-md mr-2">Agregar nuevo usuario</button>
             </a>
             <div class="dropdown">

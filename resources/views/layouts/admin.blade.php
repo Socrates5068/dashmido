@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" 
-    class="{{ session()->has('color_scheme') ? session('color_scheme') : "default"}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    class="{{ session()->has('color_scheme') ? session('color_scheme') : 'default' }}
     {{ session('dark_mode') ? 'dark' : '' }}">
 
 <head>
@@ -15,19 +15,16 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link href="{{ asset('midone/dist/images/logo.svg') }}" rel="shortcut icon">
     <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
+    <link href="{{ asset('midone/dist/images/logo.svg') }}" rel="shortcut icon">
     <!-- BEGIN: Midone styles-->
-
-
-    <!-- BEGIN: CSS Assets-->
-    <!-- END: CSS Assets-->
 
     @livewireStyles
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('midone/dist/js/app.js') }}" defer></script>
+    <script src="{{ asset('/js/index.min.js') }}" defer></script>
     <!-- BEGIN: Midone JS Assets-->
     {{-- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"
         defer>
@@ -45,11 +42,8 @@
     </x-admin.side-menu>
 
     <div class="hidden md:block">
-        <x-admin.dark-mode />
-        
-        <x-admin.main-color />
+        <x-color-palette />
     </div>
-    
     
     @stack('modals')
 
