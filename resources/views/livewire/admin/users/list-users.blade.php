@@ -1,16 +1,16 @@
-<div>
+<div x-data="{ open: false }">
     <h2 class="intro-y text-lg font-medium mt-10">
         Usuarios
     </h2>
+
+    {{-- BEGIN: User list --}}
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="">
-                <button class="btn btn-primary shadow-md mr-2">Agregar nuevo usuario</button>
-            </a>
+            <button class="btn btn-primary shadow-md mr-2" @click="createSlide('showSlide');">Agregar usuario</button>
             <div class="dropdown">
                 <button wire:ignore class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4"
-                            data-feather="plus"></i> </span>
+                            data-lucide="plus"></i> </span>
                 </button>
                 <div class="dropdown-menu w-40">
                     <ul class="dropdown-content">
@@ -75,4 +75,47 @@
         </div>
         <!-- END: Pagination -->
     </div>
+    {{-- END: user list --}}
+
+    <!-- BEGIN: Slide Over Content -->
+    <div id="slide-create" class="modal modal-slide-over" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header p-5">
+                    <h2 class="font-medium text-base mr-auto">Programmatically Show/Hide Slide Over</h2>
+                </div>
+                <div class="modal-body p-10 text-center">
+                    <!-- BEGIN: Hide Slide Over Toggle -->
+                    <button class="btn btn-danger shadow-md mr-2" @click="createSlide('closeSlide')">Cerrar</button>
+                    <!-- END: Hide Slide Over Toggle -->
+                    <!-- BEGIN: Toggle Slide Over Toggle -->
+                    <button class="btn btn-primary shadow-md mr-2">Guardar</button>
+                    <!-- END: Toggle Slide Over Toggle -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Slide Over Content -->
+
+    @push('scripts')
+        <script>
+            function createSlide(fun) {
+                let functions = {}
+                functions.showSlide = function() {
+                    console.log('asd');
+                    const el = document.querySelector("#slide-create");
+                    const slideOver = tailwind.Modal.getOrCreateInstance(el);
+                    slideOver.show(); // Hide slide over 
+                }
+
+                functions.closeSlide = function() {
+                    const el = document.querySelector("#slide-create");
+                    const slideOver = tailwind.Modal.getOrCreateInstance(el);
+                    slideOver.hide(); // Toggle slide over 
+                }
+
+                return functions[fun]();
+            }
+        </script>
+    @endpush
 </div>

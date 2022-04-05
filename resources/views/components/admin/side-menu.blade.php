@@ -10,14 +10,14 @@
             <li>
                 <a href="{{ route('admin.dashboard') }}"
                     class="{{ url()->current() == route('admin.dashboard') ? 'side-menu--active' : '' }} side-menu">
-                    <div class="side-menu__icon"> <i data-feather="inbox"></i> </div>
+                    <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
                     <div class="side-menu__title"> Dashboard </div>
                 </a>
             </li>
             <li>
                 <a href="{{ route('admin.users') }}"
                     class="{{ url()->current() == route('admin.users') ? 'side-menu--active' : '' }} side-menu">
-                    <div class="side-menu__icon"> <i data-feather="hard-drive"></i> </div>
+                    <div class="side-menu__icon"> <i data-lucide="hard-drive"></i> </div>
                     <div class="side-menu__title"> Usuarios </div>
                 </a>
             </li>
