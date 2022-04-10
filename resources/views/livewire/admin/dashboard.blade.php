@@ -4,6 +4,14 @@
         @livewire('admin.menu-bar', ['application' => env('APP_NAME'), 'content1' => 'Dasboard'])
     </div>
 
+    {{$rol}} <br>
+    {{-- @foreach ($roles as $rol)
+    @endforeach --}}
+
+    {{-- @foreach ($user_roles as $user)
+        {{$user}}
+    @endforeach --}}
+
     {{-- <div class="grid grid-cols-12 gap-6">
         <div class="col-span-12 2xl:col-span-9">
             <div class="grid grid-cols-12 gap-6">
