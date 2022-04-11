@@ -8,27 +8,26 @@
     <h2 class="intro-y text-lg font-medium mt-10">
         Usuarios
     </h2>
-    <x-jet-input-error for="role" />
     {{-- BEGIN: User list --}}
     <div class="grid grid-cols-12 gap-6 mt-5" id="users-staff">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <button class="btn btn-primary shadow-md mr-2" @click="modalSlide = true">Agregar
                 usuario</button>
-            <div class="dropdown">
-                <button wire:ignore class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
+            <div wire:ignore class="dropdown">
+                <button  class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4"
                             data-lucide="plus"></i> </span>
                 </button>
                 <div class="dropdown-menu w-40">
                     <ul class="dropdown-content">
                         <li>
-                            <button @click="modal = true" class="dropdown-item"> <i data-feather="users"
-                                    class="w-4 h-4 mr-2"></i>
+                            <button @click="modal = true" class="dropdown-item">
+                                 <i data-lucide="eye" class="w-4 h-4 mr-2"></i>
                                 Agregar Roles </button>
                         </li>
                         <li>
-                            <button @click="modalDelete = true" class="dropdown-item"> <i data-feather="message-circle"
-                                    class="w-4 h-4 mr-2"></i> Eliminar Roles </button>
+                            <button @click="modalDelete = true" class="dropdown-item">
+                                 <i data-lucide="eye-off" class="w-4 h-4 mr-2"></i> Eliminar Roles </button>
                         </li>
                     </ul>
                 </div>
@@ -38,7 +37,7 @@
                 <div class="w-56 relative text-slate-500">
                     <input type="text" class="form-control w-56 box pr-10" placeholder="Buscar..." x-model="message"
                         @input="Livewire.emit('updateSearch', message)">
-                    <i class=" w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                    <i class=" w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
                 </div>
             </div>
         </div>
@@ -92,15 +91,45 @@
                 <div class="modal-header p-5">
                     <h2 class="font-medium text-base mr-auto">Registrar usuario</h2>
                 </div>
-                <div class="modal-body p-10 text-center">
+                <div class="-mt-4 modal-body p-10">
 
-                    <!-- BEGIN: Hide Slide Over Toggle -->
-                    <button class="btn btn-danger shadow-md mr-2"
+                    <div>
+                        <label for="regular-form-1" class="form-label">Nombre</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Apellido paterno</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Apellido materno</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">C.I.</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Dirección</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Teléfono</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Correo</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+                    <div class="mt-3">
+                        <label for="regular-form-1" class="form-label">Cargo</label>
+                        <input id="regular-form-1" type="text" class="form-control" placeholder="Input text">
+                    </div>
+
+                    <button class="mt-10 btn btn-danger shadow-md mr-2"
                         @click="modalSlide = false, Livewire.emit('resetVariables')">Cerrar</button>
-                    <!-- END: Hide Slide Over Toggle -->
-                    <!-- BEGIN: Toggle Slide Over Toggle -->
+
                     <button wire:click="saveUser" class="btn btn-primary shadow-md mr-2">Guardar</button>
-                    <!-- END: Toggle Slide Over Toggle -->
                 </div>
             </div>
         </div>
@@ -109,7 +138,7 @@
 
     <!-- BEGIN: Modal Content -->
     <div x-show="modal" :class="{'show':modal, '': !modal}" class="modal-personal" tabindex="-1" aria-hidden="true">
-        <div class="mt-20 modal-dialog overflow-hidden">
+        <div class="mt-20 modal-personal-dialog overflow-hidden">
             <div class="modal-content" @click.away="modal = false, Livewire.emit('resetVariables')">
                 <div class="modal-body p-10 text-center">
                     <div class="mb-6">
@@ -232,14 +261,14 @@
 
     <!-- BEGIN: Modal Content -->
     <div x-show="modalDelete" :class="{'show':modalDelete, '': !modalDelete}" class="modal-personal" tabindex="-1" aria-hidden="true">
-        <div class="mt-20 modal-dialog overflow-hidden">
+        <div class="mt-20 modal-personal-dialog overflow-hidden">
             <div class="modal-content" @click.away="modalDelete = false">
                 <div class="modal-body p-10 text-center">
                     <div>
                         <label>Seleccionar rol a eliminar</label>
                         <div class="mt-2">
                             <select wire:model="deleteRole" data-placeholder="Select your favorite actors"
-                                class="w-full">
+                                class="form-control w-full">
                                 <option value="">Seleeciona un rol</option>
                                 @foreach ($roles as $key => $role)
                                     <option value="{{ $key }}">{{ $role }}</option>

@@ -16,8 +16,8 @@
     @stack('styles')
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
     <link href="{{ asset('midone/dist/images/logo.svg') }}" rel="shortcut icon">
+    <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
     <!-- BEGIN: Midone styles-->
 
     @livewireStyles
@@ -25,7 +25,6 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('midone/dist/js/app.js') }}" defer></script>
-    <script src="{{ asset('/js/index.min.js') }}" defer></script>
     <!-- BEGIN: Midone JS Assets-->
     {{-- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"
         defer>

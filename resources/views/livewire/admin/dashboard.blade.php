@@ -4,7 +4,6 @@
         @livewire('admin.menu-bar', ['application' => env('APP_NAME'), 'content1' => 'Dasboard'])
     </div>
 
-    {{$rol}} <br>
     {{-- @foreach ($roles as $rol)
     @endforeach --}}
 

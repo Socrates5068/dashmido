@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Dashboard;
 use App\Http\Livewire\Admin\Users\Users;
 use App\Http\Livewire\Admin\RegisterUsers;
+use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Controllers\Admin\ColorSchemeController;
 
@@ -23,3 +24,4 @@ Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class
 
 Route::get('/', Dashboard::class)->name('admin.dashboard');
 Route::get('/users', Users::class)->name('admin.users');
+Route::get('/users/cargos', Positions::class)->name('admin.positions');

@@ -2,8 +2,9 @@
     <!-- BEGIN: Side Menu -->
     <nav class="side-nav">
         <a href="" class="intro-x flex items-center pl-5 pt-4">
-            <img alt="Midone - HTML Admin Template" class="w-6" src="{{asset('midone/dist/images/logo.svg')}}">
-            <span class="hidden xl:block text-white text-lg ml-3"> Rubick </span> 
+            <img alt="Midone - HTML Admin Template" class="w-6"
+                src="{{ asset('midone/dist/images/logo.svg') }}">
+            <span class="hidden xl:block text-white text-lg ml-3"> Rubick </span>
         </a>
         <div class="side-nav__devider my-6"></div>
         <ul>
@@ -15,17 +16,43 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.users') }}"
-                    class="{{ url()->current() == route('admin.users') ? 'side-menu--active' : '' }} side-menu">
-                    <div class="side-menu__icon"> <i data-lucide="hard-drive"></i> </div>
-                    <div class="side-menu__title"> Usuarios </div>
+                <a href="javascript:;"
+                    class="{{ url()->current() == route('admin.users') || url()->current() == route('admin.positions') ? 'side-menu--active' : '' }} side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="users"></i> </div>
+                    <div class="side-menu__title">
+                        Personal
+                        <div class="side-menu__sub-icon transform rotate-180"> <i data-lucide="chevron-down"></i>
+                        </div>
+                    </div>
                 </a>
+                <ul class="{{ url()->current() == route('admin.users') || url()->current() == route('admin.positions') ? 'side-menu__sub-open' : '' }} ">
+                    <li>
+                        <a href="{{ route('admin.positions') }}" 
+                            class="{{ url()->current() == route('admin.positions') ? 'side-menu--active' : '' }} side-menu">
+                            <div class="side-menu__icon"> <i data-lucide="octagon"></i> </div>
+                            <div class="side-menu__title"> Especialidades </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.users') }}"
+                            class="{{ url()->current() == route('admin.users') ? 'side-menu--active' : '' }} side-menu">
+                            <div class="side-menu__icon"> <i data-lucide="user-plus"></i> </div>
+                            <div class="side-menu__title"> Usuarios </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="side-menu-light-dashboard-overview-3.html" class="side-menu">
+                            <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
+                            <div class="side-menu__title"> Overview 3 </div>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
                     <div class="side-menu__title">
-                        Dashboard 
+                        Dashboard
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -60,7 +87,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="box"></i> </div>
                     <div class="side-menu__title">
-                        Menu Layout 
+                        Menu Layout
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -126,7 +153,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="edit"></i> </div>
                     <div class="side-menu__title">
-                        Crud 
+                        Crud
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -149,7 +176,7 @@
                 <a href="javascript:;.html" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="users"></i> </div>
                     <div class="side-menu__title">
-                        Users 
+                        Users
                         <div class="side-menu__sub-icon transform rotate-180"> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -178,7 +205,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="trello"></i> </div>
                     <div class="side-menu__title">
-                        Profile 
+                        Profile
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -207,7 +234,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="layout"></i> </div>
                     <div class="side-menu__title">
-                        Pages 
+                        Pages
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -216,7 +243,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Wizards 
+                                Wizards
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -245,7 +272,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Blog 
+                                Blog
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -274,7 +301,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Pricing 
+                                Pricing
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -297,7 +324,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Invoice 
+                                Invoice
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -320,7 +347,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                FAQ 
+                                FAQ
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -382,7 +409,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
                     <div class="side-menu__title">
-                        Components 
+                        Components
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -391,7 +418,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Table 
+                                Table
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -414,7 +441,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Overlay 
+                                Overlay
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -505,7 +532,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="sidebar"></i> </div>
                     <div class="side-menu__title">
-                        Forms 
+                        Forms
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>
@@ -538,7 +565,7 @@
                         <a href="javascript:;" class="side-menu">
                             <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                             <div class="side-menu__title">
-                                Wysiwyg Editor 
+                                Wysiwyg Editor
                                 <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                             </div>
                         </a>
@@ -587,7 +614,7 @@
                 <a href="javascript:;" class="side-menu">
                     <div class="side-menu__icon"> <i data-lucide="hard-drive"></i> </div>
                     <div class="side-menu__title">
-                        Widgets 
+                        Widgets
                         <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
                     </div>
                 </a>

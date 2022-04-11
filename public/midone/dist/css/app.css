@@ -2825,6 +2825,43 @@ select {
   margin-left: -3rem;
 }
 
+.modal-personal.show>.modal-personal-dialog {
+    margin-top: 4rem;
+}
+
+.modal-personal .modal-personal-dialog {
+    width: 90%;
+    transition: margin-top 0.4s;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -4rem;
+    margin-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+    .modal-personal .modal-personal-dialog {
+        width: 460px
+    }
+
+    .modal-personal .modal-personal-dialog.modal-sm {
+        width: 300px;
+    }
+
+    .modal-personal .modal-personal-dialog.modal-lg {
+        width: 600px;
+    }
+
+    .modal-personal .modal-personal-dialog.modal-xl {
+        width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal-personal .modal-personal-dialog.modal-xl {
+        width: 900px;
+    }
+}
+
 /* ********************************************************************************************* */
 
 .modal {
