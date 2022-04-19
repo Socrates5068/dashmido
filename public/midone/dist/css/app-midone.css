@@ -2764,63 +2764,102 @@ select {
 }
 
 .modal-personal {
-  margin-top: -10000px;
-  margin-left: -10000px;
-  background: #000000a6;
-  transition: visibility 0s linear 0.2s, opacity 0.2s 0s;
-  visibility: hidden;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  height: 100vh;
-  width: 100vw;
-  opacity: 0;
+    margin-top: -10000px;
+    margin-left: -10000px;
+    background: #000000a6;
+    transition: visibility 0s linear 0.2s, opacity 0.2s 0s;
+    visibility: hidden;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
 }
 
 .modal-personal.show {
-  margin-top: 0px;
-  margin-left: 0px;
-  z-index: 10000;
-  transition: visibility 0s ease-in-out 0s, opacity 0.4s ease-in-out 0s;
+    margin-top: 0px;
+    margin-left: 0px;
+    z-index: 10000;
+    transition: visibility 0s ease-in-out 0s, opacity 0.4s ease-in-out 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-personal.modal-slide-over {
+  overflow-x: hidden;
+}
+
+.modal-personal.modal-slide-over.show {
+  transition: visibility 0s ease-in-out 0s, opacity 0.6s ease-in-out 0s;
   visibility: visible;
   opacity: 1;
 }
 
+.modal-personal.modal-slide-over.show>.modal-dialog {
+  margin-right: 0px;
+}
+
+.modal-personal.modal-slide-over.show>.modal-dialog {
+  margin-right: 0px;
+}
+
+.modal-personal.modal-slide-over .modal-dialog {
+  margin-right: -100%;
+  transition: margin-right 0.6s;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.modal-personal.modal-slide-over .modal-dialog .modal-content {
+  min-height: 100vh;
+  border-radius: 0px;
+}
+
+.modal-personal.modal-slide-over .modal-dialog .modal-content>[data-tw-dismiss="modal"] {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: auto;
+  margin-top: 1rem;
+  margin-left: -3rem;
+}
+
 .modal-personal.show>.modal-personal-dialog {
-  margin-top: 4rem;
+    margin-top: 4rem;
 }
 
 .modal-personal .modal-personal-dialog {
-  width: 90%;
-  transition: margin-top 0.4s;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -4rem;
-  margin-bottom: 4rem;
+    width: 90%;
+    transition: margin-top 0.4s;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -4rem;
+    margin-bottom: 4rem;
 }
 
 @media (min-width: 640px) {
-  .modal-personal .modal-personal-dialog {
-      width: 460px
-  }
+    .modal-personal .modal-personal-dialog {
+        width: 460px
+    }
 
-  .modal-personal .modal-personal-dialog.modal-sm {
-      width: 300px;
-  }
+    .modal-personal .modal-personal-dialog.modal-sm {
+        width: 300px;
+    }
 
-  .modal-personal .modal-personal-dialog.modal-lg {
-      width: 600px;
-  }
+    .modal-personal .modal-personal-dialog.modal-lg {
+        width: 600px;
+    }
 
-  .modal-personal .modal-personal-dialog.modal-xl {
-      width: 600px;
-  }
+    .modal-personal .modal-personal-dialog.modal-xl {
+        width: 600px;
+    }
 }
 
 @media (min-width: 1024px) {
-  .modal-personal .modal-personal-dialog.modal-xl {
-      width: 900px;
-  }
+    .modal-personal .modal-personal-dialog.modal-xl {
+        width: 900px;
+    }
 }
 
 /* ********************************************************************************************* */
@@ -2905,6 +2944,8 @@ select {
     margin-right: 0.75rem;
 }
 
+/* ********************************************************************************************* */
+
 .modal.modal-slide-over {
     overflow-x: hidden;
 }
@@ -2947,45 +2988,44 @@ select {
 
 /* ******************************************************************************* */
 .modal-personal.modal-slide-over {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 .modal-personal.modal-slide-over.modal-static .modal-content {
-  -webkit-animation: none;
-  animation: none;
+    -webkit-animation: none;
+    animation: none;
 }
 
 .modal-personal.modal-slide-over.show {
-  transition: visibility 0s ease-in-out 0s, opacity 0.6s ease-in-out 0s;
-  visibility: visible;
-  opacity: 1;
+    transition: visibility 0s ease-in-out 0s, opacity 0.6s ease-in-out 0s;
+    visibility: visible;
+    opacity: 1;
 }
 
 .modal-personal.modal-slide-over.show>.modal-personal-dialog {
-  margin-right: 0px;
+    margin-right: 0px;
 }
 
 .modal-personal.modal-slide-over .modal-personal-dialog {
-  margin-right: -100%;
-  transition: margin-right 0.6s;
-  margin-top: 0px;
-  margin-bottom: 0px;
+    margin-right: -100%;
+    transition: margin-right 0.6s;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .modal-personal.modal-slide-over .modal-personal-dialog .modal-content {
-  min-height: 100vh;
-  border-radius: 0px;
+    min-height: 100vh;
+    border-radius: 0px;
 }
 
 .modal-personal.modal-slide-over .modal-personal-dialog .modal-content>[data-tw-dismiss="modal"] {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: auto;
-  margin-top: 1rem;
-  margin-left: -3rem;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: auto;
+    margin-top: 1rem;
+    margin-left: -3rem;
 }
-
 /* ******************************************************************************* */
 
 .modal-content {
@@ -6318,7 +6358,13 @@ select {
 
     .form-inline .form-label {
         margin-bottom: 0.5rem;
+    }
+
+    .form-inline .form-label {
         margin-right: 0px;
+    }
+
+    .form-inline .form-label {
         text-align: left;
     }
 }
@@ -8958,6 +9004,9 @@ select {
 
     .pagination {
         margin-right: 0px;
+    }
+
+    .pagination {
         width: 100%;
     }
 
@@ -8977,6 +9026,9 @@ select {
 
     .pagination .page-item .page-link {
         margin-right: 0px;
+    }
+
+    .pagination .page-item .page-link {
         min-width: 0px;
     }
 }
@@ -11608,7 +11660,7 @@ html.dark body ::after {
     border-color: rgb(255 255 255 / 0.05);
 }
 
-html body {
+html body.rubick {
     overflow-x: hidden;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
@@ -12090,6 +12142,9 @@ html body {
     .report-box-3.report-box-3--content:before {
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
+    }
+
+    .report-box-3.report-box-3--content:before {
         --tw-shadow: 0 0 #0000;
         --tw-shadow-colored: 0 0 #0000;
         box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -12099,6 +12154,9 @@ html body {
 @-webkit-keyframes intro-report-box-3-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -12106,6 +12164,9 @@ html body {
 @keyframes intro-report-box-3-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -12163,6 +12224,9 @@ html body {
 @-webkit-keyframes intro-report-box-4-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -12170,6 +12234,9 @@ html body {
 @keyframes intro-report-box-4-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -12193,6 +12260,9 @@ html body {
 @media (max-width: calc(768px - 1px)) {
     .content {
         max-width: 100%;
+    }
+
+    .content {
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -13125,6 +13195,9 @@ html body {
 @media (max-width: calc(1280px - 1px)) {
     .top-nav>ul {
         padding: 0px;
+    }
+
+    .top-nav>ul {
         padding-bottom: 0.75rem;
     }
 }
@@ -13333,7 +13406,13 @@ html body {
 @media (max-width: calc(1280px - 1px)) {
     .top-nav>ul li ul {
         left: 0px;
+    }
+
+    .top-nav>ul li ul {
         margin-top: 3.5rem;
+    }
+
+    .top-nav>ul li ul {
         margin-left: 0px;
     }
 }
@@ -13395,6 +13474,9 @@ html body {
 @-webkit-keyframes intro-top-menu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateY(0px);
     }
 }
@@ -13402,6 +13484,9 @@ html body {
 @keyframes intro-top-menu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateY(0px);
     }
 }
@@ -15657,6 +15742,9 @@ html body {
 @-webkit-keyframes intro-menu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -15664,6 +15752,9 @@ html body {
 @keyframes intro-menu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -15671,6 +15762,9 @@ html body {
 @-webkit-keyframes intro-submenu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -15678,6 +15772,9 @@ html body {
 @keyframes intro-submenu-animation {
     100% {
         opacity: 1;
+    }
+
+    100% {
         transform: translateX(0px);
     }
 }
@@ -15717,7 +15814,13 @@ html body {
 @media (max-width: calc(768px - 1px)) {
     .breadcrumb.breadcrumb-light {
         margin-left: 0px;
+    }
+
+    .breadcrumb.breadcrumb-light {
         border-left-width: 0px;
+    }
+
+    .breadcrumb.breadcrumb-light {
         padding-left: 0px;
     }
 }
@@ -16205,10 +16308,16 @@ html body {
 
 @media (max-width: calc(640px - 1px)) {
     .litepicker {
-        left: 0px !important;
+        left: 0px !important
+    }
+
+    .litepicker {
         right: 0px;
+    }
+
+    .litepicker {
         margin-left: auto;
-        margin-right: auto
+        margin-right: auto;
     }
 }
 
@@ -16254,14 +16363,29 @@ html body {
 @media (max-width: calc(1024px - 1px)) {
     .litepicker .container__footer {
         display: flex;
+    }
+
+    .litepicker .container__footer {
         flex-direction: column-reverse;
+    }
+
+    .litepicker .container__footer {
         text-align: center;
     }
 
     .litepicker .container__footer .preview-date-range {
         order: 1;
+    }
+
+    .litepicker .container__footer .preview-date-range {
         margin-bottom: 0.375rem;
+    }
+
+    .litepicker .container__footer .preview-date-range {
         display: block;
+    }
+
+    .litepicker .container__footer .preview-date-range {
         width: 100%;
     }
 
@@ -16276,8 +16400,11 @@ html body {
         width: 100% !important;
         margin-left: 0px !important;
         padding-top: 0.375rem !important;
-        padding-bottom: 0.375rem !important;
-        margin-bottom: 0.375rem
+        padding-bottom: 0.375rem !important
+    }
+
+    .litepicker .container__footer .button-apply {
+        margin-bottom: 0.375rem;
     }
 }
 
@@ -16866,6 +16993,9 @@ html body {
 @media (max-width: calc(768px - 1px)) {
     .tabulator .tabulator-footer .tabulator-paginator {
         display: block;
+    }
+
+    .tabulator .tabulator-footer .tabulator-paginator {
         text-align: left;
     }
 }
@@ -16970,6 +17100,9 @@ html body {
 @media (max-width: calc(640px - 1px)) {
     .tabulator .tabulator-footer .tabulator-paginator .tabulator-page {
         margin-right: 0px;
+    }
+
+    .tabulator .tabulator-footer .tabulator-paginator .tabulator-page {
         padding-left: 0.25rem;
         padding-right: 0.25rem;
     }
@@ -17882,7 +18015,13 @@ html body {
 @media (max-width: calc(640px - 1px)) {
     .full-calendar .fc-toolbar .fc-toolbar-chunk:nth-child(3) .fc-button-group button {
         margin-bottom: 0.5rem;
+    }
+
+    .full-calendar .fc-toolbar .fc-toolbar-chunk:nth-child(3) .fc-button-group button {
         width: 100%;
+    }
+
+    .full-calendar .fc-toolbar .fc-toolbar-chunk:nth-child(3) .fc-button-group button {
         border-radius: 0.375rem;
     }
 }
@@ -17986,6 +18125,9 @@ html body {
 @media (max-width: calc(768px - 1px)) {
     .full-calendar .fc-daygrid-more-link {
         font-size: 10px;
+    }
+
+    .full-calendar .fc-daygrid-more-link {
         --tw-text-opacity: 1;
         color: rgb(var(--color-slate-500) / var(--tw-text-opacity));
     }
@@ -17994,8 +18136,17 @@ html body {
 @media (max-width: calc(640px - 1px)) {
     .full-calendar .fc-daygrid-more-link {
         margin-top: -0.75rem;
+    }
+
+    .full-calendar .fc-daygrid-more-link {
         display: block;
+    }
+
+    .full-calendar .fc-daygrid-more-link {
         padding-left: 0px;
+    }
+
+    .full-calendar .fc-daygrid-more-link {
         line-height: 10px;
     }
 }
@@ -19644,8 +19795,7 @@ html body {
     }
 }
 
-/* @import 'tailwindcss/base'; */
-/* @import 'tailwindcss/components'; */
+/* ************************************************************** */
 .visible {
     visibility: visible
 }
@@ -20800,7 +20950,6 @@ html body {
 .ease-in {
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1)
 }
-/* @import './midone.css'; */
 .before\:absolute::before {
     content: var(--tw-content);
     position: absolute
@@ -21513,4 +21662,3 @@ html body {
         padding-left: 1.5rem
     }
 }
-

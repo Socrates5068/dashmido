@@ -39,13 +39,13 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'delete history']);
 
         // create roles and assign existing permissions to patient
-        $role1 = Role::create(['name' => 'patient']);
+        $role1 = Role::create(['name' => 'Paciente']);
         $role1->givePermissionTo('read clocking');
         $role1->givePermissionTo('update clocking');
         $role1->givePermissionTo('delete clocking');
 
         // create roles and assign existing permissions to staff
-        $role2 = Role::create(['name' => 'general']);
+        $role2 = Role::create(['name' => 'Médico general']);
         $role2->givePermissionTo('create history');
         $role2->givePermissionTo('update history');
         $role2->givePermissionTo('delete history');
@@ -56,23 +56,26 @@ class UserSeeder extends Seeder
 
         // create demo users
         User::create([
-            'name' => 'Example Patient User',
-            'username' => 'patient',
-            'password' => bcrypt('123456')
-        ])->assignRole($role1);
+            'person_id' => 1,
+            'name' => 'Administrador',
+            'username' => 'admin',
+            'password' => bcrypt('123456'),
+            'email_verified_at' => now()
+        ])->assignRole($role3);
 
         User::create([
-            'name' => 'Example Medical User',
-            'username' => 'general',
+            'person_id' => 2,
+            'name' => 'Medico general',
+            'username' => 'medico',
             'password' => bcrypt('123456')
         ])->assignRole($role2);
 
         User::create([
-            'name' => 'Example Super-Admin User',
-            'username' => 'admin',
+            'person_id' => 3,
+            'name' => 'Paciente',
+            'username' => 'paciente',
             'password' => bcrypt('123456')
-        ])->assignRole($role3);
-        
+        ])->assignRole($role1);
 
         /* User::create([
             'name' => 'Marcos Socrates',

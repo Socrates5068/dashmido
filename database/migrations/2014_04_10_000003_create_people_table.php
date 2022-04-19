@@ -13,10 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('blood')->nullable();;
+            $table->string('name');
+            $table->string('f_last_name');
+            $table->string('m_last_name');
+            $table->string('ci');
+            $table->string('address');
+            $table->string('telephone');
+            $table->enum('type', ['0', '1']);
+            $table->string('blood_type')->nullable();
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('old')->nullable();
@@ -31,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patients');
+        Schema::dropIfExists('people');
     }
 };

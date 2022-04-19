@@ -15,7 +15,7 @@
 
     @stack('styles')
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     <link href="{{ asset('midone/dist/images/logo.svg') }}" rel="shortcut icon">
     <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
     <!-- BEGIN: Midone styles-->
@@ -33,7 +33,7 @@
     <!-- END: JS Assets-->
 </head>
 
-<body class="font-sans antialiased">
+<body class="rubick antialiased">
 
     <x-admin.mobile-menu />
 

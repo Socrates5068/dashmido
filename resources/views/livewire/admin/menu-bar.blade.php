@@ -3,16 +3,16 @@
     <!-- BEGIN: Breadcrumb -->
     <nav aria-label="breadcrumb" class="-intro-x mr-auto hidden sm:flex">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">{{ $application }}</a></li>
+            <li class="breadcrumb-item">{{ $application }}</li>
             <li class="breadcrumb-item active" aria-current="page">{{ $content1 }}</li>
             @isset($content2)
-                <li class="breadcrumb-item active" aria-current="page">{{ $content2 }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $content2 }}</li>
             @endisset
             @isset($content3)
-                <li class="breadcrumb-item active" aria-current="page">{{ $content3 }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $content3 }}</li>
             @endisset
             @isset($content4)
-                <li class="breadcrumb-item active" aria-current="page">{{ $content4 }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $content4 }}</li>
             @endisset
         </ol>
     </nav>
@@ -21,11 +21,9 @@
     <!-- BEGIN: Search -->
     <div x-data="{ message: '' }" class="intro-x relative mr-3 sm:mr-6">
         <div class="search sm:block">
-            <input type="text" class="hidden md:block search__input form-control border-transparent"
-                placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
+            <input type="text" class="hidden md:block search__input form-control border-transparent" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
 
-            <input type="text" class="md:hidden form-control border-transparent" placeholder="Buscar..."
-                x-model="message" @input="Livewire.emit('updateSearch', message)">
+            <input type="text" class="md:hidden form-control border-transparent" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
             <i data-lucide="search" class="search__icon dark:text-slate-500"></i>
         </div>
         {{-- <a class="notification sm:hidden" href=""> <i data-lucide="search"
@@ -127,9 +125,7 @@
 
     <!-- BEGIN: Notifications -->
     <div class="intro-x dropdown mr-auto sm:mr-6">
-        <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button"
-            aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="bell"
-                class="notification__icon dark:text-slate-500">a</i> </div>
+        <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="bell" class="notification__icon dark:text-slate-500">a</i> </div>
         {{-- <div class="notification-content pt-2 dropdown-menu">
             <div class="notification-content__box dropdown-content">
                 <div class="notification-content__title">Notifications</div>
@@ -234,99 +230,88 @@
         <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
             role="button" aria-expanded="false" data-tw-toggle="dropdown">
             <img alt="Rubick Tailwind HTML Admin Template" src="{{asset('midone/dist/images/profile-8.jpg')}}">
-        </div>
-        <div class="dropdown-menu w-56">
-            <ul class="dropdown-content bg-primary text-white">
-                <li class="p-2">
-                    <div class="font-medium">Arnold Schwarzenegger</div>
-                    <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">Frontend Engineer</div>
-                </li>
-                <li>
-                    <hr class="dropdown-divider border-white/[0.08]">
-                </li>
-                <li>
-                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="user"
-                            class="w-4 h-4 mr-2"></i> Profile </a>
-                </li>
-                <li>
-                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="edit"
-                            class="w-4 h-4 mr-2"></i> Add Account </a>
-                </li>
-                <li>
-                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="lock"
-                            class="w-4 h-4 mr-2"></i> Reset Password </a>
-                </li>
-                <li>
-                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="help-circle"
-                            class="w-4 h-4 mr-2"></i> Help </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider border-white/[0.08]">
-                </li>
-                <li>
-                    <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="toggle-right"
-                            class="w-4 h-4 mr-2"></i> Logout </a>
-                </li>
-            </ul>
-        </div>
-    </div> --}}
-    <!-- Settings Dropdown -->
-    <div class="relative">
-        <x-jet-dropdown align="right" width="48">
-            <x-slot name="trigger">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <button
-                        class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                        <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                            alt="{{ Auth::user()->name }}" />
-                    </button>
-                @else
-                    <span class="inline-flex rounded-md">
-                        <button type="button"
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                            {{ Auth::user()->name }}
+</div>
+<div class="dropdown-menu w-56">
+    <ul class="dropdown-content bg-primary text-white">
+        <li class="p-2">
+            <div class="font-medium">Arnold Schwarzenegger</div>
+            <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">Frontend Engineer</div>
+        </li>
+        <li>
+            <hr class="dropdown-divider border-white/[0.08]">
+        </li>
+        <li>
+            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Profile </a>
+        </li>
+        <li>
+            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="edit" class="w-4 h-4 mr-2"></i> Add Account </a>
+        </li>
+        <li>
+            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Reset Password </a>
+        </li>
+        <li>
+            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="help-circle" class="w-4 h-4 mr-2"></i> Help </a>
+        </li>
+        <li>
+            <hr class="dropdown-divider border-white/[0.08]">
+        </li>
+        <li>
+            <a href="" class="dropdown-item hover:bg-white/5"> <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
+        </li>
+    </ul>
+</div>
+</div> --}}
+<!-- Settings Dropdown -->
+<div class="relative">
+    <x-jet-dropdown align="right" width="48">
+        <x-slot name="trigger">
+            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+            </button>
+            @else
+            <span class="inline-flex rounded-md">
+                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                    {{ Auth::user()->name }}
 
-                            <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </span>
-                @endif
-            </x-slot>
+                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </span>
+            @endif
+        </x-slot>
 
-            <x-slot name="content">
-                <!-- Account Management -->
-                <div class="block px-4 py-2 text-xs text-gray-400">
-                    <a href="" class="font-medium">{{ Auth::user()->name }}</a>
-                    <div class="text-slate-500 text-xs mt-0.5">Software Engineer</div>
-                </div>
+        <x-slot name="content">
+            <!-- Account Management -->
+            <div class="block px-4 py-2 text-xs text-gray-400">
+                <a href="" class="font-medium">{{ Auth::user()->name }}</a>
+                <div class="text-slate-500 text-xs mt-0.5">{{ Auth::user()->getRoleNames()->first() }}</div>
+            </div>
 
-                <div class="border-t border-gray-100"></div>
+            <div class="border-t border-gray-100"></div>
 
-                <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                    {{ __('Profile') }}
+            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                {{ __('Profile') }}
+            </x-jet-dropdown-link>
+
+            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                {{ __('Profile') }}
+            </x-jet-dropdown-link>
+
+            <div class="border-t border-gray-100"></div>
+
+            <!-- Authentication -->
+            <form method="POST" action="{{ route('logout') }}" x-data>
+                @csrf
+
+                <x-jet-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                    {{ __('Log Out') }}
                 </x-jet-dropdown-link>
-
-                <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                    {{ __('Profile') }}
-                </x-jet-dropdown-link>
-
-                <div class="border-t border-gray-100"></div>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-                    <x-jet-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </x-jet-dropdown-link>
-                </form>
-            </x-slot>
-        </x-jet-dropdown>
-    </div>
-    <!-- END: Account Menu -->
+            </form>
+        </x-slot>
+    </x-jet-dropdown>
+</div>
+<!-- END: Account Menu -->
 </div>
 <!-- END: Top Bar -->

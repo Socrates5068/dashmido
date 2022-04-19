@@ -14,9 +14,9 @@
                     <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
                         A un par de clicks para
                         <br>
-                        ingresar a tu cuenta
+                        ingresar a su cuenta
                     </div>
-                    <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Administra toda tu
+                    <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">Administre toda su
                         información desde un solo lugar</div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         Ingresar
                     </h2>
                     <div class="intro-x mt-2 text-slate-400 xl:hidden text-center">A un par de clicks
-                        para crear tu cuenta. Administra toda tu información desde un solo lugar.</div>
+                        para crear su cuenta. Administre toda su información desde un solo lugar.</div>
 
                     <x-jet-validation-errors class="mt-4 mb-4" />
 

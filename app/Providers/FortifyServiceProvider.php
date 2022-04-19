@@ -52,12 +52,12 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 foreach(Auth()->user()->getRoleNames() as $rol){
-                    if ($rol == 'patient') {
+                    if ($rol == 'Paciente') {
                         return redirect('/');
                     }
                 }                          
                
-                return redirect('/admin');
+                return redirect(route('admin.dashboard'));
             }
         });
 

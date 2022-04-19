@@ -20,15 +20,16 @@ License: 4ec3fc73-2ae0-4e9d-a434-0365fa16e3d0
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" /> --}}
 
     <script src="{{ asset('midone/dist/js/app.js') }}" defer></script>
 
     @livewireStyles
 </head>
 
-<body class="login">
+<body class="">
 
     {{ $slot }}
 

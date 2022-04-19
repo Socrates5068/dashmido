@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
-class ListUsers extends Component
+class Patients extends Component
 {
     use WithPagination;
     
@@ -21,7 +21,10 @@ class ListUsers extends Component
         'ci' => '',
         'address' => '',
         'telephone' => '',
-        'email' => '',
+        'blood_type' => '',
+        'weight' => '',
+        'height' => '',
+        'old' => '',
     ];
     public $paginate, $search;
     public $permissions = [
@@ -61,53 +64,26 @@ class ListUsers extends Component
         } */
     }
 
-    public function saveRole()
-    {       
-        // create roles 
-        $this->validate([
-            'role' => 'required|min:4|unique:roles,name',
-        ]);
-
-        $role = Role::create(['name' => $this->role]);
-        foreach ($this->permissions as $key => $permission) {
-            $permission ? $role->givePermissionTo(str_replace("_", " ", $key)) : "";
-        }
-
-        $this->reset('role', 'permissions');
-        $this->emit('save');
-
-        $this->roles = Role::select('id', 'name')->orderBy('id', 'desc')->get();
-    }
-
-    public function deleteRole()
-    {
-        $this->validate([
-            'deleteRole' => 'required'
-        ]);
-
-        $role = Role::findById($this->deleteRole);
-        $role->delete();
-
-        $this->emit('deleteRole');
-        $this->reset('deleteRole');
-        $this->roles = Role::all()->pluck('name', 'id');
-
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-    }
-
     public function saveUser()
     {
+        /* if(User::where('username', $this->user['ci'])->first()) {
+            $this->user['ci'] = $this->user['ci'] . 'p';
+        } */
+
         $this->validate([
             'user.name' => 'required|min:3',
             'user.f_last_name' => 'required|min:3',
             'user.m_last_name' => 'required|min:3',
-            'user.ci' => 'required',
+            'user.ci' => 'required|unique:people,ci',
             'user.address' => 'required|min:6',
             'user.telephone' => 'required|numeric',
-            'user.email' => 'nullable|email',
-            'role' => 'required',
+            'user.blood_type' => 'nullable|max:5',
+            'user.weight' => 'nullable|max:5|min:1',
+            'user.height' => 'nullable|max:5|min:1',
+            'user.old' => 'nullable|numeric|max:120|min:0',
         ]);
+
+        $this->aux = 'nada';
 
         $person = new Person;
         $person->name = $this->user['name'];
@@ -116,7 +92,11 @@ class ListUsers extends Component
         $person->ci = $this->user['ci'];
         $person->address = $this->user['address'];
         $person->telephone = $this->user['telephone'];
-        $person->type = '0';
+        $person->type = '1';
+        $person->blood_type = $this->user['blood_type'];
+        $person->weight = $this->user['weight'];
+        $person->height = $this->user['height'];
+        $person->old = $this->user['old'];
         $person->save();
 
         $user = new User;
@@ -125,10 +105,10 @@ class ListUsers extends Component
         $user->username = $person->ci;
         $user->password = bcrypt($this->user['ci']);
         $user->save();
-        $user->assignRole($this->role);
+        $user->assignRole('Paciente');
 
         $this->emit('save');
-        $this->reset('user', 'role');
+        $this->reset('user');
     }
 
     public function editUser(Person $person)
@@ -141,46 +121,79 @@ class ListUsers extends Component
             'ci' => $person->ci,
             'address' => $person->address,
             'telephone' => $person->telephone,
-            'email' => $person->email,
+            'blood_type' => $person->blood_type,
+            'weight' => $person->weight,
+            'height' => $person->height,
+            'old' => $person->old,
         ];
-
-        $user = User::where('person_id', $person->id)->first();
-        $this->role = $user->getRoleNames()->first();
     }
 
     public function updateUser(Person $person)
     {
-        $this->validate([
-            'user.name' => 'required|min:3',
-            'user.f_last_name' => 'required|min:3',
-            'user.m_last_name' => 'required|min:3',
-            'user.ci' => 'required',
-            'user.address' => 'required|min:6',
-            'user.telephone' => 'required|numeric',
-            'user.email' => 'nullable|email',
-            'role' => 'required',
-        ]);
-
-        $person->name = $this->user['name'];
-        $person->f_last_name = $this->user['f_last_name'];
-        $person->m_last_name = $this->user['m_last_name'];
-        $person->ci = $this->user['ci'];
-        $person->address = $this->user['address'];
-        $person->telephone = $this->user['telephone'];
-        $person->save();
-
-        $user = User::where('person_id', $person->id)->first();
-        $user->name = $person->name;
-        $user->username = $person->ci;
-        $user->save();
-
-        if ($user->getRoleNames()->first() !== $this->role) {
-            $user->removeRole($user->getRoleNames()->first());
-            $user->assignRole($this->role);
+        if ($this->user['ci'] == $person->ci){
+            $this->validate([
+                'user.name' => 'required|min:3',
+                'user.f_last_name' => 'required|min:3',
+                'user.m_last_name' => 'required|min:3',
+                'user.ci' => 'required|exists:people,ci',
+                'user.address' => 'required|min:6',
+                'user.telephone' => 'required|numeric',
+                'user.blood_type' => 'nullable|max:5',
+                'user.weight' => 'nullable|max:5|min:1',
+                'user.height' => 'nullable|max:5|min:1',
+                'user.old' => 'nullable|numeric|max:120|min:0',
+            ]);
+    
+            $person->name = $this->user['name'];
+            $person->f_last_name = $this->user['f_last_name'];
+            $person->m_last_name = $this->user['m_last_name'];
+            $person->ci = $this->user['ci'];
+            $person->address = $this->user['address'];
+            $person->telephone = $this->user['telephone'];
+            $person->blood_type = $this->user['blood_type'];
+            $person->weight = $this->user['weight'];
+            $person->height = $this->user['height'];
+            $person->old = $this->user['old'];
+            $person->save();
+    
+            $user = User::where('person_id', $person->id)->first();
+            $user->name = $person->name;
+            $user->username = $person->ci;
+            $user->save();
+        } else {
+            $this->validate([
+                'user.name' => 'required|min:3',
+                'user.f_last_name' => 'required|min:3',
+                'user.m_last_name' => 'required|min:3',
+                'user.ci' => 'required|unique:people,ci',
+                'user.address' => 'required|min:6',
+                'user.telephone' => 'required|numeric',
+                'user.blood_type' => 'nullable|max:5',
+                'user.weight' => 'nullable|max:5|min:1',
+                'user.height' => 'nullable|max:5|min:1',
+                'user.old' => 'nullable|numeric|max:120|min:0',
+            ]);
+    
+            $person->name = $this->user['name'];
+            $person->f_last_name = $this->user['f_last_name'];
+            $person->m_last_name = $this->user['m_last_name'];
+            $person->ci = $this->user['ci'];
+            $person->address = $this->user['address'];
+            $person->telephone = $this->user['telephone'];
+            $person->blood_type = $this->user['blood_type'];
+            $person->weight = $this->user['weight'];
+            $person->height = $this->user['height'];
+            $person->old = $this->user['old'];
+            $person->save();
+    
+            $user = User::where('person_id', $person->id)->first();
+            $user->name = $person->name;
+            $user->username = $person->ci;
+            $user->save();
         }
-
+        
         $this->emit('save');
-        $this->reset('user', 'aux', 'role');
+        $this->reset('user', 'aux');
     }
 
     public function resetPassword(Person $person)
@@ -219,13 +232,13 @@ class ListUsers extends Component
     public function render()
     {
         $users = Person::where(function($query){
-            $query->where('type', '0');
+            $query->where('type', '1');
             $query->where('name', 'like', '%'.$this->search.'%');
             // $query->orwhere('address', 'like', '%'.$this->search.'%');
         })->orderBy('created_at', 'desc')->paginate($this->paginate);
 
         $departments = Department::all();
 
-        return view('livewire.admin.users.list-users', compact('users', 'departments'));
+        return view('livewire.admin.users.patients', compact('users', 'departments'))->layout('layouts.admin');
     }
 }

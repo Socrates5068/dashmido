@@ -20,6 +20,10 @@ Route::get('dark-mode-switcher2', [DarkModeController::class, 'switch'])->name('
 Route::get('/', Home::class)->name('home');
 Route::get('/login', Login::class)->name('login');
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

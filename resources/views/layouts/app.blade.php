@@ -13,6 +13,7 @@
         @stack('styles')
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" /> --}}
 
         @livewireStyles
 
