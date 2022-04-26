@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Dashboard;
+use App\Http\Livewire\Admin\ClockingIn;
 use App\Http\Livewire\Admin\Users\Users;
 use App\Http\Livewire\Admin\Users\Patients;
 use App\Http\Livewire\Admin\Users\Positions;
@@ -26,3 +27,4 @@ Route::get('/', Dashboard::class)->name('admin.dashboard');
 Route::get('/users', Users::class)->name('admin.users');
 Route::get('/pacientes', Patients::class)->name('admin.patients');
 Route::get('/users/cargos', Positions::class)->name('admin.positions');
+Route::get('/users/fichaje', ClockingIn::class)->name('admin.clocking');

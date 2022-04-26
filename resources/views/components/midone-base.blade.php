@@ -13,7 +13,7 @@ License: 4ec3fc73-2ae0-4e9d-a434-0365fa16e3d0
 -->
 <head>
     <meta charset="utf-8">
-    <link href="{{ asset('midone/dist/images/logo.svg') }}" rel="shortcut icon">
+    <link href="{{ asset('midone/dist/images/logo.png') }}" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Registro {{ config('app.name', 'Laravel') }}</title>

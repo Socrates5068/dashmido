@@ -25,6 +25,7 @@ class Patients extends Component
         'weight' => '',
         'height' => '',
         'old' => '',
+        'sex' => '',
     ];
     public $paginate, $search;
     public $permissions = [
@@ -78,8 +79,8 @@ class Patients extends Component
             'user.address' => 'required|min:6',
             'user.telephone' => 'required|numeric',
             'user.blood_type' => 'nullable|max:5',
-            'user.weight' => 'nullable|max:5|min:1',
-            'user.height' => 'nullable|max:5|min:1',
+            'user.weight' => 'nullable|max:8|min:1',
+            'user.height' => 'nullable|max:8|min:1',
             'user.old' => 'nullable|numeric|max:120|min:0',
         ]);
 
@@ -97,6 +98,7 @@ class Patients extends Component
         $person->weight = $this->user['weight'];
         $person->height = $this->user['height'];
         $person->old = $this->user['old'];
+        $person->sex = $this->user['sex'];
         $person->save();
 
         $user = new User;
@@ -125,6 +127,7 @@ class Patients extends Component
             'weight' => $person->weight,
             'height' => $person->height,
             'old' => $person->old,
+            'sex' => $person->sex,
         ];
     }
 
@@ -139,8 +142,8 @@ class Patients extends Component
                 'user.address' => 'required|min:6',
                 'user.telephone' => 'required|numeric',
                 'user.blood_type' => 'nullable|max:5',
-                'user.weight' => 'nullable|max:5|min:1',
-                'user.height' => 'nullable|max:5|min:1',
+                'user.weight' => 'nullable|max:8|min:1',
+                'user.height' => 'nullable|max:8|min:1',
                 'user.old' => 'nullable|numeric|max:120|min:0',
             ]);
     
@@ -154,6 +157,7 @@ class Patients extends Component
             $person->weight = $this->user['weight'];
             $person->height = $this->user['height'];
             $person->old = $this->user['old'];
+            $person->sex = $this->user['sex'];
             $person->save();
     
             $user = User::where('person_id', $person->id)->first();
@@ -169,8 +173,8 @@ class Patients extends Component
                 'user.address' => 'required|min:6',
                 'user.telephone' => 'required|numeric',
                 'user.blood_type' => 'nullable|max:5',
-                'user.weight' => 'nullable|max:5|min:1',
-                'user.height' => 'nullable|max:5|min:1',
+                'user.weight' => 'nullable|max:8|min:1',
+                'user.height' => 'nullable|max:8|min:1',
                 'user.old' => 'nullable|numeric|max:120|min:0',
             ]);
     
@@ -184,6 +188,7 @@ class Patients extends Component
             $person->weight = $this->user['weight'];
             $person->height = $this->user['height'];
             $person->old = $this->user['old'];
+            $person->sex = $this->user['sex'];
             $person->save();
     
             $user = User::where('person_id', $person->id)->first();

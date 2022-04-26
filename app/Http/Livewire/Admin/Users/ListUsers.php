@@ -22,6 +22,7 @@ class ListUsers extends Component
         'address' => '',
         'telephone' => '',
         'email' => '',
+        'sex' => '',
     ];
     public $paginate, $search;
     public $permissions = [
@@ -116,6 +117,7 @@ class ListUsers extends Component
         $person->ci = $this->user['ci'];
         $person->address = $this->user['address'];
         $person->telephone = $this->user['telephone'];
+        $person->sex = $this->user['sex'];
         $person->type = '0';
         $person->save();
 
@@ -142,6 +144,7 @@ class ListUsers extends Component
             'address' => $person->address,
             'telephone' => $person->telephone,
             'email' => $person->email,
+            'sex' => $person->sex,
         ];
 
         $user = User::where('person_id', $person->id)->first();
@@ -167,6 +170,7 @@ class ListUsers extends Component
         $person->ci = $this->user['ci'];
         $person->address = $this->user['address'];
         $person->telephone = $this->user['telephone'];
+        $person->sex = $this->user['sex'];
         $person->save();
 
         $user = User::where('person_id', $person->id)->first();

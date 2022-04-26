@@ -25,10 +25,10 @@ class DepartmentSeeder extends Seeder
             'description' => 'La Pediatría es la especialidad médica que se ocupa del estudio del crecimiento y el desarrollo de los niños hasta la adolescencia, así como del tratamiento de sus enfermedades. La infancia es una etapa de la vida en continuo cambio que, desde un punto de vista biológico, se caracteriza por el crecimiento y la maduración hasta alcanzar la vida adulta.',
         ]);
 
-        Department::create([
+        /* Department::create([
             'name' => 'Enfermería',
             'description' => 'La enfermería abarca el cuidado autónomo y colaborativo de personas de todas las edades, familias, grupos y comunidades, enfermos o sanos y en todos los entornos. Las enfermeras están en la línea de acción en la prestación de servicios y desempeñan un papel importante en la atención centrada en la persona.',
-        ]);
+        ]); */
 
         Department::create([
             'name' => 'Médico general',

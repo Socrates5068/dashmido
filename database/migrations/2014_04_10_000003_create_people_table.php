@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
             $table->string('old')->nullable();
+            $table->string('sex')->nullable();
             $table->timestamps();
         });
     }

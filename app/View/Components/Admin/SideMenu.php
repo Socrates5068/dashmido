@@ -2,18 +2,16 @@
 
 namespace App\View\Components\Admin;
 
+use App\Models\Department;
 use Illuminate\View\Component;
 
 class SideMenu extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
+    public $departments;
+
     public function __construct()
     {
-        //
+        $this->departments = Department::all();
     }
 
     /**

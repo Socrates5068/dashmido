@@ -8,38 +8,45 @@
     <h2 class="intro-y text-lg font-medium mt-10">
         Usuarios
     </h2>
+    @if($users->count())
     {{-- BEGIN: User list --}}
     <div class="grid grid-cols-12 gap-6 mt-5" id="users-staff">
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
             <button class="btn btn-primary shadow-md mr-2" @click="modalSlide = true">Agregar
                 usuario</button>
-            <div wire:ignore class="dropdown">
+            <div class="dropdown">
                 <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4"
-                            data-lucide="plus"></i> </span>
+                    <span class="w-5 h-5 flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg> </span>
                 </button>
                 <div class="dropdown-menu w-40">
                     <ul class="dropdown-content">
                         <li>
                             <button @click="modal = true" class="dropdown-item">
-                                <i data-lucide="eye" class="w-4 h-4 mr-2"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                  </svg>
                                 Agregar Roles </button>
                         </li>
                         <li>
                             <button @click="modalDelete = true" class="dropdown-item">
-                                <i data-lucide="eye-off" class="w-4 h-4 mr-2"></i> Eliminar Roles </button>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                  </svg> Eliminar Roles </button>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="hidden md:block mx-auto text-slate-500">{{ $users->links('pagination::message') }}</div>
-            <div x-data="{ message: '' }" class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            {{-- <div x-data="{ message: '' }" class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
                 <div class="w-56 relative text-slate-500">
                     <input type="text" class="form-control w-56 box pr-10" placeholder="Buscar..." x-model="message"
                         @input="Livewire.emit('updateSearch', message)">
                     <i class=" w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- BEGIN: Users Layout -->
         @foreach ($users as $user)
@@ -93,6 +100,13 @@
         <!-- END: Pagination -->
     </div>
     {{-- END: user list --}}
+    @else
+        <div wire:ignore class="flex items-center alert alert-dark show mt-6 w-full max-w-lg mx-auto" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg> <p class="ml-3"> No existen usuarios con esos datos </p>
+        </div>
+        @endif
 
     <!-- BEGIN: Modal add role -->
     <div x-show="modal" :class="{'show':modal, '': !modal}" class="modal-personal" tabindex="-1" aria-hidden="true">
@@ -315,6 +329,16 @@
                         <x-jet-input-error for="user.email" />
                     </div>
                     <div class="mt-3">
+                        <label for="sex" class="form-label">Sexo</label>
+                        <select wire:model="user.sex" data-placeholder="Seleccione un sexo"
+                            class="form-control w-full" id="sex">
+                            <option value="">Seleccione un sexo</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
+                        <x-jet-input-error for="user.sex" />
+                    </div>
+                    <div class="mt-3">
                         <label for="role" class="form-label">*Cargo/Especialidad</label>
                         <select wire:model="role" data-placeholder="Select your favorite actors"
                             class="form-control w-full" id="role">
@@ -407,6 +431,16 @@
                                 placeholder="Ej. ambrosio@gmail.com">
                         </div>
                         <x-jet-input-error for="user.email" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="sex" class="form-label">Sexo</label>
+                        <select wire:model="user.sex" data-placeholder="Seleccione un sexo"
+                            class="form-control w-full" id="sex">
+                            <option value="">Seleccione un sexo</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                        </select>
+                        <x-jet-input-error for="user.sex" />
                     </div>
                     <div class="mt-3">
                         <label for="role" class="form-label">*Cargo/Especialidad</label>

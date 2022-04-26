@@ -5,7 +5,7 @@
             <div class="hidden xl:flex flex-col min-h-screen">
                 <a href="{{ env('APP_URL') }}" class="-intro-x flex items-center pt-5">
                     <img alt="Midone - HTML Admin Template" class="w-6"
-                        src="{{ asset('midone/dist/images/logo.svg') }}">
+                        src="{{ asset('midone/dist/images/logo.png') }}">
                     <span class="text-white text-lg ml-3"> {{ config('app.name', 'Laravel') }} </span>
                 </a>
                 <div class="my-auto">

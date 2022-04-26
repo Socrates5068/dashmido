@@ -12,7 +12,7 @@
                     <button @click="department = true"
                         class="btn box flex items-center text-slate-600 dark:text-slate-300">
                         <span wire:ignore class="w-5 h-5 flex"> <i class="-ml-1 w-4 h-4" data-lucide="plus"></i>
-                        </span> Nuevo departamento
+                        </span> Nueva especialidad
                     </button>
                 </div>
             </div>
@@ -40,7 +40,9 @@
                                         <p wire:click="editDepartment('{{ $depa->id }}')"
                                             @click="editDepartment = !editDepartment"
                                             class="flex items-center mr-3 cursor-pointer">
-                                            <i class="-ml-1 w-4 h-4" data-lucide="edit"></i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                              </svg>
                                         </p>
                                         <p @click="Livewire.emit('destroyDepartment', {{ $depa->id }})"
                                             class="flex items-center text-danger cursor-pointer">
@@ -74,7 +76,7 @@
             <div class="modal-content" @click.away="department = false, Livewire.emit('resetVariables')">
                 <div class="modal-body p-10">
                     <div>
-                        <label for="crud-form-1" class="form-label">Nombre del departamento</label>
+                        <label for="crud-form-1" class="form-label">Nombre de la especialidad</label>
                         <input wire:model="department" id="crud-form-1" type="text"
                             class="@error('department') border-danger @enderror form-control w-full"
                             placeholder="Ej. Administración">

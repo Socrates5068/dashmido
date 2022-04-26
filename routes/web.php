@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Login;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DarkModeController;
+use App\Http\Livewire\Tickets;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use App\Http\Livewire\Login;
 
 Route::get('dark-mode-switcher2', [DarkModeController::class, 'switch'])->name('dark-mode-switcher2');
 Route::get('/', Home::class)->name('home');
+Route::get('/fichaje', Tickets::class)->name('tickets');
 Route::get('/login', Login::class)->name('login');
 
 Route::get('/email/verify', function () {
