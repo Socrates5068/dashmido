@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
-            $table->enum('status',  ['0', '1'])->default('0'); // booked or not booked
-            $table->string('patient_id')->nullable();
-            $table->string('doctor_id');
-            $table->string('department_id');
+            $table->json('time');
+            $table->integer('department_id');
+            $table->integer('doctor_id');
+            $table->integer('type');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('schedules');
     }
 };

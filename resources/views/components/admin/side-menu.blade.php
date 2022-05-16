@@ -41,6 +41,13 @@
             </li>
 
             <li>
+                <a href="{{ route('admin.table') }}" class="{{ url()->current() == route('admin.table') ? 'side-menu--active' : '' }} side-menu">
+                    <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
+                    <div class="side-menu__title"> Tabla de horarios </div>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('admin.clocking') }}" class="{{ url()->current() == route('admin.clocking') ? 'side-menu--active' : '' }} side-menu">
                     <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
                     <div class="side-menu__title"> Fichaje </div>

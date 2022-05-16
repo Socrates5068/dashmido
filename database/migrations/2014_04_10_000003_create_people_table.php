@@ -22,10 +22,6 @@ return new class extends Migration
             $table->string('address');
             $table->string('telephone');
             $table->enum('type', ['0', '1']);
-            $table->string('blood_type')->nullable();
-            $table->string('weight')->nullable();
-            $table->string('height')->nullable();
-            $table->string('old')->nullable();
             $table->string('sex')->nullable();
             $table->timestamps();
         });

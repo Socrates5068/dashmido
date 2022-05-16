@@ -109,6 +109,10 @@
                                         {{ __('Profile') }}
                                     </x-jet-dropdown-link>
 
+                                    <x-jet-dropdown-link href="{{ route('cards') }}">
+                                        Mis fichas
+                                    </x-jet-dropdown-link>
+
                                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                     <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
                                         {{ __('API Tokens') }}
@@ -128,8 +132,8 @@
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
-                    @elseif (Auth::user()->getRoleNames()->first() == 'Super-Admin')
-                        <a href="{{ route('admin.dashboard') }}" class="underline">Panel de control</a>
+                    {{-- @elseif (Auth::user()->getRoleNames()->first() == 'Super-Admin')
+                        <a href="{{ route('admin.dashboard') }}" class="underline">Panel de control</a> --}}
                     @else
                         <a href="{{ route('admin.dashboard') }}" class="underline">Panel de control</a>
                     @endif

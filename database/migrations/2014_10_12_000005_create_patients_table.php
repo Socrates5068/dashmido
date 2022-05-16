@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
-            $table->enum('status',  ['0', '1'])->default('0'); // booked or not booked
-            $table->string('patient_id')->nullable();
-            $table->string('doctor_id');
-            $table->string('department_id');
+            $table->foreignId('person_id')->constrained();
+            $table->string('blood_type')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('height')->nullable();
+            $table->string('old')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('patients');
     }
 };

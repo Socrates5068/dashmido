@@ -10,6 +10,7 @@ class Positions extends Component
 {
     public $departments, $department, $aux;
     public $positions, $position, $description;
+    public $users, $userDepartment;
 
     protected $listeners = ['resetVariables', 'deleteDepartment', 'deletePosition'];
 
@@ -107,6 +108,12 @@ class Positions extends Component
     public function deletePosition(Position $position)
     {
         $position->delete();
+    }
+
+    public function usersDepartment(Department $department)
+    {
+        $this->users = $department->staff;
+        $this->userDepartment = $department->name;
     }
 
     public function resetVariables()

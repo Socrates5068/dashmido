@@ -22,7 +22,9 @@ class ClockingIn extends Component
 
     public function render()
     {
-        $tickets = Ticket::where('department', $this->list)->get();
+        $tickets = Ticket::where('doctor_id', auth()->user()->person->id)
+            ->where('date', date("Y-m-d",strtotime(now())))
+            ->get();
 
         return view('livewire.admin.clocking-in', compact('tickets'))->layout('layouts.admin');
     }

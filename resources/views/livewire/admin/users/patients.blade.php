@@ -107,7 +107,7 @@
                         <div class="mb-4 text-slate-500">
                             Los campos marcados con un <span class="font-bold">(*)</span> son obligatorios.
                         </div>
-                        <x-jet-validation-errors class="mb-4" />
+                        {{-- <x-jet-validation-errors class="mb-4" /> --}}
                         <div>
                             <label for="name" class="form-label">*Nombres</label>
                             <input wire:model="user.name" id="name" type="text" class="form-control" placeholder="Ej. Juan Ambrosio">

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
+use App\Models\Staff;
 use App\Models\Person;
 use Livewire\Component;
 use App\Models\Department;
@@ -23,6 +24,7 @@ class ListUsers extends Component
         'telephone' => '',
         'email' => '',
         'sex' => '',
+        'department' => '',
     ];
     public $paginate, $search;
     public $permissions = [
@@ -103,11 +105,12 @@ class ListUsers extends Component
             'user.name' => 'required|min:3',
             'user.f_last_name' => 'required|min:3',
             'user.m_last_name' => 'required|min:3',
-            'user.ci' => 'required',
+            'user.ci' => 'required|unique:users,username',
             'user.address' => 'required|min:6',
             'user.telephone' => 'required|numeric',
             'user.email' => 'nullable|email',
             'role' => 'required',
+            'user.department' => 'required',
         ]);
 
         $person = new Person;
@@ -117,8 +120,8 @@ class ListUsers extends Component
         $person->ci = $this->user['ci'];
         $person->address = $this->user['address'];
         $person->telephone = $this->user['telephone'];
-        $person->sex = $this->user['sex'];
         $person->type = '0';
+        $person->sex = $this->user['sex'];
         $person->save();
 
         $user = new User;
@@ -129,8 +132,14 @@ class ListUsers extends Component
         $user->save();
         $user->assignRole($this->role);
 
+        $staff = new Staff;
+        $staff->person_id = $person->id;
+        $staff->department_id = $this->user['department'];
+        $staff->email = $this->user['email'];
+        $staff->save();
+
         $this->emit('save');
-        $this->reset('user', 'role');
+        $this->resetVariables();
     }
 
     public function editUser(Person $person)
@@ -143,8 +152,9 @@ class ListUsers extends Component
             'ci' => $person->ci,
             'address' => $person->address,
             'telephone' => $person->telephone,
-            'email' => $person->email,
+            'email' => $person->staff->email,
             'sex' => $person->sex,
+            'department' => $person->staff->department_id
         ];
 
         $user = User::where('person_id', $person->id)->first();
@@ -153,30 +163,63 @@ class ListUsers extends Component
 
     public function updateUser(Person $person)
     {
-        $this->validate([
-            'user.name' => 'required|min:3',
-            'user.f_last_name' => 'required|min:3',
-            'user.m_last_name' => 'required|min:3',
-            'user.ci' => 'required',
-            'user.address' => 'required|min:6',
-            'user.telephone' => 'required|numeric',
-            'user.email' => 'nullable|email',
-            'role' => 'required',
-        ]);
+        if ($person->ci == $this->user['ci']) {
+            $this->validate([
+                'user.name' => 'required|min:3',
+                'user.f_last_name' => 'required|min:3',
+                'user.m_last_name' => 'required|min:3',
+                'user.ci' => 'required|exists:users,username',
+                'user.address' => 'required|min:6',
+                'user.telephone' => 'required|numeric',
+                'user.email' => 'nullable|email',
+                'role' => 'required',
+                'user.department' => 'required',
+            ]);
 
-        $person->name = $this->user['name'];
-        $person->f_last_name = $this->user['f_last_name'];
-        $person->m_last_name = $this->user['m_last_name'];
-        $person->ci = $this->user['ci'];
-        $person->address = $this->user['address'];
-        $person->telephone = $this->user['telephone'];
-        $person->sex = $this->user['sex'];
-        $person->save();
+            $person->name = $this->user['name'];
+            $person->f_last_name = $this->user['f_last_name'];
+            $person->m_last_name = $this->user['m_last_name'];
+            $person->ci = $this->user['ci'];
+            $person->address = $this->user['address'];
+            $person->telephone = $this->user['telephone'];
+            $person->sex = $this->user['sex'];
+            $person->save();
 
-        $user = User::where('person_id', $person->id)->first();
-        $user->name = $person->name;
-        $user->username = $person->ci;
-        $user->save();
+            $user = User::where('person_id', $person->id)->first();
+            $user->name = $person->name;
+            $user->save();
+        } else {
+            $this->validate([
+                'user.name' => 'required|min:3',
+                'user.f_last_name' => 'required|min:3',
+                'user.m_last_name' => 'required|min:3',
+                'user.ci' => 'required|unique:users,username',
+                'user.address' => 'required|min:6',
+                'user.telephone' => 'required|numeric',
+                'user.email' => 'nullable|email',
+                'role' => 'required',
+                'user.department' => 'required',
+            ]);
+
+            $person->name = $this->user['name'];
+            $person->f_last_name = $this->user['f_last_name'];
+            $person->m_last_name = $this->user['m_last_name'];
+            $person->ci = $this->user['ci'];
+            $person->address = $this->user['address'];
+            $person->telephone = $this->user['telephone'];
+            $person->sex = $this->user['sex'];
+            $person->save();
+
+            $user = User::where('person_id', $person->id)->first();
+            $user->name = $person->name;
+            $user->username = $person->ci;
+            $user->save();
+        }
+
+        $staff = Staff::where('person_id', $person->id)->first();
+        $staff->department_id = $this->user['department'];
+        $staff->email = $this->user['email'];
+        $staff->save();
 
         if ($user->getRoleNames()->first() !== $this->role) {
             $user->removeRole($user->getRoleNames()->first());

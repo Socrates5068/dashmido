@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Schedule;
 use App\Models\Department;
 use Illuminate\Console\Command;
 
@@ -22,17 +23,6 @@ class MakeTickets extends Command
      * @var string
      */
     protected $description = 'Agrega el fichaje';
-    public $hours = [
-        '9:00',
-        '9:20',
-        '9:40',
-        '10:00',
-        '10:20',
-        '10:40',
-        '11:00',
-        '11:20',
-        '11:40',
-    ];
 
     /**
      * Execute the console command.
@@ -41,17 +31,47 @@ class MakeTickets extends Command
      */
     public function handle()
     {
-        $departments = Department::all();
-        $now = Carbon::now()->toDateString();
-        foreach ($departments as $key => $department) {
-            foreach ($this->hours as $hour) {
-                Ticket::create([
-                    'date' => now(),
-                    'time' => $hour,
-                    'department' => $department->name,
-                ]);
-            }
+        foreach (User::where('status', 1)->get() as $user) {
+            $user->status = 0;
+            $user->save();
         }
         
+        Ticket::where('date', date("Y-m-d",strtotime(now()."- 2 days")))->delete();
+        
+        $departments = Department::all();
+        foreach ($departments as $department) {
+            if ($department->name !== "Administración" && $department->name !== "Enfermería") {
+                $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
+                foreach ($schedules as $schedule) {
+                    $hours = json_decode($schedule->time);
+                    foreach ($hours as $hour) {
+                        Ticket::create([
+                            'date' => date("Y-m-d",strtotime(now()."+ 1 days")),
+                            'time' => $hour,
+                            'doctor_id' => $schedule->doctor_id,
+                            'department_id' => $schedule->department_id,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        foreach ($departments as $department) {
+            if ($department->name !== "Administración" && $department->name !== "Enfermería") {
+                $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
+                foreach ($schedules as $schedule) {
+                    $hours = json_decode($schedule->time);
+                    foreach ($hours as $hour) {
+                        Ticket::create([
+                            'date' => date("Y-m-d",strtotime(now())),
+                            'time' => $hour,
+                            'patient_id' => 5,
+                            'doctor_id' => $schedule->doctor_id,
+                            'department_id' => $schedule->department_id,
+                        ]);
+                    }
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
 use App\Models\Person;
+use App\Models\Patient;
 use Livewire\Component;
 use App\Models\Department;
 use Livewire\WithPagination;
@@ -82,9 +83,8 @@ class Patients extends Component
             'user.weight' => 'nullable|max:8|min:1',
             'user.height' => 'nullable|max:8|min:1',
             'user.old' => 'nullable|numeric|max:120|min:0',
+            'user.sex' => 'nullable',
         ]);
-
-        $this->aux = 'nada';
 
         $person = new Person;
         $person->name = $this->user['name'];
@@ -94,12 +94,16 @@ class Patients extends Component
         $person->address = $this->user['address'];
         $person->telephone = $this->user['telephone'];
         $person->type = '1';
-        $person->blood_type = $this->user['blood_type'];
-        $person->weight = $this->user['weight'];
-        $person->height = $this->user['height'];
-        $person->old = $this->user['old'];
         $person->sex = $this->user['sex'];
         $person->save();
+
+        $patient = new Patient;
+        $patient->person_id = $person->id;
+        $patient->blood_type = $this->user['blood_type'];
+        $patient->weight = $this->user['weight'];
+        $patient->height = $this->user['height'];
+        $patient->old = $this->user['old'];
+        $patient->save();
 
         $user = new User;
         $user->person_id = $person->id;
@@ -123,11 +127,11 @@ class Patients extends Component
             'ci' => $person->ci,
             'address' => $person->address,
             'telephone' => $person->telephone,
-            'blood_type' => $person->blood_type,
-            'weight' => $person->weight,
-            'height' => $person->height,
-            'old' => $person->old,
             'sex' => $person->sex,
+            'blood_type' => $person->patient->blood_type,
+            'weight' => $person->patient->weight,
+            'height' => $person->patient->height,
+            'old' => $person->patient->old,
         ];
     }
 
@@ -152,13 +156,16 @@ class Patients extends Component
             $person->m_last_name = $this->user['m_last_name'];
             $person->ci = $this->user['ci'];
             $person->address = $this->user['address'];
-            $person->telephone = $this->user['telephone'];
-            $person->blood_type = $this->user['blood_type'];
-            $person->weight = $this->user['weight'];
-            $person->height = $this->user['height'];
-            $person->old = $this->user['old'];
             $person->sex = $this->user['sex'];
+            $person->telephone = $this->user['telephone'];
             $person->save();
+
+            $patient = $person->patient;
+            $patient->blood_type = $this->user['blood_type'];
+            $patient->weight = $this->user['weight'];
+            $patient->height = $this->user['height'];
+            $patient->old = $this->user['old'];
+            $patient->save();
     
             $user = User::where('person_id', $person->id)->first();
             $user->name = $person->name;
@@ -184,12 +191,15 @@ class Patients extends Component
             $person->ci = $this->user['ci'];
             $person->address = $this->user['address'];
             $person->telephone = $this->user['telephone'];
-            $person->blood_type = $this->user['blood_type'];
-            $person->weight = $this->user['weight'];
-            $person->height = $this->user['height'];
-            $person->old = $this->user['old'];
             $person->sex = $this->user['sex'];
             $person->save();
+
+            $patient = $person->patient;
+            $patient->blood_type = $this->user['blood_type'];
+            $patient->weight = $this->user['weight'];
+            $patient->height = $this->user['height'];
+            $patient->old = $this->user['old'];
+            $patient->save();
     
             $user = User::where('person_id', $person->id)->first();
             $user->name = $person->name;

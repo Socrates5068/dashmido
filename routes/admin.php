@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\Users\Patients;
 use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Controllers\Admin\ColorSchemeController;
+use App\Http\Livewire\Admin\TableTime;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,5 @@ Route::get('/', Dashboard::class)->name('admin.dashboard');
 Route::get('/users', Users::class)->name('admin.users');
 Route::get('/pacientes', Patients::class)->name('admin.patients');
 Route::get('/users/cargos', Positions::class)->name('admin.positions');
-Route::get('/users/fichaje', ClockingIn::class)->name('admin.clocking');
+Route::get('/horarios', TableTime::class)->name('admin.table');
+Route::get('/fichaje', ClockingIn::class)->name('admin.clocking');

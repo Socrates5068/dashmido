@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
         $role1->givePermissionTo('delete clocking');
 
         // create roles and assign existing permissions to staff
-        $role2 = Role::create(['name' => 'Médico general']);
+        $role2 = Role::create(['name' => 'Médico']);
         $role2->givePermissionTo('create history');
         $role2->givePermissionTo('update history');
         $role2->givePermissionTo('delete history');
@@ -65,24 +65,32 @@ class UserSeeder extends Seeder
 
         User::create([
             'person_id' => 2,
-            'name' => 'Medico general',
-            'username' => 'medico',
-            'password' => bcrypt('123456')
+            'name' => 'Jairo Carrion',
+            'username' => '12012568',
+            'password' => bcrypt('12012568')
         ])->assignRole($role2);
 
         User::create([
             'person_id' => 3,
+            'name' => 'Elias Ramos',
+            'username' => '1207568',
+            'password' => bcrypt('1207568')
+        ])->assignRole($role2);
+
+        User::create([
+            'person_id' => 4,
+            'name' => 'Maria Eugenia',
+            'username' => '12496568',
+            'password' => bcrypt('12496568')
+        ])->assignRole($role2);
+
+        User::create([
+            'person_id' => 5,
             'name' => 'Paciente',
             'username' => 'paciente',
             'password' => bcrypt('123456')
         ])->assignRole($role1);
-
-        /* User::create([
-            'name' => 'Marcos Socrates',
-            'email' => 'correo@correo.com',
-            'password' => bcrypt('123456')
-        ]); */
-
+        
         // User::factory(99)->create();
     }
 }

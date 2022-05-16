@@ -6,7 +6,7 @@
         <div class="alert alert-danger show mt-6 w-full max-w-lg mx-auto" role="alert">Eliminación exitosa</div>
     </x-jet-action-message>
     <h2 class="intro-y text-lg font-medium mt-10">
-        Usuarios
+        Usuarios {{$aux}}
     </h2>
     @if($users->count())
     {{-- BEGIN: User list --}}
@@ -339,7 +339,7 @@
                         <x-jet-input-error for="user.sex" />
                     </div>
                     <div class="mt-3">
-                        <label for="role" class="form-label">*Cargo/Especialidad</label>
+                        <label for="role" class="form-label">*Asignar rol</label>
                         <select wire:model="role" data-placeholder="Select your favorite actors"
                             class="form-control w-full" id="role">
                             <option value=" " selected>Selecciona un rol</option>
@@ -350,6 +350,17 @@
                             @endforeach
                         </select>
                         <x-jet-input-error for="role" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="department" class="form-label">*Asignar un departamento</label>
+                        <select wire:model="user.department" data-placeholder="Select your favorite actors"
+                            class="form-control w-full" id="role">
+                            <option value=" " selected>Seleccione un departemento</option>
+                            @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="user.department" />
                     </div>
                     <div class="md:grid md:grid-cols-2 gap-4">
                         <div class="mt-3">
@@ -380,6 +391,7 @@
                 <div class="modal-header p-5">
                     <h2 class="font-medium text-base mr-auto">Editar usuario</h2>
                 </div>
+                <x-jet-validation-errors class="mt-4 mb-4" />
                 <div class="-mt-4 modal-body p-10">
                     <div class="mb-4 text-slate-500">
                         Los campos marcados con un <span class="font-bold">(*)</span> son obligatorios.
@@ -443,7 +455,7 @@
                         <x-jet-input-error for="user.sex" />
                     </div>
                     <div class="mt-3">
-                        <label for="role" class="form-label">*Cargo/Especialidad</label>
+                        <label for="role" class="form-label">*Asignar rol</label>
                         <select wire:model="role" data-placeholder="Select your favorite actors"
                             class="form-control w-full" id="role">
                             <option value=" " selected>Selecciona un rol</option>
@@ -451,7 +463,17 @@
                                 <option value="{{ $role->name }}">{{ $role->name }}</option>
                             @endforeach
                         </select>
-                        <x-jet-input-error for="role" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="department" class="form-label">*Asignar un departamento</label>
+                        <select wire:model="user.department" data-placeholder="Select your favorite actors"
+                            class="form-control w-full" id="role">
+                            <option value=" " selected>Seleccione un departemento</option>
+                            @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="user.department" />
                     </div>
                     <div class="md:grid md:grid-cols-2 gap-4">
                         <div class="mt-3">
