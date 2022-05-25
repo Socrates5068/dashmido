@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Schedule;
 use App\Models\Department;
+use App\Models\TimeTable;
 use Illuminate\Console\Command;
 
 class MakeTickets extends Command
@@ -31,23 +32,30 @@ class MakeTickets extends Command
      */
     public function handle()
     {
+        // reset the estatus of all users
         foreach (User::where('status', 1)->get() as $user) {
             $user->status = 0;
             $user->save();
         }
         
+        // deletes all ticket two days ago
         Ticket::where('date', date("Y-m-d",strtotime(now()."- 2 days")))->delete();
         
+        // generate all Tickets
         $departments = Department::all();
         foreach ($departments as $department) {
             if ($department->name !== "Administración" && $department->name !== "Enfermería") {
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
+                $times = [];
                 foreach ($schedules as $schedule) {
-                    $hours = json_decode($schedule->time);
-                    foreach ($hours as $hour) {
+                    $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
+                    for ($i = 0; $i < count($hours); $i = $i + 2){
+                        array_push($times, $hours[$i] . " - " . $hours[$i + 1]);
+                    }
+                    foreach ($times as $time) {
                         Ticket::create([
                             'date' => date("Y-m-d",strtotime(now()."+ 1 days")),
-                            'time' => $hour,
+                            'time' => $time,
                             'doctor_id' => $schedule->doctor_id,
                             'department_id' => $schedule->department_id,
                         ]);
@@ -59,12 +67,17 @@ class MakeTickets extends Command
         foreach ($departments as $department) {
             if ($department->name !== "Administración" && $department->name !== "Enfermería") {
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
+                $times = [];
                 foreach ($schedules as $schedule) {
-                    $hours = json_decode($schedule->time);
-                    foreach ($hours as $hour) {
+                    $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
+                    for ($i = 0; $i < count($hours); $i = $i + 2){
+                        
+                        array_push($times, $hours[$i] . ' - ' . $hours[$i + 1]);
+                    }
+                    foreach ($times as $time) {
                         Ticket::create([
                             'date' => date("Y-m-d",strtotime(now())),
-                            'time' => $hour,
+                            'time' => $time,
                             'patient_id' => 5,
                             'doctor_id' => $schedule->doctor_id,
                             'department_id' => $schedule->department_id,

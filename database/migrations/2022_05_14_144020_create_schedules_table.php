@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('department_id');
             $table->integer('doctor_id');
             $table->integer('type');
+            $table->integer('timeTable_id');
             $table->timestamps();
         });
     }

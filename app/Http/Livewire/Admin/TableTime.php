@@ -4,60 +4,68 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\TimeTable;
+use Livewire\WithPagination;
+use phpDocumentor\Reflection\Types\Null_;
 
 class TableTime extends Component
 {
-    public $edit = false;
-    public $morning = [];
-    public $mtime = [
+    use WithPagination;
+
+    public $name;
+    public $tabletime = [];
+    public $time = [
         'start' => NULL,
         'end' => NULL,
-        'aux' => false
+        'aux' => NULL
     ];
 
-    public function mount()
-    {
-        $this->morning = json_decode(TimeTable::find(1)->time);
-    }
+    protected $listeners = ['resetVariables', 'render']; 
 
-    public function morning()
+    public function saveTableTime()
     {
         $this->validate([
-            'mtime.start' => 'required',
-            'mtime.end' => 'required',
+            'name' => 'required'
         ]);
 
-        array_push($this->morning, $this->mtime['start'], $this->mtime['end']);
+        $table = new TimeTable();
+        
+        $table->name = $this->name;
+        $table->time = json_encode($this->tabletime);
+        $table->save();
 
-        if (TimeTable::find(1) !== NULL) {
-            TimeTable::find(1)->update([
-                'id' => 1,
-                'time' => json_encode($this->morning)
-            ]);
-        } else {
-            TimeTable::create([
-                'id' => 1,
-                'time' => json_encode($this->morning)
-            ]);
-        }
-
-        $this->resetVariables();
+        session()->flash('message');
+        return redirect()->to('/admin/horarios');
     }
 
-    public function editMorning($key)
+    public function edit($id, $key)
     {
-        $this->mtime['start'] = $this->morning[$key];
-        $this->mtime['end'] = $this->morning[$key + 1];
-        $this->mtime['aux'] = true;
+        $this->emit('edit', $id, $key);
+    }
+
+    public function delete(TimeTable $timeTable, $key)
+    {
+        $time = json_decode($timeTable->time);
+        unset($time[$key]);
+        unset($time[$key + 1]);
+
+        $timeTable->time = json_encode($time);
+        $timeTable->save();
+    }
+
+    public function deleteTime(TimeTable $timeTable)
+    {
+        $timeTable->delete();
     }
 
     public function resetVariables()
     {
-        $this->reset('mtime', 'edit');
+        $this->resetErrorBag();
+        $this->reset('time', 'name');
     }
 
     public function render()
     {
-        return view('livewire.admin.table-time')->layout('layouts.admin');
+        $schedules = TimeTable::all();
+        return view('livewire.admin.table-time', compact('schedules'))->layout('layouts.admin');
     }
 }

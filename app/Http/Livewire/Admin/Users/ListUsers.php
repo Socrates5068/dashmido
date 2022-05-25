@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Staff;
 use App\Models\Person;
 use Livewire\Component;
+use App\Models\Schedule;
 use App\Models\Department;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -228,6 +229,13 @@ class ListUsers extends Component
 
         $this->emit('save');
         $this->reset('user', 'aux', 'role');
+    }
+
+    public function deleteUser(Person $user)
+    {
+        $user->delete();
+
+        Schedule::where('doctor_id', $user->id)->delete();
     }
 
     public function resetPassword(Person $person)

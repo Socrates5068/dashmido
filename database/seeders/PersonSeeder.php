@@ -27,6 +27,17 @@ class PersonSeeder extends Seeder
         ]);
 
         Person::create([
+            'name' => 'Yolanda',
+            'f_last_name' => ' Yañez',
+            'm_last_name' => 'Yañez',
+            'ci' => '8746523',
+            'address' => 'Calle XX 42',
+            'telephone' => '6296589',
+            'type' => '0',
+            'sex' => 'Masculino',
+        ]);
+
+        Person::create([
             'name' => 'Jairo ',
             'f_last_name' => 'Carrion',
             'm_last_name' => 'Carrion',

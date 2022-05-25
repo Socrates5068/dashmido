@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Dashboard;
+use App\Http\Livewire\Admin\Schedules;
+use App\Http\Livewire\Admin\TableTime;
 use App\Http\Livewire\Admin\ClockingIn;
 use App\Http\Livewire\Admin\Users\Users;
 use App\Http\Livewire\Admin\Users\Patients;
 use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Controllers\Admin\ColorSchemeController;
-use App\Http\Livewire\Admin\TableTime;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,13 @@ use App\Http\Livewire\Admin\TableTime;
 Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
 Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
+// routes admin
 Route::get('/', Dashboard::class)->name('admin.dashboard');
 Route::get('/users', Users::class)->name('admin.users');
 Route::get('/pacientes', Patients::class)->name('admin.patients');
 Route::get('/users/cargos', Positions::class)->name('admin.positions');
 Route::get('/horarios', TableTime::class)->name('admin.table');
+Route::get('/horarios_fichaje', Schedules::class)->name('admin.schedule');
+
+//routes staff
 Route::get('/fichaje', ClockingIn::class)->name('admin.clocking');

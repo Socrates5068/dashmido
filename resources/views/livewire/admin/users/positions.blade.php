@@ -144,8 +144,8 @@
                                 {{-- <div class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium">137 Sales</div> --}}
                             </div>
                         </div>
-                        <a @click="showUsers = false" href="javascript:;" class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500">Cerrar</a>
                         @endforeach
+                        <a @click="showUsers = false" href="javascript:;" class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500">Cerrar</a>
                         @else
                         <div class="intro-y">
                             <div class="zoom-in alert alert-outline-danger alert-dismissible show flex items-center mb-2" role="alert">

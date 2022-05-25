@@ -31,5 +31,11 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+
+        // somewhere in a service provider
+
+        Gate::after(function ($user, $ability) {
+            return $user->hasRole('Super-Admin'); // note this returns boolean
+        });
     }
 }

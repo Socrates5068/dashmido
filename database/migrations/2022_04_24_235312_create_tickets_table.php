@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('time');
+            $table->string('time');
             $table->enum('status',  ['0', '1'])->default('0'); // booked or not booked
             $table->string('patient_id')->nullable();
             $table->string('doctor_id');

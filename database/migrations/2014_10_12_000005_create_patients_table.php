@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained();
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
             $table->string('blood_type')->nullable();
             $table->string('weight')->nullable();
             $table->string('height')->nullable();
