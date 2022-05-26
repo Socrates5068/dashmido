@@ -26,7 +26,7 @@ use App\Models\Staff;
         <!-- END: Notification Content -->
     </x-notification-message>
 
-    <h2 class="text-lg font-medium intro-y mt-4">
+    <h2 class="mt-4 text-lg font-medium intro-y">
         Horarios para fichaje
     </h2>
 
@@ -36,7 +36,7 @@ use App\Models\Staff;
                 <label>Horario</label>
                 <div class="mt-2">
                     <select wire:model='time' data-placeholder="Select your favorite actors"
-                        class="form-control w-full">
+                        class="w-full form-control">
                         <option value="" selected>Seleccionar horario</option>
                         @foreach ($times as $time)
                             <option value="{{ $time->id }}">{{ $time->name }}</option>
@@ -50,7 +50,7 @@ use App\Models\Staff;
                 <label>Departamento</label>
                 <div class="mt-2">
                     <select wire:model='department' data-placeholder="Select your favorite actors"
-                        class="form-control w-full">
+                        class="w-full form-control">
                         <option value="" selected>Seleccionar departmento</option>
                         @foreach ($departments as $department)
                             @if ($department->name !== 'Administración' && $department->name !== 'Enfermería')
@@ -67,7 +67,7 @@ use App\Models\Staff;
                 <label>Personal</label>
                 <div class="mt-2">
                     <select wire:model='personal' data-placeholder="Select your favorite actors"
-                        class="form-control w-full">
+                        class="w-full form-control">
                         <option value="" selected>Seleccionar médico</option>
                         @foreach ($staff as $staf)
                             @if ($staf->person->id !== 1 && $staf->person->user->getRoleNames()->first() !== 'Enfermera')
@@ -125,7 +125,7 @@ use App\Models\Staff;
                                     class="font-medium whitespace-nowrap">{{ Staff::find($schedule->doctor_id)->person->name }}
                                     {{ Staff::find($schedule->doctor_id)->person->f_last_name }}</a>
                                 <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                    {{ Staff::find($schedule->doctor_id)->department->name }}</div>
+                                    {{-- {{ Staff::find($schedule->doctor_id)->department->name }}</div> --}}
                             </td>
                             <td class="w-56 table-report__action">
                                 <div class="flex items-center justify-center">
@@ -140,7 +140,7 @@ use App\Models\Staff;
                                         </svg> Edit
                                     </p>
                                     <p wire:click="delete({{ $schedule->id }})"
-                                        class="flex items-center text-danger cursor-pointer" data-tw-toggle="modal"
+                                        class="flex items-center cursor-pointer text-danger" data-tw-toggle="modal"
                                         data-tw-target="#delete-confirmation-modal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

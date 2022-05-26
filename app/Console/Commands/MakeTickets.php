@@ -46,8 +46,8 @@ class MakeTickets extends Command
         foreach ($departments as $department) {
             if ($department->name !== "Administración" && $department->name !== "Enfermería") {
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
-                $times = [];
                 foreach ($schedules as $schedule) {
+                    $times = [];
                     $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
                     for ($i = 0; $i < count($hours); $i = $i + 2){
                         array_push($times, $hours[$i] . " - " . $hours[$i + 1]);
@@ -67,8 +67,8 @@ class MakeTickets extends Command
         foreach ($departments as $department) {
             if ($department->name !== "Administración" && $department->name !== "Enfermería") {
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
-                $times = [];
                 foreach ($schedules as $schedule) {
+                    $times = [];
                     $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
                     for ($i = 0; $i < count($hours); $i = $i + 2){
                         

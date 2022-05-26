@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Schedule;
 use Livewire\Component;
 use App\Models\TimeTable;
 use Livewire\WithPagination;
@@ -54,7 +55,9 @@ class TableTime extends Component
 
     public function deleteTime(TimeTable $timeTable)
     {
+        Schedule::where('timeTable_id', $timeTable->id)->delete();
         $timeTable->delete();
+        $this->emit('delete');
     }
 
     public function resetVariables()

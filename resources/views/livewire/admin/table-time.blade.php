@@ -3,6 +3,24 @@
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Fichajes'])
     </div>
 
+    <x-notification-message on="delete">
+        <!-- BEGIN: Notification Content -->
+        <div class="flex toastify-content">
+            <div class="relative flex w-full max-w-lg mx-auto my-auto bg-white rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="ml-4 mr-4">
+                    <div class="font-medium">¡Registro exitoso!</div>
+                    <div class="mt-1 text-slate-500">El horario a sido eliminado correctamente.</div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Notification Content -->
+    </x-notification-message>
+
     <!-- BEGIN: Notification Content -->
     <div id="save" class="flex hidden toastify-content">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24"
@@ -134,7 +152,7 @@
                     node: $("#save")
                         .clone()
                         .removeClass("hidden")[0],
-                    duration: 9000,
+                    duration: 3000,
                     newWindow: true,
                     close: true,
                     gravity: "top",

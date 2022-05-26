@@ -40,7 +40,7 @@ class ScheduleSeeder extends Seeder
         $schedule->department_id = 5;
         $schedule->doctor_id = 3;
         $schedule->type = 1; //refers it to the schedule (morning, afternoon o night)
-        $schedule->timeTable_id = 1;
+        $schedule->timeTable_id = 3;
         $schedule->save();
     }
 }
