@@ -77,6 +77,7 @@ class MakeTickets extends Command
                     foreach ($times as $time) {
                         Ticket::create([
                             'date' => date("Y-m-d",strtotime(now())),
+                            'status' => '1',
                             'time' => $time,
                             'patient_id' => 5,
                             'doctor_id' => $schedule->doctor_id,

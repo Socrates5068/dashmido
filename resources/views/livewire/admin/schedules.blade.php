@@ -115,11 +115,11 @@ use App\Models\Staff;
                                 <a href="" class="font-medium whitespace-nowrap">{{ $schedule->id }}</a>
                             </td>
                             <td>
-                                <a href=""
+                                <a href="{{ route('admin.table') }}"
                                     class="font-medium whitespace-nowrap">{{ TimeTable::find($schedule->timeTable_id)->name }}</a>
-                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div>
+                                {{-- <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div> --}}
                             </td>
-                            <td class="text-center">{{ Department::find($schedule->department_id)->name }}</td>
+                            <td class="font-medium text-center">{{ Department::find($schedule->department_id)->name }}</td>
                             <td class="w-40">
                                 <a href=""
                                     class="font-medium whitespace-nowrap">{{ Staff::find($schedule->doctor_id)->person->name }}

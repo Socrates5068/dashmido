@@ -33,7 +33,7 @@
     <!-- END: JS Assets-->
 </head>
 
-<body class="rubick antialiased">
+<body class="antialiased rubick">
 
     <x-admin.mobile-menu />
 

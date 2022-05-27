@@ -61,7 +61,7 @@
                         </div>
                     </a>
                     <ul
-                        class="{{url()->current() == route('admin.schedule') || url()->current() == route('admin.table') ? 'side-menu__sub-open' : '' }} ">
+                        class="{{ url()->current() == route('admin.schedule') || url()->current() == route('admin.table') || url()->current() == route('admin.clokingToday') || url()->current() == route('admin.clokingTomorrow') ? 'side-menu__sub-open' : '' }} ">
                         <li>
                             <a href="{{ route('admin.table') }}"
                                 class="{{ url()->current() == route('admin.table') ? 'side-menu--active' : '' }} side-menu">
@@ -77,15 +77,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.patients') }}"
-                                class="{{ url()->current() == route('admin.patients') ? 'side-menu--active' : '' }} side-menu">
+                            <a href="{{ route('admin.clokingToday') }}"
+                                class="{{ url()->current() == route('admin.clokingToday') ? 'side-menu--active' : '' }} side-menu">
                                 <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                                 <div class="side-menu__title"> Fichaje del día </div>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.patients') }}"
-                                class="{{ url()->current() == route('admin.patients') ? 'side-menu--active' : '' }} side-menu">
+                            <a href="{{ route('admin.clokingTomorrow') }}"
+                                class="{{ url()->current() == route('admin.clokingTomorrow') ? 'side-menu--active' : '' }} side-menu">
                                 <div class="side-menu__icon"> <i data-lucide="activity"></i> </div>
                                 <div class="side-menu__title"> Fichaje día mañana </div>
                             </a>
