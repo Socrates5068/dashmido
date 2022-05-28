@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Clocking;
 
 use Livewire\Component;
 use App\Models\TimeTable;
@@ -79,6 +79,6 @@ class Time extends Component
 
     public function render()
     {
-        return view('livewire.admin.time');
+        return view('livewire.admin.clocking.time');
     }
 }

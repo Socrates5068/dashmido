@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Clocking;
 
 use App\Models\Staff;
 use Livewire\Component;
@@ -97,6 +97,6 @@ class Schedules extends Component
         $schedules = Schedule::all();
         $departments = Department::all();
         
-        return view('livewire.admin.schedules', compact('times', 'staff', 'schedules', 'departments'))->layout('layouts.admin');
+        return view('livewire.admin.clocking.schedules', compact('times', 'staff', 'schedules', 'departments'))->layout('layouts.admin');
     }
 }

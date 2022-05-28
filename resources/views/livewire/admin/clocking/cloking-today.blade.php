@@ -180,7 +180,7 @@ use App\Models\Person;
         <div class="p-10">
             <div class="mb-2 alert alert-secondary show" role="alert">
                 <div class="flex items-center">
-                    <div class="text-lg font-medium">No existen horarios registrados para este departamento.</div>
+                    <div class="text-lg font-medium">No existen horarios registrados para esta Especialidad.</div>
                 </div>
                 <div class="mt-3">
                     <p>

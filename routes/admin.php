@@ -2,16 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Dashboard;
-use App\Http\Livewire\Admin\Schedules;
-use App\Http\Livewire\Admin\TableTime;
-use App\Http\Livewire\Admin\ClockingIn;
+use App\Http\Livewire\Admin\Clocking\Schedules;
+use App\Http\Livewire\Admin\Clocking\TableTime;
+use App\Http\Livewire\Admin\Clocking\ClockingIn;
 use App\Http\Livewire\Admin\Users\Users;
-use App\Http\Livewire\Admin\ClokingToday;
+use App\Http\Livewire\Admin\Clocking\ClokingToday;
 use App\Http\Livewire\Admin\Users\Patients;
 use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Controllers\Admin\ColorSchemeController;
-use App\Http\Livewire\Admin\ClokingTomorrow;
+use App\Http\Livewire\Admin\Clocking\ClokingTomorrow;
 
 /*
 |--------------------------------------------------------------------------

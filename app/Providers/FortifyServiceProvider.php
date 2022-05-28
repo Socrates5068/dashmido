@@ -53,7 +53,7 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 foreach(Auth()->user()->getRoleNames() as $rol){
                     if ($rol == 'Paciente') {
-                        return redirect('/');
+                        return redirect(route('cards'));
                     }
 
                     if ($rol == 'Médico') {

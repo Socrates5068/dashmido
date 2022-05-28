@@ -11632,7 +11632,7 @@ html body {
 
 .top-bar {
     height: 67px;
-    z-index: 40;
+    z-index: 50;
     position: relative;
     display: flex;
     align-items: center;
@@ -15762,6 +15762,7 @@ html body {
 }
 
 .toastify-content {
+    z-index: 51;
     border-radius: 0.5rem;
     border-width: 1px;
     border-color: rgb(var(--color-slate-200) / 0.6);

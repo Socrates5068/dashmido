@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Clocking;
 
 use App\Models\Ticket;
 use Livewire\Component;
@@ -26,6 +26,6 @@ class ClockingIn extends Component
             ->where('date', date("Y-m-d",strtotime(now()."+ 1 days"))) //delete 1 day for production
             ->get();
 
-        return view('livewire.admin.clocking-in', compact('tickets'))->layout('layouts.admin');
+        return view('livewire.admin.clocking.clocking-in', compact('tickets'))->layout('layouts.admin');
     }
 }

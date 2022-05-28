@@ -25,7 +25,7 @@ use App\Models\Staff;
         </div>
         <!-- END: Notification Content -->
     </x-notification-message>
-
+    
     <h2 class="mt-4 text-lg font-medium intro-y">
         Horarios para fichaje
     </h2>
@@ -47,11 +47,11 @@ use App\Models\Staff;
             </div>
 
             <div class="col-span-3">
-                <label>Departamento</label>
+                <label>Especialidad</label>
                 <div class="mt-2">
                     <select wire:model='department' data-placeholder="Select your favorite actors"
                         class="w-full form-control">
-                        <option value="" selected>Seleccionar departmento</option>
+                        <option value="" selected>Seleccionar especialidad</option>
                         @foreach ($departments as $department)
                             @if ($department->name !== 'Administración' && $department->name !== 'Enfermería')
                                 <option value="{{ $department->id }}">{{ $department->name }}
@@ -103,7 +103,7 @@ use App\Models\Staff;
                     <tr>
                         <th class="whitespace-nowrap">ID</th>
                         <th class="text-center whitespace-nowrap">HORARIO</th>
-                        <th class="text-center whitespace-nowrap">DEPARTAMENTO</th>
+                        <th class="text-center whitespace-nowrap">ESPECIALIDAD</th>
                         <th class="text-center whitespace-nowrap">MÉDICO</th>
                         <th class="text-center whitespace-nowrap">ACCIONES</th>
                     </tr>

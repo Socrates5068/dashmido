@@ -106,7 +106,7 @@
                         </table>
                     </div>
                     <div wire:ignore>
-                        @livewire('admin.time', ['schedule' => $schedule])
+                        @livewire('admin.clocking.time', ['schedule' => $schedule])
                     </div>
                 </div>
             </div>

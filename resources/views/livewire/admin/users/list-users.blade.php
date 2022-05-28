@@ -360,7 +360,7 @@
                         <x-jet-input-error for="role" />
                     </div>
                     <div class="mt-3">
-                        <label for="department" class="form-label">*Asignar un departamento</label>
+                        <label for="department" class="form-label">*Asignar una especialidad</label>
                         <select wire:model="user.department" data-placeholder="Select your favorite actors"
                             class="w-full form-control" id="role">
                             <option value=" " selected>Seleccione un departemento</option>
@@ -473,7 +473,7 @@
                         </select>
                     </div>
                     <div class="mt-3">
-                        <label for="department" class="form-label">*Asignar un departamento</label>
+                        <label for="department" class="form-label">*Asignar una especialidad</label>
                         <select wire:model="user.department" data-placeholder="Select your favorite actors"
                             class="w-full form-control" id="role">
                             <option value=" " selected>Seleccione un departemento</option>

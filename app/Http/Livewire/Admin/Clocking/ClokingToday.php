@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Clocking;
 
 use App\Models\Card;
 use App\Models\Person;
@@ -107,6 +107,6 @@ class ClokingToday extends Component
             ->where('date', date("Y-m-d",strtotime(now())))
             ->get();
             
-        return view('livewire.admin.cloking-today', compact('tickets'))->layout('layouts.admin');
+        return view('livewire.admin.clocking.cloking-today', compact('tickets'))->layout('layouts.admin');
     }
 }

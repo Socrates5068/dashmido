@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Admin\Clocking;
 
 use App\Models\Schedule;
 use Livewire\Component;
@@ -69,6 +69,6 @@ class TableTime extends Component
     public function render()
     {
         $schedules = TimeTable::all();
-        return view('livewire.admin.table-time', compact('schedules'))->layout('layouts.admin');
+        return view('livewire.admin.clocking.table-time', compact('schedules'))->layout('layouts.admin');
     }
 }

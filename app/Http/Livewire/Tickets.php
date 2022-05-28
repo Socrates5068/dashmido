@@ -42,6 +42,8 @@ class Tickets extends Component
         $card->doctor_id = $ticket->doctor_id;
         $card->department_id = $ticket->department_id;
         $card->save();
+
+        $this->emit("save");
     }
 
     public function render()

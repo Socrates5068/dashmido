@@ -1,7 +1,7 @@
 <!-- BEGIN: Top Bar -->
 <div class="top-bar">
     <!-- BEGIN: Breadcrumb -->
-    <nav aria-label="breadcrumb" class="-intro-x mr-auto hidden sm:flex">
+    <nav aria-label="breadcrumb" class="hidden mr-auto -intro-x sm:flex">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">{{ $application }}</li>
             <li class="breadcrumb-item active" aria-current="page">{{ $content1 }}</li>
@@ -19,11 +19,11 @@
     <!-- END: Breadcrumb -->
 
     <!-- BEGIN: Search -->
-    <div x-data="{ message: '' }" class="intro-x relative mr-3 sm:mr-6">
+    <div x-data="{ message: '' }" class="relative mr-3 intro-x sm:mr-6">
         <div class="search sm:block">
-            <input type="text" class="hidden md:block search__input form-control border-transparent" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
+            <input type="text" class="hidden border-transparent md:block search__input form-control" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
 
-            <input type="text" class="md:hidden form-control border-transparent" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
+            <input type="text" class="border-transparent md:hidden form-control" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
             <i data-lucide="search" class="search__icon dark:text-slate-500"></i>
         </div>
         {{-- <a class="notification sm:hidden" href=""> <i data-lucide="search"
@@ -34,18 +34,18 @@
                 <div class="mb-5">
                     <a href="" class="flex items-center">
                         <div
-                            class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full">
+                            class="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success">
                             <i class="w-4 h-4" data-lucide="inbox"></i> </div>
                         <div class="ml-3">Mail Settings</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
-                        <div class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending">
                             <i class="w-4 h-4" data-lucide="users"></i> </div>
                         <div class="ml-3">Users & Permissions</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
                         <div
-                            class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full">
+                            class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80">
                             <i class="w-4 h-4" data-lucide="credit-card"></i> </div>
                         <div class="ml-3">Transactions Report</div>
                     </a>
@@ -58,7 +58,7 @@
                                 src="dist/images/profile-6.jpg">
                         </div>
                         <div class="ml-3">Angelina Jolie</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">angelinajolie@left4code.com
+                        <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">angelinajolie@left4code.com
                         </div>
                     </a>
                     <a href="" class="flex items-center mt-2">
@@ -67,7 +67,7 @@
                                 src="dist/images/profile-5.jpg">
                         </div>
                         <div class="ml-3">Leonardo DiCaprio</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
+                        <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">
                             leonardodicaprio@left4code.com</div>
                     </a>
                     <a href="" class="flex items-center mt-2">
@@ -76,7 +76,7 @@
                                 src="dist/images/profile-5.jpg">
                         </div>
                         <div class="ml-3">Johnny Depp</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">johnnydepp@left4code.com
+                        <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">johnnydepp@left4code.com
                         </div>
                     </a>
                     <a href="" class="flex items-center mt-2">
@@ -85,7 +85,7 @@
                                 src="dist/images/profile-4.jpg">
                         </div>
                         <div class="ml-3">Denzel Washington</div>
-                        <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">
+                        <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">
                             denzelwashington@left4code.com</div>
                     </a>
                 </div>
@@ -95,28 +95,28 @@
                         <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-5.jpg">
                     </div>
                     <div class="ml-3">Nike Air Max 270</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor</div>
+                    <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">Sport &amp; Outdoor</div>
                 </a>
                 <a href="" class="flex items-center mt-2">
                     <div class="w-8 h-8 image-fit">
                         <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-3.jpg">
                     </div>
                     <div class="ml-3">Sony A7 III</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Photography</div>
+                    <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">Photography</div>
                 </a>
                 <a href="" class="flex items-center mt-2">
                     <div class="w-8 h-8 image-fit">
                         <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-15.jpg">
                     </div>
                     <div class="ml-3">Samsung Q90 QLED TV</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Electronic</div>
+                    <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">Electronic</div>
                 </a>
                 <a href="" class="flex items-center mt-2">
                     <div class="w-8 h-8 image-fit">
                         <img alt="Midone - HTML Admin Template" class="rounded-full" src="dist/images/preview-2.jpg">
                     </div>
                     <div class="ml-3">Nike Tanjun</div>
-                    <div class="ml-auto w-48 truncate text-slate-500 text-xs text-right">Sport &amp; Outdoor</div>
+                    <div class="w-48 ml-auto text-xs text-right truncate text-slate-500">Sport &amp; Outdoor</div>
                 </a>
             </div>
         </div> --}}
@@ -124,99 +124,99 @@
     <!-- END: Search -->
 
     <!-- BEGIN: Notifications -->
-    <div class="intro-x dropdown mr-auto sm:mr-6">
-        <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <div class="mr-auto intro-x dropdown sm:mr-6">
+        <div class="cursor-pointer dropdown-toggle notification notification--bullet" role="button" aria-expanded="false" data-tw-toggle="dropdown"> <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg></div>
         
-        {{-- <div class="notification-content pt-2 dropdown-menu">
+        {{-- <div class="pt-2 notification-content dropdown-menu">
             <div class="notification-content__box dropdown-content">
                 <div class="notification-content__title">Notifications</div>
-                <div class="cursor-pointer relative flex items-center ">
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="relative flex items-center cursor-pointer ">
+                    <div class="flex-none w-12 h-12 mr-1 image-fit">
                         <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
                             src="dist/images/profile-5.jpg">
                         <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                            class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600">
                         </div>
                     </div>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
-                            <a href="javascript:;" class="font-medium truncate mr-5">Arnold
+                            <a href="javascript:;" class="mr-5 font-medium truncate">Arnold
                                 Schwarzenegger</a>
-                            <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">03:20 PM</div>
+                            <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">03:20 PM</div>
                         </div>
                         <div class="w-full truncate text-slate-500 mt-0.5">It is a long established fact
                             that a reader will be distracted by the readable content of a page when looking
                             at its layout. The point of using Lorem </div>
                     </div>
                 </div>
-                <div class="cursor-pointer relative flex items-center mt-5">
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="relative flex items-center mt-5 cursor-pointer">
+                    <div class="flex-none w-12 h-12 mr-1 image-fit">
                         <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
                             src="dist/images/profile-4.jpg">
                         <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                            class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600">
                         </div>
                     </div>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
-                            <a href="javascript:;" class="font-medium truncate mr-5">Kevin Spacey</a>
-                            <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">06:05 AM</div>
+                            <a href="javascript:;" class="mr-5 font-medium truncate">Kevin Spacey</a>
+                            <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">06:05 AM</div>
                         </div>
                         <div class="w-full truncate text-slate-500 mt-0.5">There are many variations of
                             passages of Lorem Ipsum available, but the majority have suffered alteration in
                             some form, by injected humour, or randomi</div>
                     </div>
                 </div>
-                <div class="cursor-pointer relative flex items-center mt-5">
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="relative flex items-center mt-5 cursor-pointer">
+                    <div class="flex-none w-12 h-12 mr-1 image-fit">
                         <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
                             src="dist/images/profile-3.jpg">
                         <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                            class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600">
                         </div>
                     </div>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
-                            <a href="javascript:;" class="font-medium truncate mr-5">Kevin Spacey</a>
-                            <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">01:10 PM</div>
+                            <a href="javascript:;" class="mr-5 font-medium truncate">Kevin Spacey</a>
+                            <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">01:10 PM</div>
                         </div>
                         <div class="w-full truncate text-slate-500 mt-0.5">Lorem Ipsum is simply dummy text
                             of the printing and typesetting industry. Lorem Ipsum has been the
                             industry&#039;s standard dummy text ever since the 1500</div>
                     </div>
                 </div>
-                <div class="cursor-pointer relative flex items-center mt-5">
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="relative flex items-center mt-5 cursor-pointer">
+                    <div class="flex-none w-12 h-12 mr-1 image-fit">
                         <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
                             src="dist/images/profile-10.jpg">
                         <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                            class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600">
                         </div>
                     </div>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
-                            <a href="javascript:;" class="font-medium truncate mr-5">Keanu Reeves</a>
-                            <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">05:09 AM</div>
+                            <a href="javascript:;" class="mr-5 font-medium truncate">Keanu Reeves</a>
+                            <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">05:09 AM</div>
                         </div>
                         <div class="w-full truncate text-slate-500 mt-0.5">It is a long established fact
                             that a reader will be distracted by the readable content of a page when looking
                             at its layout. The point of using Lorem </div>
                     </div>
                 </div>
-                <div class="cursor-pointer relative flex items-center mt-5">
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                <div class="relative flex items-center mt-5 cursor-pointer">
+                    <div class="flex-none w-12 h-12 mr-1 image-fit">
                         <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
                             src="dist/images/profile-6.jpg">
                         <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                            class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success dark:border-darkmode-600">
                         </div>
                     </div>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
-                            <a href="javascript:;" class="font-medium truncate mr-5">John Travolta</a>
-                            <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">01:10 PM</div>
+                            <a href="javascript:;" class="mr-5 font-medium truncate">John Travolta</a>
+                            <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">01:10 PM</div>
                         </div>
                         <div class="w-full truncate text-slate-500 mt-0.5">There are many variations of
                             passages of Lorem Ipsum available, but the majority have suffered alteration in
@@ -229,13 +229,13 @@
     <!-- END: Notifications -->
 
     <!-- BEGIN: Account Menu -->
-    {{-- <div class="intro-x dropdown w-8 h-8">
-        <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
+    {{-- <div class="w-8 h-8 intro-x dropdown">
+        <div class="w-8 h-8 overflow-hidden rounded-full shadow-lg dropdown-toggle image-fit zoom-in"
             role="button" aria-expanded="false" data-tw-toggle="dropdown">
             <img alt="Rubick Tailwind HTML Admin Template" src="{{asset('midone/dist/images/profile-8.jpg')}}">
 </div>
-<div class="dropdown-menu w-56">
-    <ul class="dropdown-content bg-primary text-white">
+<div class="w-56 dropdown-menu">
+    <ul class="text-white dropdown-content bg-primary">
         <li class="p-2">
             <div class="font-medium">Arnold Schwarzenegger</div>
             <div class="text-xs text-white/70 mt-0.5 dark:text-slate-500">Frontend Engineer</div>
@@ -269,12 +269,12 @@
     <x-jet-dropdown align="right" width="48">
         <x-slot name="trigger">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+            <button class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
+                <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
             </button>
             @else
             <span class="inline-flex rounded-md">
-                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
                     {{ Auth::user()->name }}
 
                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
