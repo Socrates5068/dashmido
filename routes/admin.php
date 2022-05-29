@@ -12,6 +12,8 @@ use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Controllers\Admin\ColorSchemeController;
 use App\Http\Livewire\Admin\Clocking\ClokingTomorrow;
+use App\Http\Livewire\Admin\History\Template;
+use App\Http\Livewire\Admin\Profile\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +41,4 @@ Route::get('/horarios/manana', ClokingTomorrow::class)->name('admin.clokingTomor
 
 //routes staff
 Route::get('/fichaje', ClockingIn::class)->name('admin.clocking');
+Route::get('/historial/{person}', Template::class)->name('admin.history');

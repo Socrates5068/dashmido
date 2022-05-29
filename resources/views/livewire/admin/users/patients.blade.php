@@ -44,7 +44,7 @@
                             <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full" src="{{ $user->user->profile_photo_url }}">
                         </div>
                         <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
-                            <a href="" class="font-medium">{{ $user->name }}</a>
+                            <a href="{{ route('admin.history', $user->id) }}" class="font-medium">{{ $user->name }}</a>
                             <div class="text-slate-500 text-xs mt-0.5">{{ $user->user->getRoleNames()->first() }}</div>
                         </div>
                         <div class="flex mt-4 lg:mt-0">
