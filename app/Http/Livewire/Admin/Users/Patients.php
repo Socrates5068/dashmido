@@ -104,6 +104,7 @@ class Patients extends Component
         $patient->height = $this->user['height'];
         $patient->old = $this->user['old'];
         $patient->save();
+        $patient->createMedicalHistory($patient->id);
 
         $user = new User;
         $user->person_id = $person->id;

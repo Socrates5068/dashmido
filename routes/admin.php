@@ -1,19 +1,20 @@
 <?php
 
+use App\Http\Controllers\PDFExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Admin\Dashboard;
+use App\Http\Livewire\Admin\Users\Users;
+use App\Http\Livewire\Admin\Users\Patients;
+use App\Http\Livewire\Admin\Profile\Profile;
+use App\Http\Livewire\Admin\Users\Positions;
+use App\Http\Livewire\Admin\History\Template;
 use App\Http\Livewire\Admin\Clocking\Schedules;
 use App\Http\Livewire\Admin\Clocking\TableTime;
 use App\Http\Livewire\Admin\Clocking\ClockingIn;
-use App\Http\Livewire\Admin\Users\Users;
-use App\Http\Livewire\Admin\Clocking\ClokingToday;
-use App\Http\Livewire\Admin\Users\Patients;
-use App\Http\Livewire\Admin\Users\Positions;
 use App\Http\Controllers\Admin\DarkModeController;
+use App\Http\Livewire\Admin\Clocking\ClokingToday;
 use App\Http\Controllers\Admin\ColorSchemeController;
 use App\Http\Livewire\Admin\Clocking\ClokingTomorrow;
-use App\Http\Livewire\Admin\History\Template;
-use App\Http\Livewire\Admin\Profile\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,7 @@ Route::get('/horarios/manana', ClokingTomorrow::class)->name('admin.clokingTomor
 //routes staff
 Route::get('/fichaje', ClockingIn::class)->name('admin.clocking');
 Route::get('/historial/{person}', Template::class)->name('admin.history');
+
+//PDFExport
+Route::get('/receta/{id}', [PDFExport::class, 'show']);
+Route::get('/PDFreceta/{id}', [PDFExport::class, 'recipe'])->name('admin.recipe');

@@ -7,11 +7,17 @@ use Livewire\Component;
 
 class Template extends Component
 {
-    public $person;
+    public $person, $menu;
 
     public function mount(Person $person)
     {
+        $this->menu = 2;
         $this->person = $person;
+    }
+
+    public function menu($value)
+    {
+        $this->menu = $value;
     }
 
     public function render()

@@ -7,29 +7,47 @@
         <div wire:ignore>
             @livewire('admin.history.profile', ['person' => $person])
         </div>
+
         <div class="mt-5 intro-y box">
             <ul class="flex-col justify-center text-center nav nav-link-tabs sm:flex-row lg:justify-start" role="tablist">
-                <li id="profile-tab" class="nav-item" role="presentation">
-                    <a href="javascript:;" class="flex items-center py-4 nav-link active" data-tw-target="#profile"
-                        aria-controls="profile" aria-selected="true" role="tab"> <i class="w-4 h-4 mr-2"
-                            data-lucide="user"></i> Profile </a>
+                <li wire:click='menu(1)' class="{{ $menu == 1 ? 'nav-item' : '' }}" role="presentation">
+                    <a wire:ignore href="javascript:;" class="flex items-center py-4 nav-link active"
+                        data-tw-target="#profile" aria-controls="profile" aria-selected="true" role="tab"> <i
+                            class="w-4 h-4 mr-2" data-lucide="user"></i> Historia clínica </a>
                 </li>
-                <li id="account-tab" class="nav-item" role="presentation">
-                    <a href="javascript:;" class="flex items-center py-4 nav-link" data-tw-target="#account"
-                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Account
+                <li wire:click='menu(2)' class="{{ $menu == 2 ? 'nav-item' : '' }}" role="presentation">
+                    <a wire:ignore href="javascript:;" class="flex items-center py-4 nav-link active" data-tw-target="#account"
+                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Consultas
                     </a>
                 </li>
-                <li id="change-password-tab" class="nav-item" role="presentation">
-                    <a href="javascript:;" class="flex items-center py-4 nav-link" data-tw-target="#change-password"
-                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="lock"></i> Change
-                        Password </a>
-                </li>
-                <li id="settings-tab" class="nav-item" role="presentation">
-                    <a href="javascript:;" class="flex items-center py-4 nav-link" data-tw-target="#settings"
-                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="settings"></i>
-                        Settings </a>
+                <li wire:click='menu(3)' class="{{ $menu == 3 ? 'nav-item' : '' }}" role="presentation">
+                    <a wire:ignore href="javascript:;" class="flex items-center py-4 nav-link active"
+                        data-tw-target="#change-password" aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2"
+                            data-lucide="lock"></i> Recetas </a>
                 </li>
             </ul>
+        </div>
+
+        <div class="{{ $menu == 1 ? 'block' : 'hidden' }}">
+            <div wire:ignore>
+                @livewire('admin.history.precedents', ['patient_id' => $person->patient->id])
+            </div>
+
+            <div wire:ignore>
+                @livewire('admin.history.non-pathological-precedents', ['patient_id' => $person->patient->id])
+            </div>
+        </div>
+
+        <div class="{{ $menu == 2 ? 'block' : 'hidden' }}">
+            <div wire:ignore>
+                @livewire('admin.consultation.medical-consultation', ['patient_id' => $person->patient->id])
+            </div>
+        </div>
+
+        <div class="{{ $menu == 3 ? 'block' : 'hidden' }}">
+            <div wire:ignore>
+                @livewire('admin.recipe.recipes', ['patient_id' => $person->patient->id])
+            </div>
         </div>
     @else
         <div wire:ignore>

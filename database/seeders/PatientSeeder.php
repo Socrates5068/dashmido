@@ -17,9 +17,9 @@ class PatientSeeder extends Seeder
     {
         Patient::create([
             'person_id' => 6,
-            'blood_type' => 'O',
-            'weight' => '70 kg',
-            'height' => '156 cm',
+            'blood_type' => 'B-',
+            'weight' => '70',
+            'height' => '1.56',
             'old' => 30,
         ]);
         

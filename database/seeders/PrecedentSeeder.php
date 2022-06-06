@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace Database\Seeders;
 
-use App\Models\Card;
-use App\Models\Person;
-use App\Models\Recipe;
+use App\Models\Precedent;
+use Illuminate\Database\Seeder;
 use App\Models\PersonalPrecedent;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\NonPathologicalPrecedent;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class Patient extends Model
+class PrecedentSeeder extends Seeder
 {
-    use HasFactory;
-    
-    public function createMedicalHistory($id)
+    public function run()
     {
         $array = [
             'Diabetes' => array(false, false, false, false, false,),
@@ -30,30 +26,16 @@ class Patient extends Model
         ];
 
         $precedent = new Precedent();
-        $precedent->patient_id = $id;
+        $precedent->patient_id = 1;
         $precedent->familiar = json_encode($array);
         $precedent->save();
 
         $personalPrecedent = new PersonalPrecedent();
-        $personalPrecedent->patient_id = $id;
+        $personalPrecedent->patient_id = 1;
         $personalPrecedent->save();
 
         $nonPathologicalPrecedent = new NonPathologicalPrecedent();
-        $nonPathologicalPrecedent->patient_id = $id;
+        $nonPathologicalPrecedent->patient_id = 1;
         $nonPathologicalPrecedent->save();
-    }
-
-    public function person(){
-        return $this->belongsTo(Person::class);
-    }
-
-    public function card()
-    {
-        return $this->hasMany(Card::class);
-    }
-
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
     }
 }

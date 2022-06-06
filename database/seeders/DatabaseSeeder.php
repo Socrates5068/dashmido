@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TimeTableSeeder::class);
         $this->call(ScheduleSeeder::class);
         $this->call(CardSeeder::class);
+        $this->call(PrecedentSeeder::class);
+        $this->call(ConsultationSeeder::class);
         // $this->call(PositionSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
