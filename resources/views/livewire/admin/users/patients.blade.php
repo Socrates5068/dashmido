@@ -11,7 +11,7 @@
             <div class="w-full max-w-lg mx-auto mt-6 alert alert-danger show" role="alert">Eliminación exitosa</div>
         </x-jet-action-message>
         <h2 class="mt-10 text-lg font-medium intro-y">
-            Pacientes {{ $aux }}
+            Pacientes
         </h2>
 
         <div class="flex flex-wrap items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
@@ -55,12 +55,12 @@
                                         @isset($user->user->email_verified_at)
                                             <button wire:click="register('{{ $user->id }}')"
                                                 class="px-2 py-1 mr-2 btn btn-success">
-                                                Alta
+                                                Activo
                                             </button>
                                         @else
                                             <button wire:click="register('{{ $user->id }}')"
                                                 class="px-2 py-1 mr-2 btn btn-danger">
-                                                Baja
+                                                Inactivo
                                             </button>
                                         @endisset
                                     @endcan
@@ -215,7 +215,7 @@
                                 <label for="username" class="form-label">Nombre de usuario</label>
                                 <input disabled wire:model="user.ci" id="username" type="text" class="form-control"">
                             </div>
-                            <div class=" mt-3 ">
+                            <div class="mt-3 ">
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input wire:model="user.ci" id="password" type="text" class="form-control" disabled>
                             </div>

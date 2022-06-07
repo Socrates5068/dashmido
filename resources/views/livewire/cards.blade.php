@@ -3,14 +3,14 @@ use App\Models\Department;
 use App\Models\Person;
 @endphp
 <div>
-    <div class="mt-10 container overflow-hidden rounded-lg bg-white">
+    <div class="container mt-10 overflow-hidden bg-white rounded-lg">
         <!-- component -->
         <!-- This is an example component -->
-        <div class="mb-10 max-w-2xl mx-auto">
-            <h1 class="intro-y text-xl font-medium mt-10">
+        <div class="max-w-2xl mx-auto mb-10">
+            <h1 class="mt-10 text-xl font-medium intro-y">
                 Mis fichas
             </h1>
-            <div class="mt-6 mb-6 relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="relative mt-6 mb-6 overflow-x-auto shadow-md sm:rounded-lg">
                 {{-- <div class="p-4">
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative mt-1">
@@ -66,7 +66,7 @@ use App\Models\Person;
                     </tbody>
                 </table>
             </div>
-            {{ $cards->links() }}
+            {{-- {{ $cards->links() }} --}}
         </div>
     </div>
     @push('scripts')

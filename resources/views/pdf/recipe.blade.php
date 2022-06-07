@@ -180,7 +180,7 @@
             </div>
         </div>
 
-        <div class="h-50">
+        <div>
             {!!  $recipe->description  !!}
         </div>
 
@@ -201,7 +201,7 @@
             </div>
         </div>
 
-        <div style="margin-bottom: 0px">&nbsp;</div>
+        {{-- <div style="margin-bottom: 0px">&nbsp;</div>
 
         <div class="row">
             <div class="col-xs-8 invbody-terms">
@@ -212,7 +212,7 @@
                     quam ipsa sit sed enim nam dicta. Soluta eaque rem necessitatibus commodi, autem facilis iusto
                     impedit!</p>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 </body>

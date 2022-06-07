@@ -52,7 +52,8 @@ use App\Models\Person;
                     <thead>
                         <tr>
                             <th class="whitespace-nowrap">
-                                Médico
+                                Fecha
+                            </th>
                             </th>
                             <th class="whitespace-nowrap">
                                 Hora
@@ -71,6 +72,9 @@ use App\Models\Person;
                     <tbody>
                         @foreach ($tickets as $ticket)
                             <tr>
+                                <td>
+                                    {{ $ticket->date }}
+                                </td>
                                 <td>
                                     {{ Person::find($ticket->doctor_id)->name }}
                                     {{ Person::find($ticket->doctor_id)->f_last_name }}

@@ -17,7 +17,7 @@
                 </li>
                 <li wire:click='menu(2)' class="{{ $menu == 2 ? 'nav-item' : '' }}" role="presentation">
                     <a wire:ignore href="javascript:;" class="flex items-center py-4 nav-link active" data-tw-target="#account"
-                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Consultas
+                        aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Diagnosticos
                     </a>
                 </li>
                 <li wire:click='menu(3)' class="{{ $menu == 3 ? 'nav-item' : '' }}" role="presentation">

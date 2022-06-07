@@ -12,7 +12,11 @@ class Cards extends Component
 
     public function render()
     {
-        $cards = Card::where('patient_id', auth()->user()->person->patient->id)->orderBy('id', 'desc')->paginate(5);
+        $today = date("Y-m-d", strtotime(now()));
+        $tomorrow = date("Y-m-d", strtotime(now() . " + 1 days"));
+        $cards = Card::where('patient_id', auth()->user()->person->patient->id)
+            ->whereBetween('date', [$today, $tomorrow])
+            ->orderBy('id', 'desc')->get();
 
         return view('livewire.cards', compact('cards'));
     }

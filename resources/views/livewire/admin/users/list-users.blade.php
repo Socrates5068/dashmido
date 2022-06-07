@@ -72,11 +72,11 @@
                         <div class="flex mt-4 lg:mt-0">
                             @isset($user->user->email_verified_at)
                                 <button wire:click="register('{{ $user->id }}')" class="px-2 py-1 mr-2 btn btn-success">    
-                                    Alta
+                                    Activo
                                 </button>
                             @else
                                 <button wire:click="register('{{ $user->id }}')" class="px-2 py-1 mr-2 btn btn-danger">    
-                                    Baja
+                                    Inactivo
                                 </button>
                             @endisset
                             </button>
