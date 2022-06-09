@@ -25,7 +25,7 @@ use App\Models\Staff;
         </div>
         <!-- END: Notification Content -->
     </x-notification-message>
-    
+
     <h2 class="mt-4 text-lg font-medium intro-y">
         Horarios para fichaje
     </h2>
@@ -49,7 +49,7 @@ use App\Models\Staff;
             <div class="col-span-3">
                 <label>Especialidad</label>
                 <div class="mt-2">
-                    <select wire:model='department' data-placeholder="Select your favorite actors"
+                    <select wire:model='department' onchange="setDepartment()" id="departments" data-placeholder="Select your favorite actors"
                         class="w-full form-control">
                         <option value="" selected>Seleccionar especialidad</option>
                         @foreach ($departments as $department)
@@ -66,7 +66,27 @@ use App\Models\Staff;
             <div class="col-span-3">
                 <label>Personal</label>
                 <div class="mt-2">
-                    <select wire:model='personal' data-placeholder="Select your favorite actors"
+                    @if (!is_null($selectedDepartment))
+                        <select wire:model='personal' id="personal"
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <option value="" selected>Selecciona un médico</option>
+                            @foreach ($selectedDepartment->staff as $staf)
+                                @if ($staf->person->id !== 1 && $staf->person->user->getRoleNames()->first() !== 'Enfermera')
+                                    <option value="{{ $staf->id }}">{{ $staf->person->name }}
+                                        ({{ $staf->department->name }})
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="personal" />
+                    @else
+                        <select disabled
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            name="state">
+                            <option value="" disabled selected>Selecciona un medico</option>
+                        </select>
+                    @endif
+                    {{-- <select wire:model='personal' data-placeholder="Select your favorite actors"
                         class="w-full form-control">
                         <option value="" selected>Seleccionar médico</option>
                         @foreach ($staff as $staf)
@@ -77,7 +97,7 @@ use App\Models\Staff;
                             @endif
                         @endforeach
                     </select>
-                    <x-jet-input-error for="personal" />
+                    <x-jet-input-error for="personal" /> --}}
                 </div>
             </div>
 
@@ -119,7 +139,8 @@ use App\Models\Staff;
                                     class="font-medium whitespace-nowrap">{{ TimeTable::find($schedule->timeTable_id)->name }}</a>
                                 {{-- <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div> --}}
                             </td>
-                            <td class="font-medium text-center">{{ Department::find($schedule->department_id)->name }}</td>
+                            <td class="font-medium text-center">
+                                {{ Department::find($schedule->department_id)->name }}</td>
                             <td class="w-40">
                                 <a href=""
                                     class="font-medium whitespace-nowrap">{{ Staff::find($schedule->doctor_id)->person->name }}
@@ -162,4 +183,14 @@ use App\Models\Staff;
             </table>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            function setDepartment() {
+                var department = document.getElementById('departments');
+                var selectedDepartment = department.options[department.selectedIndex].value;
+                // console.log(selectedDepartment)
+                Livewire.emit('selectDepartment', selectedDepartment)
+            }
+        </script>
+    @endpush
 </div>

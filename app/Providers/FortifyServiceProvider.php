@@ -59,6 +59,10 @@ class FortifyServiceProvider extends ServiceProvider
                     if ($rol == 'Médico') {
                         return redirect(route('admin.clocking'));
                     }
+
+                    if ($rol == 'Enfermera') {
+                        return redirect(route('admin.infirmary'));
+                    }
                 }                          
                
                 return redirect(route('admin.dashboard'));

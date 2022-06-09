@@ -45,7 +45,7 @@
                                         src="{{ $user->user->profile_photo_url }}">
                                 </div>
                                 <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
-                                    <a href="{{ route('admin.history', $user->id) }}"
+                                    <a {{-- href="{{ route('admin.history', $user->id) }}" --}}
                                         class="font-medium">{{ $user->name }}</a>
                                     <div class="text-slate-500 text-xs mt-0.5">
                                         {{ $user->user->getRoleNames()->first() }}</div>

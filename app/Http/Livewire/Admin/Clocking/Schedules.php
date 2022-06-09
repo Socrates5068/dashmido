@@ -10,7 +10,9 @@ use App\Models\Department;
 
 class Schedules extends Component
 {
-    public $personal, $time, $department, $aux;
+    public $personal, $time, $department, $aux, $selectedDepartment;
+
+    protected $listeners = ['selectDepartment'];
 
     public function save()
     {
@@ -88,6 +90,13 @@ class Schedules extends Component
     public function resetVariables()
     {
         $this->reset('personal', 'time', 'department', 'aux');
+    }
+
+    public function selectDepartment(Department $department)
+    {
+        if (!is_null($department)) {
+            $this->selectedDepartment = $department;
+        }
     }
 
     public function render()

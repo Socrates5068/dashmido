@@ -23,7 +23,7 @@ use App\Models\Staff;
 
     <div class="{{ $show == 0 ? 'block' : 'hidden' }} intro-y">
         <div class="mt-4">
-            <button x-on:click="$wire.set('show', 1)" class="btn btn-sm btn-primary w-30 mr-1 mb-2">+ Nueva
+            <button x-on:click="$wire.set('show', 1)" class="mb-2 mr-1 btn btn-sm btn-primary w-30">+ Nueva
                 receta</button>
         </div>
         @if ($recipes->count())
@@ -64,10 +64,10 @@ use App\Models\Staff;
                                         {{ Staff::find($recipe->staff_id)->person->f_last_name }}
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-primary w-24 inline-block mr-1 mb-2">
+                                        <button class="inline-block w-24 mb-2 mr-1 btn btn-sm btn-outline-primary">
                                             Editar
                                         </button>
-                                        <a href="{{ route('admin.recipe', $recipe->id) }}" class="btn btn-sm btn-dark w-24 inline-block mr-1 mb-2">
+                                        <a href="{{ route('admin.recipe', $recipe->id) }}" class="inline-block w-24 mb-2 mr-1 btn btn-sm btn-dark">
                                             Imprimir
                                         </a>
                                     </td>   
@@ -78,7 +78,7 @@ use App\Models\Staff;
                 </div>
             </div>
             <!-- ====== Table Section End -->
-            <nav class="hidden mt-4 w-full md:block">
+            <nav class="hidden w-full mt-4 md:block">
                 {{ $recipes->links() }}
             </nav>
             <nav class="w-full mt-4 sm:w-auto sm:mr-auto md:hidden">
@@ -103,32 +103,32 @@ use App\Models\Staff;
     </div>
 
     <div class="{{ $show == 1 ? 'block' : 'hidden' }} px-5 pt-5 intro-y">
-        <div class="intro-y flex flex-col sm:flex-row items-center mt-2">
-            <h2 class="text-lg font-medium mr-auto">
+        <div class="flex flex-col items-center mt-2 intro-y sm:flex-row">
+            <h2 class="mr-auto text-lg font-medium">
                 Nueva receta
             </h2>
-            <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
                 <button @click="$wire.set('show', 0,), cleanRecipe()"
-                    class="mr-4 dropdown-toggle btn btn-danger shadow-md flex items-center" aria-expanded="false"
+                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-danger" aria-expanded="false"
                     data-tw-toggle="dropdown"> Cancelar
                 </button>
-                <button @click="saveRecipe" class="mr-4 dropdown-toggle btn btn-primary shadow-md flex items-center"
+                <button @click="saveRecipe" class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-primary"
                     aria-expanded="false" data-tw-toggle="dropdown"> Guardar
                 </button>
-                <button class="mr-4 dropdown-toggle btn btn-secondary shadow-md flex items-center" aria-expanded="false"
+                <button class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-secondary" aria-expanded="false"
                     data-tw-toggle="dropdown"> Imprimir
                 </button>
             </div>
         </div>
-        <div class="post intro-y gap-5 mt-5">
+        <div class="gap-5 mt-5 post intro-y">
             <!-- BEGIN: Post Content -->
             <div class="intro-y lg:col-span-8">
-                <div class="post intro-y overflow-hidden box mt-5">
+                <div class="mt-5 overflow-hidden post intro-y box">
                     <div class="post__content tab-content">
-                        <div id="content" class="tab-pane p-5 active" role="tabpanel" aria-labelledby="content-tab">
-                            <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+                        <div id="content" class="p-5 tab-pane active" role="tabpanel" aria-labelledby="content-tab">
+                            <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                                 <div
-                                    class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+                                    class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                                     Descripción
                                 </div>
                                 <div wire:ignore class="mt-5">
@@ -151,9 +151,9 @@ use App\Models\Staff;
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="border border-slate-200/60 dark:border-darkmode-400 rounded-md p-5 mt-5">
+                            {{-- <div class="p-5 mt-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                                 <div
-                                    class="font-medium flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5">
+                                    class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                                     <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Caption & Images
                                 </div>
                                 <div class="mt-5">
@@ -164,50 +164,50 @@ use App\Models\Staff;
                                     </div>
                                     <div class="mt-3">
                                         <label class="form-label">Upload Image</label>
-                                        <div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
+                                        <div class="pt-4 border-2 border-dashed rounded-md dark:border-darkmode-400">
                                             <div class="flex flex-wrap px-4">
                                                 <div
-                                                    class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
+                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
                                                     <img class="rounded-md" alt="Midone - HTML Admin Template"
                                                         src="dist/images/preview-4.jpg">
                                                     <div title="Remove this image?"
-                                                        class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2">
+                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
                                                         <i data-lucide="x" class="w-4 h-4"></i>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
+                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
                                                     <img class="rounded-md" alt="Midone - HTML Admin Template"
                                                         src="dist/images/preview-12.jpg">
                                                     <div title="Remove this image?"
-                                                        class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2">
+                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
                                                         <i data-lucide="x" class="w-4 h-4"></i>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
+                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
                                                     <img class="rounded-md" alt="Midone - HTML Admin Template"
                                                         src="dist/images/preview-7.jpg">
                                                     <div title="Remove this image?"
-                                                        class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2">
+                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
                                                         <i data-lucide="x" class="w-4 h-4"></i>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in">
+                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
                                                     <img class="rounded-md" alt="Midone - HTML Admin Template"
                                                         src="dist/images/preview-2.jpg">
                                                     <div title="Remove this image?"
-                                                        class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2">
+                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
                                                         <i data-lucide="x" class="w-4 h-4"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="px-4 pb-4 flex items-center cursor-pointer relative">
+                                            <div class="relative flex items-center px-4 pb-4 cursor-pointer">
                                                 <i data-lucide="image" class="w-4 h-4 mr-2"></i> <span
-                                                    class="text-primary mr-1">Upload a file</span> or drag and drop
+                                                    class="mr-1 text-primary">Upload a file</span> or drag and drop
                                                 <input type="file"
-                                                    class="w-full h-full top-0 left-0 absolute opacity-0">
+                                                    class="absolute top-0 left-0 w-full h-full opacity-0">
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +222,7 @@ use App\Models\Staff;
 
     @push('scripts')
         {{-- <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/decoupled-document/ckeditor.js"></script> --}}
-        <script>
+       {{--  <script>
             let recipeDescription;
             contentRecipe =
                     '<figure class="table"><table><tbody><tr><td><strong>Medicamento</strong></td><td><strong>Indicaciones</strong></td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></figure>'
@@ -249,6 +249,6 @@ use App\Models\Staff;
             function cleanRecipe() {
                 recipeDescription.setData(contentRecipe)
             }
-        </script>
+        </script> --}}
     @endpush
 </div>

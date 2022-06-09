@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Card;
+use App\Models\Order;
 use App\Models\Person;
 use App\Models\Recipe;
 use App\Models\PersonalPrecedent;
@@ -55,5 +56,10 @@ class Patient extends Model
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
+    }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
     }
 }

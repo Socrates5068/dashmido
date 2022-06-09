@@ -13,7 +13,7 @@ class ScheduleSeeder extends Seeder
     {
         $schedule = new Schedule();
         $schedule->time = TimeTable::find(1)->time;
-        $schedule->department_id = 3;
+        $schedule->department_id = 4;
         $schedule->doctor_id = 3; //refers to the staff id
         $schedule->type = 1;
         $schedule->timeTable_id = 1;
@@ -29,17 +29,9 @@ class ScheduleSeeder extends Seeder
 
         $schedule = new Schedule();
         $schedule->time = TimeTable::find(3)->time;
-        $schedule->department_id = 3;
+        $schedule->department_id = 5;
         $schedule->doctor_id = 5;
         $schedule->type = 3;
-        $schedule->timeTable_id = 3;
-        $schedule->save();
-
-        $schedule = new Schedule();
-        $schedule->time = TimeTable::find(1)->time;
-        $schedule->department_id = 5;
-        $schedule->doctor_id = 3;
-        $schedule->type = 1; //refers it to the schedule (morning, afternoon o night)
         $schedule->timeTable_id = 3;
         $schedule->save();
     }

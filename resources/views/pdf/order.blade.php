@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
 
-    <title>Receta</title>
+    <title>Orden</title>
     <style>
         .page-break {
             page-break-after: always;
@@ -99,8 +99,8 @@
             <div class="col-xs-6">
                 <strong>Paciente:</strong><br>
                 <address>
-                    {{ $recipe->patient->person->name . ' ' . $recipe->patient->person->f_last_name . ' ' . $recipe->patient->person->m_last_name }}<br>
-                    {{-- <span>{{ $recipe->patient->person->address }}</span> <br> --}}
+                    {{ $order->patient->person->name . ' ' . $order->patient->person->f_last_name . ' ' . $order->patient->person->m_last_name }}<br>
+                    {{-- <span>{{ $order->patient->person->address }}</span> <br> --}}
                     {{-- <span>123 Address St.</span> --}}
                 </address>
             </div>
@@ -109,54 +109,34 @@
                 <table style="width: 100%">
                     <tbody>
                         <tr>
-                            <th>Número de receta:</th>
-                            <td class="text-right">{{ $recipe->id }}</td>
+                            <th>Número de orden:</th>
+                            <td class="text-right">{{ $order->id }}</td>
                         </tr>
                         <tr>
                             <th> Fecha: </th>
-                            <td class="text-right">{{ date('m-d-Y', strtotime($recipe->created_at)) }}</td>
+                            <td class="text-right">{{ date('m-d-Y', strtotime($order->created_at)) }}</td>
                         </tr>
                     </tbody>
                 </table>
+                {{-- <div style="margin-bottom: 0px">&nbsp;</div>
+
+                <table style="width: 100%; margin-bottom: 20px">
+                    <tbody>
+                        <tr class="well" style="padding: 5px">
+                            <th style="padding: 5px">
+                                <div> Balance Due (CAD) </div>
+                            </th>
+                            <td style="padding: 5px" class="text-right"><strong> $600 </strong></td>
+                        </tr>
+                    </tbody>
+                </table> --}}
             </div>
         </div>
 
         <hr>
 
         <div class="h-25">
-            <table style="width: 100%">
-                <thead>
-                    <tr>
-                        <th class="whitespace-nowrap">
-                            Cantidad
-                        </th>
-                        <th class="whitespace-nowrap">
-                            Medicamento
-                        </th>
-                        <th class="whitespace-nowrap">
-                            Indicación
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $description = json_decode($recipe->description, true)
-                    @endphp
-                    @foreach ($description as $key => $des)
-                        <tr>
-                            <td>
-                                {{ $des[0] }}
-                            </td>
-                            <td>
-                                {{ $des[1] }}
-                            </td>
-                            <td>
-                                {{ $des[2] }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            {!! nl2br($order->description) !!}
         </div>
 
         <hr>
@@ -171,7 +151,7 @@
                                 <div> Medico encargado: </div>
                             </th>
                             <td style="padding: 5px" class="text-right"><strong>
-                                    {{ $recipe->staff->person->name . ' ' . $recipe->staff->person->f_last_name . ' ' . $recipe->staff->person->m_last_name }}
+                                    {{ $order->staff->person->name . ' ' . $order->staff->person->f_last_name . ' ' . $order->staff->person->m_last_name }}
                                 </strong></td>
                         </tr>
                     </tbody>

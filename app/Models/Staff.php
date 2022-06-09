@@ -24,4 +24,14 @@ class Staff extends Model
     public function department(){
         return $this->belongsTo(Department::class);
     }
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function recipe()
+    {
+        return $this->hasMany(Recipe::class);
+    }
 }

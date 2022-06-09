@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use App\Models\Staff;
-use App\Models\Patient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Recipe extends Model
+class Order extends Model
 {
     use HasFactory;
 

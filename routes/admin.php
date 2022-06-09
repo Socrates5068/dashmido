@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DarkModeController;
 use App\Http\Livewire\Admin\Clocking\ClokingToday;
 use App\Http\Controllers\Admin\ColorSchemeController;
 use App\Http\Livewire\Admin\Clocking\ClokingTomorrow;
+use App\Http\Livewire\Admin\Infirmary\Infirmary;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,10 @@ Route::get('/horarios/manana', ClokingTomorrow::class)->name('admin.clokingTomor
 //routes staff
 Route::get('/fichaje', ClockingIn::class)->name('admin.clocking');
 Route::get('/historial/{person}', Template::class)->name('admin.history');
+Route::get('/enfermeria', Infirmary::class)->name('admin.infirmary');
 
 //PDFExport
-Route::get('/receta/{id}', [PDFExport::class, 'show']);
+Route::get('/receta/{id}', [PDFExport::class, 'show'])->name('admin.showRecipe');;
+Route::get('/order/{id}', [PDFExport::class, 'showOrder'])->name('admin.showOrder');
 Route::get('/PDFreceta/{id}', [PDFExport::class, 'recipe'])->name('admin.recipe');
+Route::get('/PDOrden/{id}', [PDFExport::class, 'order'])->name('admin.order');

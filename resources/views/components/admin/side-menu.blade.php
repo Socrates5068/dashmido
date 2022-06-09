@@ -99,15 +99,17 @@
                     <a href="{{ route('admin.clocking') }}"
                         class="{{ url()->current() == route('admin.clocking') ? 'side-menu--active' : '' }} side-menu">
                         <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
-                        <div class="side-menu__title"> Fichaje </div>
+                        <div class="side-menu__title"> Consultorio </div>
                     </a>
                 </li>
+            @endrole
 
+            @role('Enfermera')
                 <li>
-                    <a href="{{ route('admin.patients') }}"
-                        class="{{ url()->current() == route('admin.patients') ? 'side-menu--active' : '' }} side-menu">
+                    <a href="{{ route('admin.infirmary') }}"
+                        class="{{ url()->current() == route('admin.infirmary') ? 'side-menu--active' : '' }} side-menu">
                         <div class="side-menu__icon"> <i data-lucide="inbox"></i> </div>
-                        <div class="side-menu__title"> Pacientes </div>
+                        <div class="side-menu__title"> Enfermeria </div>
                     </a>
                 </li>
             @endrole
