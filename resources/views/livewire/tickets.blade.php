@@ -1,6 +1,7 @@
 @php
 use App\Models\Department;
 use App\Models\Person;
+use App\Models\Staff;
 @endphp
 <div>
     <x-notification-message-frontend on="save" time="9000">
@@ -105,8 +106,8 @@ use App\Models\Person;
                                                 <td
                                                     class="border-b border-l border-[#E8E8E8] bg-[#F3F6FF] py-5 px-2 text-center text-base font-medium text-dark">
                                                     <span class="block mb-2 text-lg font-semibold text-primary">
-                                                        {{ Person::find($ticket->doctor_id)->name }}
-                                                        {{ Person::find($ticket->doctor_id)->f_last_name }}
+                                                        {{ Staff::find($ticket->doctor_id)->person->name }}
+                                                        {{ Staff::find($ticket->doctor_id)->person->f_last_name }}
                                                     </span>
                                                 </td>
                                                 <td
