@@ -32,6 +32,9 @@ class MakeTickets extends Command
      */
     public function handle()
     {
+        //delete all 
+        Ticket::all()->truncate(); //delete for production
+        
         // reset the estatus of all users
         foreach (User::where('status', 1)->get() as $user) {
             $user->status = 0;
