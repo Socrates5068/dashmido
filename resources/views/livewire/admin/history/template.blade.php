@@ -20,11 +20,6 @@
                         aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2" data-lucide="shield"></i> Diagnosticos
                     </a>
                 </li>
-                <li wire:click='menu(3)' class="{{ $menu == 3 ? 'nav-item' : '' }}" role="presentation">
-                    <a wire:ignore href="javascript:;" class="flex items-center py-4 nav-link active"
-                        data-tw-target="#change-password" aria-selected="false" role="tab"> <i class="w-4 h-4 mr-2"
-                            data-lucide="lock"></i> Recetas </a>
-                </li>
             </ul>
         </div>
 
