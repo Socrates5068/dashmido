@@ -1,6 +1,7 @@
 @php
 use App\Models\Department;
 use App\Models\Person;
+use App\Models\Staff;
 @endphp
 <div x-data="{ modal: false }">
     @push('styles')
@@ -78,8 +79,8 @@ use App\Models\Person;
                                     {{ $ticket->date }}
                                 </td>
                                 <td>
-                                    {{ Person::find($ticket->doctor_id)->name }}
-                                    {{ Person::find($ticket->doctor_id)->f_last_name }}
+                                    {{ Staff::find($ticket->doctor_id)->person->name }}
+                                    {{ Staff::find($ticket->doctor_id)->person->f_last_name }}
                                 </td>
                                 <td>
                                     {{ $ticket->time }}
