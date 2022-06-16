@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Invoice</title>
+    <title>Receta Médica</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <style>
         .page-break {
@@ -73,7 +73,7 @@
     <div class="container container-smaller">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" style="margin-top:20px; text-align: right">
-                <div class="btn-group mb-4">
+                <div class="mb-4 btn-group">
                     <a href="{{ route('admin.recipe', $recipe->id) }}" class="btn btn-success">Guardar como pdf</a>
                 </div>
             </div>
@@ -85,15 +85,14 @@
                         <div class="col-sm-6">
                             <h4>From:</h4>
                             <address>
-                                <strong>Company Inc.</strong><br>
-                                123 Company Ave. <br>
-                                Toronto, Ontario - L2R 4U6<br>
-                                P: (416) 123 - 4567 <br>
-                                E: company@company.com
+                                <strong>Clinica Vida y Salud</strong><br>
+                                Av. Arce #525 <br>
+                                (entre litoral y 1ro de abril)<br>
+                                Telf.: (62)-25482 <br>
                             </address>
                         </div>
 
-                        <div class="col-sm-6 text-right">
+                        <div class="text-right col-sm-6">
                             <img src="{{ asset('midone/dist/images/logo.png') }}" alt="logo">
                         </div>
                     </div>
@@ -109,7 +108,7 @@
                             </address>
                         </div>
 
-                        <div class="col-sm-5 text-right">
+                        <div class="text-right col-sm-5">
                             <table class="w-full">
                                 <tbody>
                                     <tr>
@@ -140,6 +139,13 @@
                         </div>
                     </div>
 
+                    <strong>Diagnostico presuntivo:</strong>
+                    @if ($recipe->consultation->diagnostic)
+                        {{ $recipe->consultation->diagnostic }}
+                    @endif <br>
+                    <div class="text-center">
+                        <h3>Receta médica</h3>
+                    </div>
                     <hr>
 
                     <div class="h-25" style="margin-bottom: 25px;">
@@ -159,7 +165,7 @@
                             </thead>
                             <tbody>
                                 @php
-                                    $description = json_decode($recipe->description, true)
+                                    $description = json_decode($recipe->description, true);
                                 @endphp
                                 @foreach ($description as $key => $des)
                                     <tr>

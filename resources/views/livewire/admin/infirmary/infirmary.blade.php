@@ -23,7 +23,7 @@
 
     <div class="grid grid-cols-3 gap-6 mt-5">
         <div class="">
-            <button wire:click="diagnostic" class="mb-2 mr-1 w-36 btn btn-primary">Registrar paciente</button>
+            <a href="{{ route('admin.patients') }}" class="mb-2 mr-1 w-36 btn btn-primary">Registrar paciente</a>
         </div>
         <div class="">
             <button @click="attention = true" class="mb-2 mr-1 w-36 btn btn-primary">Nueva atención</button>

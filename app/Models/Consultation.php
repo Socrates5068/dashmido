@@ -12,4 +12,14 @@ class Consultation extends Model
     CONST THIRD = "TERMINADO";
 
     use HasFactory;
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipes::class);
+    }
 }

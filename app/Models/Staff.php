@@ -25,7 +25,7 @@ class Staff extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function order()
+    public function orders()
     {
         return $this->hasMany(Order::class);
     }

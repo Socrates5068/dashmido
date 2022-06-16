@@ -53,7 +53,7 @@
         }
 
         .h-25 {
-            height: 375px !important
+            height: 350px !important
         }
 
         .h-50 {
@@ -79,15 +79,14 @@
             <div class="col-xs-8">
                 {{-- <h4>From:</h4> --}}
                 <strong>Clinica Vida y Salud</strong><br>
-                123 Company Ave. <br>
-                Toronto, Ontario - L2R 5A4<br>
-                P: (416) 123-4567 <br>
-                E: copmany@company.com <br>
+                Av. Arce #525 <br>
+                (entre litoral y 1ro de abril)<br>
+                Telf.: (62)-25482 <br>
 
                 <br>
             </div>
 
-            <div class="col-xs-4 text-center">
+            <div class="text-center col-xs-4">
                 {{-- <img class="invisible" src="https://res.cloudinary.com/dqzxpn5db/image/upload/v1537151698/website/logo.png" alt="logo"> --}}
                 <img src="{{ asset('midone/dist/images/logo.png') }}" alt="logo">
             </div>
@@ -118,21 +117,16 @@
                         </tr>
                     </tbody>
                 </table>
-                {{-- <div style="margin-bottom: 0px">&nbsp;</div>
-
-                <table style="width: 100%; margin-bottom: 20px">
-                    <tbody>
-                        <tr class="well" style="padding: 5px">
-                            <th style="padding: 5px">
-                                <div> Balance Due (CAD) </div>
-                            </th>
-                            <td style="padding: 5px" class="text-right"><strong> $600 </strong></td>
-                        </tr>
-                    </tbody>
-                </table> --}}
             </div>
         </div>
 
+        <strong>Diagnostico presuntivo:</strong>
+        @if($order->consultation->diagnostic)
+            {{ $order->consultation->diagnostic }}
+        @endif <br>
+        <div class="text-center">
+            <h3>Orden de laboratorio</h3>
+        </div>
         <hr>
 
         <div class="h-25">

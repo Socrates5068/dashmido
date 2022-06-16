@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Invoice</title>
+    <title>Orden Médica</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <style>
         .page-break {
@@ -73,7 +73,7 @@
     <div class="container container-smaller">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" style="margin-top:20px; text-align: right">
-                <div class="btn-group mb-4">
+                <div class="mb-4 btn-group">
                     <a href="{{ route('admin.order', $order->id) }}" class="btn btn-success">Guardar como pdf</a>
                 </div>
             </div>
@@ -85,15 +85,14 @@
                         <div class="col-sm-6">
                             <h4>From:</h4>
                             <address>
-                                <strong>Company Inc.</strong><br>
-                                123 Company Ave. <br>
-                                Toronto, Ontario - L2R 4U6<br>
-                                P: (416) 123 - 4567 <br>
-                                E: company@company.com
+                                <strong>Clinica Vida y Salud</strong><br>
+                                Av. Arce #525 <br>
+                                (entre litoral y 1ro de abril)<br>
+                                Telf.: (62)-25482 <br>
                             </address>
                         </div>
 
-                        <div class="col-sm-6 text-right">
+                        <div class="text-right col-sm-6">
                             <img src="{{ asset('midone/dist/images/logo.png') }}" alt="logo">
                         </div>
                     </div>
@@ -109,7 +108,7 @@
                             </address>
                         </div>
 
-                        <div class="col-sm-5 text-right">
+                        <div class="text-right col-sm-5">
                             <table class="w-full">
                                 <tbody>
                                     <tr>
@@ -124,60 +123,22 @@
                             </table>
 
                             <div style="margin-bottom: 0px">&nbsp;</div>
-
-                            {{-- <table class="w-full">
-                                <tbody>
-                                    <tr class="well" style="padding: 5px">
-                                        <th style="padding: 5px">
-                                            <div> Balance Due (CAD) </div>
-                                        </th>
-                                        <td style="padding: 5px"><strong> $499 </strong></td>
-                                    </tr>
-                                </tbody>
-                            </table> --}}
-
-
                         </div>
                     </div>
 
+                    <strong>Diagnostico presuntivo:</strong>
+                    @if ($order->consultation->diagnostic)
+                        {{ $order->consultation->diagnostic }}
+                    @endif <br>
+                    <div class="text-center">
+                        <h3>Orden de laboratorio</h3>
+                    </div>
+                    
                     <hr>
 
                     <div class="h-25" style="margin-bottom: 25px;">
                         {!! nl2br($order->description) !!}
-                        {{-- <table class="table invoice-table">
-                            <thead style="background: #F5F5F5;">
-                                <tr>
-                                    <th>Item List</th>
-                                    <th></th>
-                                    <th class="text-right">Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <strong>Service</strong>
-                                        <p>Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Expedita perferendis doloribus, quaerat molestias est eum, adipisci dolorem
-                                            nulla rerum voluptatibus.</p>
-                                    </td>
-                                    <td></td>
-                                    <td class="text-right">$600</td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <strong>Service</strong>
-                                        <p>Description here. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Expedita perferendis doloribus, quaerat molestias est eum, adipisci dolorem
-                                            nulla rerum voluptatibus.</p>
-                                    </td>
-                                    <td></td>
-                                    <td class="text-right">$600</td>
-                                </tr>
-
-                            </tbody>
-                        </table> --}}
-                    </div><!-- /table-responsive -->
+                    </div>
 
                     <table class="table invoice-total">
                         <tbody>

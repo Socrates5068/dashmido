@@ -17,4 +17,8 @@ class Order extends Model
     public function staff(){
         return $this->belongsTo(Staff::class);
     }
+
+    public function consultation(){
+        return $this->belongsTo(Consultation::class);
+    }
 }
