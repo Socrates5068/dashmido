@@ -36,8 +36,8 @@ class MakeTickets extends Command
         Ticket::truncate(); //delete for production
         
         // reset the estatus of all users
-        foreach (User::where('status', 1)->get() as $user) {
-            $user->status = 0;
+        foreach (User::where('status', '!=', null)->get() as $user) {
+            $user->status = null;
             $user->save();
         }
         

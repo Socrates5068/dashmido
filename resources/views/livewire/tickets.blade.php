@@ -68,7 +68,7 @@ use App\Models\Staff;
         @if ($tickets->count())
             <!-- ====== Table Section Start -->
             <section class="py-5 bg-white">
-                <h2 class="mb-8 text-3xl font-bold ml-14 text-dark sm:text-4xl">
+                <h2 class="mb-8 text-3xl font-bold text-dark sm:text-4xl">
                     {{ Department::find($title)->name }}
                 </h2>
                 <div class="container">
@@ -135,7 +135,29 @@ use App\Models\Staff;
                                                         </span>
                                                     </td>
                                                 @endif
-                                                @if (auth()->user()->status == 0)
+                                                @php
+                                                    $status = json_decode(auth()->user()->status, true);
+                                                @endphp
+
+                                                @if (!is_null($status))
+                                                    @if (!in_array($ticket->department_id, $status))
+                                                        <td
+                                                            class="border-b border-[#E8E8E8] bg-[#F3F6FF] py-5 px-2 text-center text-base font-medium text-dark">
+                                                            <button wire:click="book('{{ $ticket->id }}')"
+                                                                class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white rounded cursor-pointer bg-primary">
+                                                                Reservar
+                                                            </button>
+                                                        </td>
+                                                    @else
+                                                        <td
+                                                            class="border-b border-[#E8E8E8] bg-[#F3F6FF] py-5 px-2 text-center text-base font-medium text-dark">
+                                                            <span
+                                                                class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white bg-gray-600 rounded">
+                                                                Reservar
+                                                            </span>
+                                                        </td>
+                                                    @endif
+                                                @else
                                                     <td
                                                         class="border-b border-[#E8E8E8] bg-[#F3F6FF] py-5 px-2 text-center text-base font-medium text-dark">
                                                         <span wire:click="book('{{ $ticket->id }}')"
@@ -143,15 +165,8 @@ use App\Models\Staff;
                                                             Reservar
                                                         </span>
                                                     </td>
-                                                @else
-                                                    <td
-                                                        class="border-b border-[#E8E8E8] bg-[#F3F6FF] py-5 px-2 text-center text-base font-medium text-dark">
-                                                        <span
-                                                            class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white bg-gray-600 rounded">
-                                                            Reservar
-                                                        </span>
-                                                    </td>
                                                 @endif
+
                                             </tr>
                                         @endforeach
                                     </tbody>

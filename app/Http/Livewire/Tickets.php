@@ -10,9 +10,10 @@ use App\Models\Department;
 
 class Tickets extends Component
 {
-    public $departments, $list;
+    public $departments, $list, $a;
 
-    public function mount() {
+    public function mount()
+    {
         $this->departments = Department::all();
         $first = Department::find(3);
         $this->list = $first->id;
@@ -29,11 +30,23 @@ class Tickets extends Component
         $ticket->patient_id = auth()->user()->person->id;
         $ticket->save();
 
-        auth()->user()->status = 1;
+        if (!is_null(auth()->user()->status)) {
+            $user = User::find(auth()->user()->id);
+            $status = json_decode($user->status, true);
+            array_push($status, $ticket->department_id);
+            auth()->user()->status = json_encode($status);
 
-        $user = User::find(auth()->user()->id);
-        $user->status = 1;
-        $user->save();
+            $user->status = json_encode($status);
+            $user->save();
+        } else {
+            $status = [];
+            array_push($status, $ticket->department_id);
+            auth()->user()->status = json_encode($status);
+
+            $user = User::find(auth()->user()->id);
+            $user->status = json_encode($status);
+            $user->save();
+        }
 
         $card = new Card();
         $card->patient_id = auth()->user()->person->patient->id;
@@ -46,10 +59,15 @@ class Tickets extends Component
         $this->emit("save");
     }
 
+    public function booked()
+    {
+        $this->a = 'popo';
+    }
+
     public function render()
     {
         $tickets = Ticket::where('department_id', $this->list)
-            ->where('date', date("Y-m-d",strtotime(now()." + 1 days")))
+            ->where('date', date("Y-m-d", strtotime(now() . " + 1 days")))
             ->get();
         return view('livewire.tickets', compact('tickets'));
     }
