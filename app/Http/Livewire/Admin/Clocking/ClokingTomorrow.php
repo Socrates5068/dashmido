@@ -45,12 +45,12 @@ class ClokingTomorrow extends Component
     public function updateTicket()
     {
         $this->validate([
-            'patient' => 'required',
+            'patientId' => 'required',
         ]);
 
         $ticket = Ticket::find($this->aux);
 
-        $ticket->patient_id = $this->patient->id;
+        $ticket->patient_id = $this->patientId;
         $ticket->status = '1';
         $ticket->save();
 

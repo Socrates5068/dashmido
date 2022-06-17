@@ -82,7 +82,7 @@ class MakeTickets extends Command
                             'date' => date("Y-m-d",strtotime(now())),
                             'status' => '1',
                             'time' => $time,
-                            'patient_id' => 5,
+                            'patient_id' => 6,
                             'doctor_id' => $schedule->doctor_id,
                             'department_id' => $schedule->department_id,
                         ]);

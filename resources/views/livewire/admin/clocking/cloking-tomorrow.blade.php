@@ -109,7 +109,7 @@ use App\Models\Staff;
                                 @endif
                                 @if ($ticket->status == '0')
                                     <td>
-                                        <span wire:click="edit({{ $ticket->id }})" @click="modal = true"
+                                        <span @click="modal = true, $wire.set('aux', {{ $ticket->id }})"
                                             class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white rounded cursor-pointer bg-primary">
                                             Reservar
                                         </span>

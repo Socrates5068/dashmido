@@ -109,7 +109,7 @@ use App\Models\Staff;
                                 @endif
                                 @if ($ticket->status == '0')
                                     <td>
-                                        <span wire:click="edit({{ $ticket->id }})" @click="modal = true"
+                                        <span @click="modal = true, $wire.set('aux', {{ $ticket->id }})"
                                             class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white rounded cursor-pointer bg-primary">
                                             Reservar
                                         </span>
@@ -166,7 +166,7 @@ use App\Models\Staff;
                             'text' => 'name',
                             'allow-new' => 'false',
                         ]" />
-                    <x-jet-input-error for="patient" />
+                    <x-jet-input-error for="patientId" />
                 </div>
                 <footer
                     class="flex flex-col items-center justify-end px-6 py-3 mt-40 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
