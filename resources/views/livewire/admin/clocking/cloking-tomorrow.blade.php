@@ -55,6 +55,8 @@ use App\Models\Staff;
                             <th class="whitespace-nowrap">
                                 Fecha
                             </th>
+                            <th class="whitespace-nowrap">
+                                Médico
                             </th>
                             <th class="whitespace-nowrap">
                                 Hora

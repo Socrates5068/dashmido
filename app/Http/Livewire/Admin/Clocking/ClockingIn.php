@@ -71,7 +71,7 @@ class ClockingIn extends Component
 
     public function render()
     {
-        $tickets = Ticket::where('doctor_id', auth()->user()->person->id)
+        $tickets = Ticket::where('doctor_id', auth()->user()->person->staff->id)
             ->where('date', date("Y-m-d",strtotime(now()))) //delete 1 day for production
             ->get();
         $consultations = Consultation::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);

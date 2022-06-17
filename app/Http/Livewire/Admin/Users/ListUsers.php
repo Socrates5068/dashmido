@@ -110,6 +110,7 @@ class ListUsers extends Component
             'user.address' => 'required|min:6',
             'user.telephone' => 'required|numeric',
             'user.email' => 'nullable|email',
+            'user.sex' => 'required',
             'role' => 'required',
             'user.department' => 'required',
         ]);

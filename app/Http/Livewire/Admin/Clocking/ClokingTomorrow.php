@@ -55,8 +55,20 @@ class ClokingTomorrow extends Component
         $ticket->save();
 
         $person = Person::find($this->patient->id);
-        $person->user->status = 1;
-        $person->user->save();
+        if (!is_null($person->status)) {
+            $status = json_decode($person->user->status, true);
+            array_push($status, $ticket->department_id);
+            auth()->user()->status = json_encode($status);
+
+            $person->user->status = json_encode($status);
+            $person->user->save();
+        } else {
+            $status = [];
+            array_push($status, $ticket->department_id);
+
+            $person->user->status = json_encode($status);
+            $person->user->save();
+        }
 
         $card = new Card();
         $card->patient_id = $person->patient->id;

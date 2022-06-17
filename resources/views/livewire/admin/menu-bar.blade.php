@@ -124,12 +124,12 @@
     <!-- END: Search -->
 
     <!-- BEGIN: Notifications -->
-    <div class="mr-auto intro-x dropdown sm:mr-6">
+    {{-- <div class="mr-auto intro-x dropdown sm:mr-6">
         <div class="cursor-pointer dropdown-toggle notification notification--bullet" role="button" aria-expanded="false" data-tw-toggle="dropdown"> <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg></div>
         
-        {{-- <div class="pt-2 notification-content dropdown-menu">
+        <div class="pt-2 notification-content dropdown-menu">
             <div class="notification-content__box dropdown-content">
                 <div class="notification-content__title">Notifications</div>
                 <div class="relative flex items-center cursor-pointer ">
@@ -224,8 +224,8 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
-    </div>
+        </div>
+    </div> --}}
     <!-- END: Notifications -->
 
     <!-- BEGIN: Account Menu -->
