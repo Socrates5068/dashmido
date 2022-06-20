@@ -1,6 +1,7 @@
 @php
 use App\Models\Department;
 use App\Models\Person;
+use App\Models\Patient;
 use App\Models\Staff;
 @endphp
 <div x-data="{ modal: false }">
@@ -105,9 +106,9 @@ use App\Models\Staff;
                                     </td>
                                     <td>
                                         @isset($ticket->patient_id)
-                                            {{ Person::find($ticket->patient_id)->name }}
-                                            {{ Person::find($ticket->patient_id)->f_last_name }}
-                                            {{ Person::find($ticket->patient_id)->m_last_name }}
+                                            {{ Patient::find($ticket->patient_id)->person->name }}
+                                            {{ Patient::find($ticket->patient_id)->person->f_last_name }}
+                                            {{ Patient::find($ticket->patient_id)->person->m_last_name }}
                                         @endisset
                                     </td>
                                     @if ($ticket->status == '0')

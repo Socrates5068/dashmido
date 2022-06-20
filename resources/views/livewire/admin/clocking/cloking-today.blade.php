@@ -2,6 +2,7 @@
 use App\Models\Department;
 use App\Models\Person;
 use App\Models\Staff;
+use App\Models\Patient;
 @endphp
 <div x-data="{ modal: false }">
     @push('styles')
@@ -49,15 +50,15 @@ use App\Models\Staff;
             <div class="relative p-8 mt-8 bg-white rounded-lg shadow-lg">
                 <div class="flex justify-between">
                     @php
-                        $departmentName = Department::find($title)->name
+                        $departmentName = Department::find($title)->name;
                     @endphp
                     <h2 class="mb-4 text-lg font-bold intro-y">
                         {{ $departmentName }}
                     </h2>
                     <button wire:click="printTickets('{{ $departmentName }}')" class="btn btn-dark w-28 mb-2">
-                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" icon-name="printer" data-lucide="printer"
+                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" icon-name="printer" data-lucide="printer"
                             class="lucide lucide-printer block mx-auto">
                             <polyline points="6 9 6 2 18 2 18 9"></polyline>
                             <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
@@ -74,7 +75,7 @@ use App\Models\Staff;
                                 </th>
                                 <th class="whitespace-nowrap">
                                     Hora
-                                    
+
                                 </th>
                                 <th class="whitespace-nowrap">
                                     Médico
@@ -105,9 +106,9 @@ use App\Models\Staff;
                                     </td>
                                     <td>
                                         @isset($ticket->patient_id)
-                                            {{ Person::find($ticket->patient_id)->name }}
-                                            {{ Person::find($ticket->patient_id)->f_last_name }}
-                                            {{ Person::find($ticket->patient_id)->m_last_name }}
+                                            {{ Patient::find($ticket->patient_id)->person->name }}
+                                            {{ Patient::find($ticket->patient_id)->person->f_last_name }}
+                                            {{ Patient::find($ticket->patient_id)->person->m_last_name }}
                                         @endisset
                                     </td>
                                     @if ($ticket->status == '0')
