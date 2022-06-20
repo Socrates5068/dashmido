@@ -41,8 +41,8 @@
                         <div class="box">
                             <div class="flex flex-col items-center p-5 lg:flex-row">
                                 <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
-                                    <img alt="Midone - HTML Admin Template" class="rounded-full"
-                                        src="{{ !is_null($person->user) ? $person->user->profile_photo_url : asset('midone/dist/images/avatar.jpg') }}">
+                                    <img alt="Midone - HTML Admin Template" class="rounded-fuall"
+                                        src="{{ !is_null($user->user) ? $user->user->profile_photo_url : asset('midone/dist/images/avatar.jpg') }}">
                                 </div>
                                 <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
                                     <a {{-- href="{{ route('admin.history', $user->id) }}" --}} class="font-medium">{{ $user->name }}</a>
