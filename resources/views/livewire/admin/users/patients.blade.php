@@ -41,12 +41,11 @@
                         <div class="box">
                             <div class="flex flex-col items-center p-5 lg:flex-row">
                                 <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
-                                    <img alt="Rubick Tailwind HTML Admin Template" class="rounded-full"
-                                        src="{{ $user->user->profile_photo_url }}">
+                                    <img alt="Midone - HTML Admin Template" class="rounded-full"
+                                        src="{{ !is_null($person->user) ? $person->user->profile_photo_url : asset('midone/dist/images/avatar.jpg') }}">
                                 </div>
                                 <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
-                                    <a {{-- href="{{ route('admin.history', $user->id) }}" --}}
-                                        class="font-medium">{{ $user->name }}</a>
+                                    <a {{-- href="{{ route('admin.history', $user->id) }}" --}} class="font-medium">{{ $user->name }}</a>
                                     <div class="text-slate-500 text-xs mt-0.5">
                                         {{ $user->user->getRoleNames()->first() }}</div>
                                 </div>
@@ -95,7 +94,8 @@
             </div>
             {{-- END: user list --}}
         @else
-            <div wire:ignore class="flex items-center w-full max-w-lg mx-auto mt-6 alert alert-dark show" role="alert">
+            <div wire:ignore class="flex items-center w-full max-w-lg mx-auto mt-6 alert alert-dark show"
+                role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
@@ -106,8 +106,8 @@
         @endif
 
         <!-- BEGIN: Slide create user -->
-        <div x-show="modalSlide" :class="{ 'show': modalSlide, '': !modalSlide }" class="modal-personal modal-slide-over"
-            tabindex="-1" aria-hidden="true">
+        <div x-show="modalSlide" :class="{ 'show': modalSlide, '': !modalSlide }"
+            class="modal-personal modal-slide-over" tabindex="-1" aria-hidden="true">
             <div class="modal-personal-dialog">
                 <div class="modal-content" @click.away="modalSlide = false, Livewire.emit('resetVariables')">
                     <div class="p-5 modal-header">
@@ -128,14 +128,14 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="f_last_name" class="form-label">*Apellido paterno</label>
-                                <input wire:model="user.f_last_name" id="f_last_name" type="text" class="form-control"
-                                    placeholder="Ej. Aramayo">
+                                <input wire:model="user.f_last_name" id="f_last_name" type="text"
+                                    class="form-control" placeholder="Ej. Aramayo">
                                 <x-jet-input-error for="user.f_last_name" />
                             </div>
                             <div class="mt-3">
                                 <label for="m_last_name" class="form-label">*Apellido materno</label>
-                                <input wire:model="user.m_last_name" id="m_last_name" type="text" class="form-control"
-                                    placeholder="Ej. Martinez">
+                                <input wire:model="user.m_last_name" id="m_last_name" type="text"
+                                    class="form-control" placeholder="Ej. Martinez">
                                 <x-jet-input-error for="user.m_last_name" />
                             </div>
                         </div>
@@ -156,8 +156,8 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="telephone" class="form-label">*Telefono/Celular</label>
-                                <input wire:model="user.telephone" id="telephone" type="text" class="form-control"
-                                    placeholder="Ej. 8765464">
+                                <input wire:model="user.telephone" id="telephone" type="text"
+                                    class="form-control" placeholder="Ej. 8765464">
                                 <x-jet-input-error for="user.telephone" />
                             </div>
                             <div class="mt-3">
@@ -174,7 +174,8 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="blood_type" class="form-label">Tipo de sangre</label>
-                                <select wire:model="user.blood_type" class="form-select" name="" id="blood_type">
+                                <select wire:model="user.blood_type" class="form-select" name=""
+                                    id="blood_type">
                                     <option value="" selected disabled>Selecciona una opción</option>
                                     <option value="AB+">AB+</option>
                                     <option value="AB-">AB-</option>
@@ -213,11 +214,13 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
-                                <input disabled wire:model="user.ci" id="username" type="text" class="form-control"">
+                                <input disabled wire:model="user.ci" id="username" type="text"
+                                    class="form-control"">
                             </div>
                             <div class="mt-3 ">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input wire:model="user.ci" id="password" type="text" class="form-control" disabled>
+                                <input wire:model="user.ci" id="password" type="text" class="form-control"
+                                    disabled>
                             </div>
                         </div>
 
@@ -254,14 +257,14 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="f_last_name" class="form-label">*Apellido paterno</label>
-                                <input wire:model="user.f_last_name" id="f_last_name" type="text" class="form-control"
-                                    placeholder="Ej. Aramayo">
+                                <input wire:model="user.f_last_name" id="f_last_name" type="text"
+                                    class="form-control" placeholder="Ej. Aramayo">
                                 <x-jet-input-error for="user.f_last_name" />
                             </div>
                             <div class="mt-3">
                                 <label for="m_last_name" class="form-label">*Apellido materno</label>
-                                <input wire:model="user.m_last_name" id="m_last_name" type="text" class="form-control"
-                                    placeholder="Ej. Martinez">
+                                <input wire:model="user.m_last_name" id="m_last_name" type="text"
+                                    class="form-control" placeholder="Ej. Martinez">
                                 <x-jet-input-error for="user.m_last_name" />
                             </div>
                         </div>
@@ -284,8 +287,8 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="telephone" class="form-label">*Telefono/Celular</label>
-                                <input wire:model="user.telephone" id="telephone" type="text" class="form-control"
-                                    placeholder="Ej. 8765464">
+                                <input wire:model="user.telephone" id="telephone" type="text"
+                                    class="form-control" placeholder="Ej. 8765464">
                                 <x-jet-input-error for="user.telephone" />
                             </div>
                             <div class="mt-3">
@@ -303,8 +306,8 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="blood" class="form-label">Tipo de sangre</label>
-                                <input wire:model="user.blood_type" id="blood" type="text" class="form-control"
-                                    placeholder="B+">
+                                <input wire:model="user.blood_type" id="blood" type="text"
+                                    class="form-control" placeholder="B+">
                                 <x-jet-input-error for="user.blood_type" />
                             </div>
                             <div class="mt-3">
@@ -333,25 +336,25 @@
                         <div class="gap-4 md:grid md:grid-cols-2">
                             <div class="mt-3">
                                 <label for="username" class="form-label">Nombre de usuario</label>
-                                <input disabled wire:model="user.ci" id="username" type="text" class="form-control"">
+                                <input disabled wire:model="user.ci" id="username" type="text"
+                                    class="form-control"">
                             </div>
                         </div>
-    
-                                <button @click=" editUser=false, Livewire.emit('resetVariables')"
-                                    class="mt-10 mr-2 shadow-md btn btn-danger">Cerrar</button>
 
-                                <button wire:click="updateUser('{{ $aux }}')"
-                                    class="mr-2 shadow-md btn btn-primary"
-                                    @click="Livewire.on('save', () => {editUser = false; } )">Guardar</button>
+                        <button @click=" editUser=false, Livewire.emit('resetVariables')"
+                            class="mt-10 mr-2 shadow-md btn btn-danger">Cerrar</button>
 
-                                <button wire:click="resetPassword('{{ $aux }}')"
-                                    class="mr-2 shadow-md btn btn-warning"
-                                    @click="Livewire.on('save', () => {editUser = false; } )">Restablecer
-                                    contraseña</button>
-                            </div>
-                        </div>
+                        <button wire:click="updateUser('{{ $aux }}')" class="mr-2 shadow-md btn btn-primary"
+                            @click="Livewire.on('save', () => {editUser = false; } )">Guardar</button>
+
+                        <button wire:click="resetPassword('{{ $aux }}')"
+                            class="mr-2 shadow-md btn btn-warning"
+                            @click="Livewire.on('save', () => {editUser = false; } )">Restablecer
+                            contraseña</button>
                     </div>
                 </div>
-                <!-- END: Slide edit user -->
             </div>
         </div>
+        <!-- END: Slide edit user -->
+    </div>
+</div>
