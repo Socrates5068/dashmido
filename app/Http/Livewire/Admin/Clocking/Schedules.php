@@ -10,7 +10,7 @@ use App\Models\Department;
 
 class Schedules extends Component
 {
-    public $personal, $time, $department, $aux, $selectedDepartment;
+    public $personal, $time, $department, $aux, $selectedDepartment, $price;
 
     protected $listeners = ['selectDepartment'];
 
@@ -27,7 +27,7 @@ class Schedules extends Component
         $ticket = new Schedule();
         $ticket->time = $table->time;
         $ticket->department_id = $this->department;
-        $ticket->doctor_id = $this->personal;
+        $ticket->staff_id = $this->personal;
         if ($table->name == "Horario mañana" || $table->name == "mañana") {
             $ticket->type = 1;
         } elseif ($table->name == "Horario tarde" || $table->name == "tarde") {
@@ -37,7 +37,7 @@ class Schedules extends Component
         } else {
             $ticket->type = 4;
         }
-        $ticket->timeTable_id = $this->time;
+        $ticket->time_table_id = $this->time;
         $ticket->save();
         
         $this->resetVariables();
@@ -46,9 +46,13 @@ class Schedules extends Component
 
     public function edit(Schedule $schedule)
     {
-        $this->personal = $schedule->doctor_id;
-        $this->time = $schedule->timeTable_id;
+        $department = Department::find($schedule->department_id);
+        $this->selectDepartment($department);
+
+        $this->personal = $schedule->staff_id;
+        $this->time = $schedule->time_table_id;
         $this->department = $schedule->department_id;
+        $this->price = $schedule->price;
         $this->aux = $schedule->id;
     }
 
@@ -57,26 +61,28 @@ class Schedules extends Component
         $this->validate([
             'personal' => 'required',
             'time' => 'required',
-            'department' => 'required'
+            'department' => 'required',
+            'price' => 'required|numeric'
         ]);
 
         $table = TimeTable::find($this->time);
 
-        $ticket = Schedule::find($this->aux);
-        $ticket->time = $table->time;
-        $ticket->department_id = $this->department;
-        $ticket->doctor_id = $this->personal;
+        $schedule = Schedule::find($this->aux);
+        $schedule->time = $table->time;
+        $schedule->department_id = $this->department;
+        $schedule->staff_id = $this->personal;
         if ($table->name == "Horario mañana" || $table->name == "mañana") {
-            $ticket->type = 1;
+            $schedule->type = 1;
         } elseif ($table->name == "Horario tarde" || $table->name == "tarde") {
-            $ticket->type = 2;
+            $schedule->type = 2;
         } elseif ($table->name == "Horario noche" || $table->name == "noche"){
-            $ticket->type = 3;
+            $schedule->type = 3;
         } else {
-            $ticket->type = 4;
+            $schedule->type = 4;
         }
-        $ticket->timeTable_id = $this->time;
-        $ticket->save();
+        $schedule->time_table_id = $this->time;
+        $schedule->price = $this->price;
+        $schedule->save();
         
         $this->resetVariables();
         $this->emit('save');
@@ -97,6 +103,12 @@ class Schedules extends Component
         if (!is_null($department)) {
             $this->selectedDepartment = $department;
         }
+    }
+    
+    public function setPrice(Schedule $schedule)
+    {
+        $schedule->price = $this->price;
+        $schedule->save();
     }
 
     public function render()

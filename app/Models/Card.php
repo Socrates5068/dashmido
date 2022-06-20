@@ -14,7 +14,7 @@ class Card extends Model
         'patient_id',
         'date',
         'time',
-        'doctor_id',
+        'staff_id',
         'department_id'
     ];
 

@@ -107,7 +107,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'person_id' => 4,
-            'name' => 'Elias Ramos', // Genecólogo
+            'name' => 'Elias Ramos', // Ginecólogo
             'username' => '1207568',
             'password' => bcrypt('1207568'),
             'email_verified_at' => now()
@@ -125,6 +125,22 @@ class UserSeeder extends Seeder
             'person_id' => 6,
             'name' => 'Paciente',
             'username' => 'paciente',
+            'password' => bcrypt('123456'),
+            'email_verified_at' => now()
+        ])->assignRole($role1);
+
+        User::create([
+            'person_id' => 7,
+            'name' => 'Paciente2',
+            'username' => 'paciente2',
+            'password' => bcrypt('123456'),
+            'email_verified_at' => now()
+        ])->assignRole($role1);
+
+        User::create([
+            'person_id' => 8,
+            'name' => 'Paciente3',
+            'username' => 'paciente3',
             'password' => bcrypt('123456'),
             'email_verified_at' => now()
         ])->assignRole($role1);

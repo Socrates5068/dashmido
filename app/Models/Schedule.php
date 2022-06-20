@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    CONST PRICE = 10;
+
     use HasFactory;
 }

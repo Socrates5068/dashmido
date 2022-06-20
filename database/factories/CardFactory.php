@@ -20,7 +20,7 @@ class CardFactory extends Factory
             'patient_id' => 1,
             'date' => now(),
             'time' => '09:00:00',
-            'doctor_id' => 2,
+            'staff_id' => 2,
             'department_id' => 3,
         ];
     }

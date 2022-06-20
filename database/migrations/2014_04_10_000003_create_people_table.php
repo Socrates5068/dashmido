@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('f_last_name');
             $table->string('m_last_name');
-            $table->string('ci');
+            $table->string('ci')->nullable();
             $table->string('address');
-            $table->string('telephone');
+            $table->string('telephone')->nullable();
             $table->enum('type', ['0', '1']);
             $table->string('sex')->nullable();
             $table->timestamps();

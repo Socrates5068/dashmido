@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Clocking;
 
 use App\Models\Card;
+use App\Models\Staff;
 use App\Models\Person;
 use App\Models\Ticket;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use App\Models\Department;
 
 class ClokingTomorrow extends Component
 {
-    public $departments, $list, $aux;
+    public $departments, $list, $aux, $tickets;
 
     public $name;
     public $patientId;
@@ -30,13 +31,19 @@ class ClokingTomorrow extends Component
 
     public function mount()
     {
-        $this->departments = Department::all();
-        $first = Department::find(3);
-        $this->list = $first->id;
+        $this->departments = Department::where('name', '!=', 'Administración')
+            ->where('name', '!=', 'Enfermería')->get();
+
+        $first = Department::where('name', '!=', 'Administración')
+            ->where('name', '!=', 'Enfermería')->first();
+
+        if ($first) {
+            $this->list = $first->id;
+        }
 
         $this->getPatients();
     }
-    
+
     public function edit(Ticket $ticket)
     {
         $this->aux = $ticket->id;
@@ -74,7 +81,7 @@ class ClokingTomorrow extends Component
         $card->patient_id = $person->patient->id;
         $card->date = $ticket->date;
         $card->time = $ticket->time;
-        $card->doctor_id = $ticket->doctor_id;
+        $card->staff_id = $ticket->staff_id;
         $card->department_id = $ticket->department_id;
         $card->save();
 
@@ -85,6 +92,7 @@ class ClokingTomorrow extends Component
     public function tickets($id)
     {
         $this->list = $id;
+        $this->resetVariables();
     }
 
     public function updatedPatientId()
@@ -113,12 +121,26 @@ class ClokingTomorrow extends Component
         $this->resetValidation();
     }
 
+    public function printTickets($departmentName)
+    {
+        $staffId = Staff::find($this->tickets->first()->staff_id)->id;
+
+        $pdf = \PDF::loadView('pdf.tickets', [
+            'tickets' => $this->tickets, 
+            'departmentName' => $departmentName,
+            'staffId' => $staffId])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn() => print($pdf), 'Fichas_' . now() . '_' . $departmentName . '.pdf'
+        );
+    }
+
     public function render()
     {
-        $tickets = Ticket::where('department_id', $this->list)
-            ->where('date', date("Y-m-d",strtotime(now()." + 1 days")))
+        $this->tickets = Ticket::where('department_id', $this->list)
+            ->where('date', date("Y-m-d", strtotime(now()." + 1 days")))
             ->get();
             
-        return view('livewire.admin.clocking.cloking-tomorrow', compact('tickets'))->layout('layouts.admin');
+        return view('livewire.admin.clocking.cloking-tomorrow')->layout('layouts.admin');
     }
 }

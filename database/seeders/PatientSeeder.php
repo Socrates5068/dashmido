@@ -22,6 +22,22 @@ class PatientSeeder extends Seeder
             'height' => '1.56',
             'old' => 30,
         ]);
+
+        Patient::create([
+            'person_id' => 7,
+            'blood_type' => 'O-',
+            'weight' => '70',
+            'height' => '1.56',
+            'old' => 30,
+        ]);
+
+        Patient::create([
+            'person_id' => 8,
+            'blood_type' => 'O-',
+            'weight' => '70',
+            'height' => '1.56',
+            'old' => 30,
+        ]);
         
     }
 }

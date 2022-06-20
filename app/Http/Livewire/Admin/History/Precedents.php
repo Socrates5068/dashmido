@@ -182,7 +182,7 @@ class Precedents extends Component
 
     public function render()
     {
-        $this->array = Precedent::find($this->patient_id);
+        $this->array = Precedent::where('patient_id', $this->patient_id)->first();
         $this->precedents = json_decode($this->array->familiar, true);
 
         $this->personalPrecedent = PersonalPrecedent::where('patient_id', $this->patient_id)->first();

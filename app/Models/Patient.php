@@ -48,7 +48,7 @@ class Patient extends Model
         return $this->belongsTo(Person::class);
     }
 
-    public function card()
+    public function cards()
     {
         return $this->hasMany(Card::class);
     }

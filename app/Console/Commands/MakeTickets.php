@@ -51,7 +51,7 @@ class MakeTickets extends Command
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
                 foreach ($schedules as $schedule) {
                     $times = [];
-                    $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
+                    $hours = json_decode(TimeTable::find($schedule->time_table_id)->time);
                     for ($i = 0; $i < count($hours); $i = $i + 2){
                         array_push($times, $hours[$i] . " - " . $hours[$i + 1]);
                     }
@@ -59,7 +59,7 @@ class MakeTickets extends Command
                         Ticket::create([
                             'date' => date("Y-m-d",strtotime(now()."+ 1 days")),
                             'time' => $time,
-                            'doctor_id' => $schedule->doctor_id,
+                            'staff_id' => $schedule->staff_id,
                             'department_id' => $schedule->department_id,
                         ]);
                     }
@@ -72,7 +72,7 @@ class MakeTickets extends Command
                 $schedules = Schedule::where('department_id', $department->id)->orderBy('type', 'asc')->get();
                 foreach ($schedules as $schedule) {
                     $times = [];
-                    $hours = json_decode(TimeTable::find($schedule->timeTable_id)->time);
+                    $hours = json_decode(TimeTable::find($schedule->time_table_id)->time);
                     for ($i = 0; $i < count($hours); $i = $i + 2){
                         
                         array_push($times, $hours[$i] . ' - ' . $hours[$i + 1]);
@@ -83,7 +83,7 @@ class MakeTickets extends Command
                             'status' => '1',
                             'time' => $time,
                             'patient_id' => 6,
-                            'doctor_id' => $schedule->doctor_id,
+                            'staff_id' => $schedule->staff_id,
                             'department_id' => $schedule->department_id,
                         ]);
                     }

@@ -32,7 +32,7 @@ use App\Models\Staff;
 
     <div class="relative p-8 mt-8 bg-white rounded-lg shadow-lg">
         <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-3">
+            <div class="col-span-2">
                 <label>Horario</label>
                 <div class="mt-2">
                     <select wire:model='time' data-placeholder="Select your favorite actors"
@@ -49,8 +49,8 @@ use App\Models\Staff;
             <div class="col-span-3">
                 <label>Especialidad</label>
                 <div class="mt-2">
-                    <select wire:model='department' onchange="setDepartment()" id="departments" data-placeholder="Select your favorite actors"
-                        class="w-full form-control">
+                    <select wire:model='department' onchange="setDepartment()" id="departments"
+                        data-placeholder="Select your favorite actors" class="w-full form-control">
                         <option value="" selected>Seleccionar especialidad</option>
                         @foreach ($departments as $department)
                             @if ($department->name !== 'Administración' && $department->name !== 'Enfermería')
@@ -86,30 +86,24 @@ use App\Models\Staff;
                             <option value="" disabled selected>Selecciona un medico</option>
                         </select>
                     @endif
-                    {{-- <select wire:model='personal' data-placeholder="Select your favorite actors"
-                        class="w-full form-control">
-                        <option value="" selected>Seleccionar médico</option>
-                        @foreach ($staff as $staf)
-                            @if ($staf->person->id !== 1 && $staf->person->user->getRoleNames()->first() !== 'Enfermera')
-                                <option value="{{ $staf->id }}">{{ $staf->person->name }}
-                                    ({{ $staf->department->name }})
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <x-jet-input-error for="personal" /> --}}
                 </div>
+            </div>
+
+            <div class="col-span-1">
+                <label class="">Precio</label>
+                <input wire:model="price" class="mt-2 form-control" type="text">
+                <x-jet-input-error for="price" />
             </div>
 
             <div class="col-span-3">
                 <label class="">Acciones</label>
                 <div class="flex justify-center mt-2">
                     @isset($aux)
-                        <button wire:click='update' class="w-24 mb-2 mr-1 btn btn-warning">Actualizar</button>
-                        <button wire:click='resetVariables' class="w-24 mb-2 mr-1 btn btn-danger">Cancelar</button>
+                        <button wire:click='update' class="w-18 mb-2 mr-1 btn btn-warning">Actualizar</button>
+                        <button wire:click='resetVariables' class="w-18 mb-2 mr-1 btn btn-danger">Cancelar</button>
                     @else
-                        <button wire:click='save' class="w-24 mb-2 mr-1 btn btn-primary">Agregar</button>
-                        <button wire:click='resetVariables' class="w-24 mb-2 mr-1 btn btn-danger">Cancelar</button>
+                        <button wire:click='save' class="w-18 mb-2 mr-1 btn btn-primary">Agregar</button>
+                        <button wire:click='resetVariables' class="w-18 mb-2 mr-1 btn btn-danger">Cancelar</button>
                     @endisset
                 </div>
             </div>
@@ -125,6 +119,7 @@ use App\Models\Staff;
                         <th class="text-center whitespace-nowrap">HORARIO</th>
                         <th class="text-center whitespace-nowrap">ESPECIALIDAD</th>
                         <th class="text-center whitespace-nowrap">MÉDICO</th>
+                        <th class="text-center whitespace-nowrap">PRECIO</th>
                         <th class="text-center whitespace-nowrap">ACCIONES</th>
                     </tr>
                 </thead>
@@ -136,17 +131,20 @@ use App\Models\Staff;
                             </td>
                             <td>
                                 <a href="{{ route('admin.table') }}"
-                                    class="font-medium whitespace-nowrap">{{ TimeTable::find($schedule->timeTable_id)->name }}</a>
+                                    class="font-medium whitespace-nowrap">{{ TimeTable::find($schedule->time_table_id)->name }}</a>
                                 {{-- <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Photography</div> --}}
                             </td>
                             <td class="font-medium text-center">
                                 {{ Department::find($schedule->department_id)->name }}</td>
                             <td class="w-40">
                                 <a href=""
-                                    class="font-medium whitespace-nowrap">{{ Staff::find($schedule->doctor_id)->person->name }}
-                                    {{ Staff::find($schedule->doctor_id)->person->f_last_name }}</a>
+                                    class="font-medium whitespace-nowrap">{{ Staff::find($schedule->staff_id)->person->name }}
+                                    {{ Staff::find($schedule->staff_id)->person->f_last_name }}</a>
                                 <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                    {{-- {{ Staff::find($schedule->doctor_id)->department->name }}</div> --}}
+                                    {{-- {{ Staff::find($schedule->staff_id)->department->name }}</div> --}}
+                            </td>
+                            <td class="w-20">
+                                {{ $schedule->price }}
                             </td>
                             <td class="w-56 table-report__action">
                                 <div class="flex items-center justify-center">
@@ -164,15 +162,18 @@ use App\Models\Staff;
                                         class="flex items-center cursor-pointer text-danger" data-tw-toggle="modal"
                                         data-tw-target="#delete-confirmation-modal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" icon-name="trash-2"
-                                            data-lucide="trash-2" class="w-4 h-4 mr-1 lucide lucide-trash-2">
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            icon-name="trash-2" data-lucide="trash-2"
+                                            class="w-4 h-4 mr-1 lucide lucide-trash-2">
                                             <polyline points="3 6 5 6 21 6"></polyline>
                                             <path
                                                 d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2">
                                             </path>
-                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                            <line x1="10" y1="11" x2="10" y2="17">
+                                            </line>
+                                            <line x1="14" y1="11" x2="14" y2="17">
+                                            </line>
                                         </svg> Delete
                                     </p>
                                 </div>

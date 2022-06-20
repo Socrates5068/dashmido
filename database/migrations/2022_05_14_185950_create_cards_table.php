@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained();
+            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->string('time');
-            $table->string('doctor_id');
-            $table->string('department_id');
+            $table->foreignId('staff_id')->constrained()->onDelete('cascade');
+            $table->foreignId('department_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

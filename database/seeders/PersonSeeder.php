@@ -80,5 +80,27 @@ class PersonSeeder extends Seeder
             'type' => '1',
             'sex' => 'Masculino',
         ]);
+
+        Person::create([
+            'name' => 'Paciente2',
+            'f_last_name' => 'Paciente2',
+            'm_last_name' => 'Paciente2',
+            'ci' => '9556786953',
+            'address' => 'Calle XX 575',
+            'telephone' => '6224589',
+            'type' => '1',
+            'sex' => 'Femenino',
+        ]);
+
+        Person::create([
+            'name' => 'Paciente3',
+            'f_last_name' => 'Paciente3',
+            'm_last_name' => 'Paciente3',
+            'ci' => '9551967',
+            'address' => 'Calle XX 246',
+            'telephone' => '62245689',
+            'type' => '1',
+            'sex' => 'Femenino',
+        ]);
     }
 }

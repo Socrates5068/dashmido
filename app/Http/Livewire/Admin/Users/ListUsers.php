@@ -108,8 +108,8 @@ class ListUsers extends Component
             'user.m_last_name' => 'required|min:3',
             'user.ci' => 'required|unique:users,username',
             'user.address' => 'required|min:6',
-            'user.telephone' => 'required|numeric',
-            'user.email' => 'nullable|email',
+            'user.telephone' => 'required|numeric|unique:people,telephone',
+            'user.email' => 'nullable|email|unique:staff,email',
             'user.sex' => 'required',
             'role' => 'required',
             'user.department' => 'required',
@@ -172,8 +172,8 @@ class ListUsers extends Component
                 'user.m_last_name' => 'required|min:3',
                 'user.ci' => 'required|exists:users,username',
                 'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric',
-                'user.email' => 'nullable|email',
+                'user.telephone' => 'required|numeric|exists:people,telephone',
+                'user.email' => 'nullable|email|exists:staff,email',
                 'role' => 'required',
                 'user.department' => 'required',
             ]);
@@ -197,8 +197,8 @@ class ListUsers extends Component
                 'user.m_last_name' => 'required|min:3',
                 'user.ci' => 'required|unique:users,username',
                 'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric',
-                'user.email' => 'nullable|email',
+                'user.telephone' => 'required|numeric|unique:people,telephone',
+                'user.email' => 'nullable|email|unique:staff,email',
                 'role' => 'required',
                 'user.department' => 'required',
             ]);
@@ -236,7 +236,7 @@ class ListUsers extends Component
     {
         $user->delete();
 
-        Schedule::where('doctor_id', $user->id)->delete();
+        Schedule::where('staff_id', $user->id)->delete();
     }
 
     public function resetPassword(Person $person)
@@ -274,11 +274,13 @@ class ListUsers extends Component
 
     public function render()
     {
-        $users = Person::where(function($query){
+        /* $users = Person::where(function($query){
             $query->where('type', '0');
             $query->where('name', 'like', '%'.$this->search.'%');
             // $query->orwhere('address', 'like', '%'.$this->search.'%');
-        })->orderBy('created_at', 'desc')->paginate($this->paginate);
+        })->orderBy('created_at', 'desc')->paginate($this->paginate); */
+
+        $users = Staff::orderBy('created_at', 'desc')->paginate($this->paginate);
 
         $departments = Department::all();
 

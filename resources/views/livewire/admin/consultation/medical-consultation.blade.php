@@ -127,7 +127,7 @@ use App\Models\Staff;
                     <div class="mt-3">
                         <p>
                             Para registrar uan nueva consultas haga clic en el botón <a
-                                class="font-semibold text-blue-600 underline" href="{{ route('admin.patients') }}">
+                                class="font-semibold text-blue-600 underline" href="javascript:;">
                                 +Nueva
                                 consulta </a> </p>
                     </div>

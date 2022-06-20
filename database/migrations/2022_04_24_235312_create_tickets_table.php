@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Ticket;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,10 +18,11 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->string('time');
-            $table->enum('status',  ['0', '1'])->default('0'); // booked or not booked
+            $table->enum('status',  ['0', '1', '2', '3', '4'])->default('0'); // booked or not booked
             $table->string('patient_id')->nullable();
-            $table->string('doctor_id');
+            $table->string('staff_id');
             $table->string('department_id');
+            // $table->integer('price')->default(Ticket::PRICE);
             $table->timestamps();
         });
     }

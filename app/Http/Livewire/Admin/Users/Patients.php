@@ -68,10 +68,6 @@ class Patients extends Component
 
     public function saveUser()
     {
-        /* if(User::where('username', $this->user['ci'])->first()) {
-            $this->user['ci'] = $this->user['ci'] . 'p';
-        } */
-
         $this->validate([
             'user.name' => 'required|min:3',
             'user.f_last_name' => 'required|min:3',
@@ -83,7 +79,7 @@ class Patients extends Component
             'user.weight' => 'nullable|max:8|min:1',
             'user.height' => 'nullable|max:8|min:1',
             'user.old' => 'nullable|numeric|max:120|min:0',
-            'user.sex' => 'nullable',
+            'user.sex' => 'required',
         ]);
 
         $person = new Person;
@@ -150,6 +146,7 @@ class Patients extends Component
                 'user.weight' => 'nullable|max:8|min:1',
                 'user.height' => 'nullable|max:8|min:1',
                 'user.old' => 'nullable|numeric|max:120|min:0',
+                'user.sex' => 'required',
             ]);
     
             $person->name = $this->user['name'];

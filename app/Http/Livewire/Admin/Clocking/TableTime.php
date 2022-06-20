@@ -55,7 +55,7 @@ class TableTime extends Component
 
     public function deleteTime(TimeTable $timeTable)
     {
-        Schedule::where('timeTable_id', $timeTable->id)->delete();
+        // Schedule::where('time_table_id', $timeTable->id)->delete();
         $timeTable->delete();
         $this->emit('delete');
     }
