@@ -6,6 +6,7 @@ use App\Models\Card;
 use App\Models\Order;
 use App\Models\Person;
 use App\Models\Recipe;
+use App\Models\Consultation;
 use App\Models\PersonalPrecedent;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\NonPathologicalPrecedent;
@@ -61,5 +62,10 @@ class Patient extends Model
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function contultations()
+    {
+        return $this->hasMany(Consultation::class);
     }
 }

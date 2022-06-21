@@ -17,8 +17,8 @@ use App\Models\Staff;
         <!-- BEGIN: Notification Content -->
         <div id="save" class="flex toastify-content">
             <div class="relative flex w-full max-w-lg mx-auto my-auto bg-white rounded-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -85,6 +85,9 @@ use App\Models\Staff;
                                         @elseif ($consultation->status == Consultation::THIRD)
                                             <button
                                                 class="mb-2 mr-1 text-xs btn btn-rounded-success">{{ $consultation->status }}</button>
+                                        @elseif ($consultation->status == Consultation::DERIVE)
+                                            <button
+                                                class="mb-2 mr-1 text-xs btn btn-rounded-danger">{{ $consultation->status }}</button>
                                         @endif
                                     </td>
                                     <td>
@@ -195,7 +198,8 @@ use App\Models\Staff;
             <div class="intro-y lg:col-span-8">
                 <div class="mt-5 overflow-hidden post intro-y box">
                     <div class="post__content tab-content">
-                        <div id="content" class="p-5 tab-pane active" role="tabpanel" aria-labelledby="content-tab">
+                        <div id="content" class="p-5 tab-pane active" role="tabpanel"
+                            aria-labelledby="content-tab">
                             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                                 <div
                                     class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
@@ -306,6 +310,14 @@ use App\Models\Staff;
                     class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-primary" aria-expanded="false"
                     data-tw-toggle="dropdown"> Nueva receta
                 </button>
+                <button wire:click="infirmary"
+                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-pending " aria-expanded="false"
+                    data-tw-toggle="dropdown"> Derivar a enfermería
+                </button>
+                <button wire:click="deriveDepartment"
+                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-pending " aria-expanded="false"
+                    data-tw-toggle="dropdown"> Derivar a especialidad
+                </button>
                 <div class="dropdown">
                     <button id="drop" class="flex items-center shadow-md dropdown-toggle btn btn-primary"
                         aria-expanded="false" data-tw-toggle="dropdown"> Actualizar
@@ -335,6 +347,12 @@ use App\Models\Staff;
                                     {{ Consultation::THIRD }}
                                 </button>
                             </li>
+                            <li>
+                                <button wire:click="updateDiagnosis('{{ Consultation::DERIVE }}')" @click="ocultar"
+                                    class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                                    {{ Consultation::DERIVE }}
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -345,7 +363,8 @@ use App\Models\Staff;
             <div class="intro-y lg:col-span-8">
                 <div class="mt-5 overflow-hidden post intro-y box">
                     <div class="post__content tab-content">
-                        <div id="content" class="p-5 tab-pane active" role="tabpanel" aria-labelledby="content-tab">
+                        <div id="content" class="p-5 tab-pane active" role="tabpanel"
+                            aria-labelledby="content-tab">
                             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                                 <div
                                     class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
@@ -355,81 +374,7 @@ use App\Models\Staff;
                                 <label for="regular-form-1" class="form-label">Diagnostico</label>
                                 <input wire:model="diagnostic" type="text" class="form-control"
                                     placeholder="Ej. Gastroenteritis">
-                                {{-- <div wire:ignore class="mt-5">
-                                    <div id="toolbar-container-edit"></div>
-                                    <div id="editorEdit">
-                                        <p><strong>SUBJETIVO:</strong></p>
-                                        <p>&nbsp;</p>
-                                        <p><strong>OBJETIVO:</strong></p>
-                                        <p>&nbsp;</p>
-                                        <p><strong>ANALISIS (diagnostico):</strong></p>
-                                        <p>&nbsp;</p>
-                                        <p><strong>PLAN DE TRATAMIENTO:</strong></p>
-                                    </div>
-                                </div> --}}
                             </div>
-                            {{-- <div class="p-5 mt-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
-                                <div
-                                    class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
-                                    <i data-lucide="chevron-down" class="w-4 h-4 mr-2"></i> Caption & Images
-                                </div>
-                                <div class="mt-5">
-                                    <div>
-                                        <label for="post-form-7" class="form-label">Caption</label>
-                                        <input id="post-form-7" type="text" class="form-control"
-                                            placeholder="Write caption">
-                                    </div>
-                                    <div class="mt-3">
-                                        <label class="form-label">Upload Image</label>
-                                        <div class="pt-4 border-2 border-dashed rounded-md dark:border-darkmode-400">
-                                            <div class="flex flex-wrap px-4">
-                                                <div
-                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
-                                                    <img class="rounded-md" alt="Midone - HTML Admin Template"
-                                                        src="dist/images/preview-4.jpg">
-                                                    <div title="Remove this image?"
-                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
-                                                        <i data-lucide="x" class="w-4 h-4"></i>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
-                                                    <img class="rounded-md" alt="Midone - HTML Admin Template"
-                                                        src="dist/images/preview-12.jpg">
-                                                    <div title="Remove this image?"
-                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
-                                                        <i data-lucide="x" class="w-4 h-4"></i>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
-                                                    <img class="rounded-md" alt="Midone - HTML Admin Template"
-                                                        src="dist/images/preview-7.jpg">
-                                                    <div title="Remove this image?"
-                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
-                                                        <i data-lucide="x" class="w-4 h-4"></i>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="relative w-24 h-24 mb-5 mr-5 cursor-pointer image-fit zoom-in">
-                                                    <img class="rounded-md" alt="Midone - HTML Admin Template"
-                                                        src="dist/images/preview-2.jpg">
-                                                    <div title="Remove this image?"
-                                                        class="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-2 -mr-2 text-white rounded-full tooltip bg-danger">
-                                                        <i data-lucide="x" class="w-4 h-4"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="relative flex items-center px-4 pb-4 cursor-pointer">
-                                                <i data-lucide="image" class="w-4 h-4 mr-2"></i> <span
-                                                    class="mr-1 text-primary">Upload a file</span> or drag and drop
-                                                <input type="file"
-                                                    class="absolute top-0 left-0 w-full h-full opacity-0">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -574,7 +519,10 @@ use App\Models\Staff;
                                                 @php
                                                     $des = json_decode($recipe->description, true);
                                                 @endphp
-                                                {{ substr($des[0][1], 0, 10) }}
+                                                @if (!empty($des))
+                                                    {{ substr($des[0][1], 0, 10) }}
+                                                @endif
+
                                             </td>
                                             <td>
                                                 @if ($key == 0)
@@ -621,8 +569,8 @@ use App\Models\Staff;
     </div>
 
     {{-- modal Create orders --}}
-    <div x-show="orderCreate" :class="{ 'show': orderCreate, '': !orderCreate }" class="modal-personal" tabindex="-1"
-        aria-hidden="true">
+    <div x-show="orderCreate" :class="{ 'show': orderCreate, '': !orderCreate }" class="modal-personal"
+        tabindex="-1" aria-hidden="true">
         <div class="mt-20 overflow-hidden modal-personal-dialog">
             <div class="modal-content" @click.away="orderCreate = false, Livewire.emit('resetVariables')">
                 <div class="p-10 text-center modal-body">
@@ -683,7 +631,7 @@ use App\Models\Staff;
     </div>
 
     {{-- modal Create recipes --}}
-    <div x-show="recipeCreate" :class="{ 'show': recipeCreate, '': !recipeCreate }" class="modal-personal"
+    {{-- <div x-show="recipeCreate" :class="{ 'show': recipeCreate, '': !recipeCreate }" class="modal-personal"
         tabindex="-1" aria-hidden="true">
         <div class="mt-20 overflow-hidden modal-personal-dialog modal-lg">
             <div class="modal-content" @click.away="recipeCreate = false, Livewire.emit('resetVariables')">
@@ -691,7 +639,8 @@ use App\Models\Staff;
                     <div class="grid grid-cols-12 gap-6">
                         <div class="col-span-2">
                             <label>Cantidad</label>
-                            <input wire:model="quantity" type="number" class="form-control">
+                            <input wire:model="quantity" type="number" class="form-control" min="0"
+                                max="100">
                             <x-jet-input-error for="quantity" />
                         </div>
                         <div class="col-span-7">
@@ -755,22 +704,142 @@ use App\Models\Staff;
                         @else
                             <button wire:click="updateRecipe" class="mr-1 btn btn-primary">Actualizar</button>
                         @endif
-
-
-
                         <button wire:click="saveRecipe"
                             @click="print, Livewire.on('saved', () => {recipeCreate = false; } )"
-                            class="mr-1 btn btn-primary" {{-- {{ $saveControl == 0 ? 'disabled' : '' }} --}}>Guardar</button>
+                            class="mr-1 btn btn-primary">Guardar</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div> --}}
+
+    {{-- Modal para registrar productos --}}
+    <div x-show="recipeCreate" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        <!-- Modal -->
+        <div x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0  transform translate-y-1/2"
+            @click.away="recipeCreate = false, Livewire.emit('resetRecipe')"
+            @keydown.escape="recipeCreate = false, Livewire.emit('resetRecipe')" {{-- Esto hace que el modal no se abra ni bien se entra en la pagina --}}
+            :class="{ 'block': recipeCreate, 'hidden': !recipeCreate }"
+            class="hidden w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl"
+            role="dialog" id="modal">
+            <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+            <header class="flex justify-end">
+                <button
+                    class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                    aria-label="close" @click="recipeCreate = false, Livewire.emit('resetRecipe')">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                        <path
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd" fill-rule="evenodd">
+                        </path>
+                    </svg>
+                </button>
+            </header>
+            <!-- Modal body -->
+            <div class="mt-4 mb-6">
+                <!-- Modal title -->
+                <p class="mb-2 text-lg font-semibold text-green-700 dark:text-green-700">
+                    Nueva receta {{  $gname }}
+                </p>
+                <div class="p-10 text-center modal-body">
+                    <div class="grid grid-cols-12 gap-6">
+                        <div class="col-span-2">
+                            <label>Cantidad</label>
+                            <input wire:model="quantity" type="number" class="form-control" min="0"
+                                max="100">
+                            <x-jet-input-error for="quantity" />
+                        </div>
+                        <div class="col-span-7">
+                            <label>Medicamento</label>
+                            <x-lwa::autocomplete
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            name="generic-name"
+                            wire:model-text="gname"
+                            wire:model-id="gnameId"
+                            wire:model-results="gnames"
+                            :options="[
+                                'text'=> 'gname',
+                                'allow-new'=> 'true',
+                            ]" />
+                            <x-jet-input-error for="gname" />
+                        </div>
+                        <div class="col-span-3">
+                            <label>Indicación</label>
+                            <input wire:model="instruction" type="text" class="form-control">
+                            <x-jet-input-error for="instruction" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap">
+                                        Cantidad
+                                    </th>
+                                    <th class="whitespace-nowrap">
+                                        Medicamento
+                                    </th>
+                                    <th class="whitespace-nowrap">
+                                        indicación
+                                    </th>
+                                    <th class="whitespace-nowrap">
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($descriptionRecipe as $key => $desRecipe)
+                                    <tr>
+                                        <td>
+                                            {{ $desRecipe[0] }}
+                                        </td>
+                                        <td>
+                                            {{ $desRecipe[1] }}
+                                        </td>
+                                        <td>
+                                            {{ $desRecipe[2] }}
+                                        </td>
+                                        <td>
+                                            <button wire:click="editRecipe('{{ $key }}')">editar</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <footer
+                class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+                <div class="mt-4">
+                    <button class="mr-1 btn btn-primary" wire:click="resetRecipe"
+                        @click="recipeCreate = false">Cerrar</button>
+
+                    @if ($recipeControl == 0)
+                        <button wire:click="addRecipe" class="mr-1 btn btn-primary">Agregar</button>
+                    @else
+                        <button wire:click="updateRecipe" class="mr-1 btn btn-primary">Actualizar</button>
+                    @endif
+                    <button wire:click="saveRecipe"
+                        @click="print, Livewire.on('saved', () => {recipeCreate = false; } )"
+                        class="mr-1 btn btn-primary">Guardar</button>
+                </div>
+            </footer>
         </div>
     </div>
 
 
     {{-- modal Edit recipes --}}
-    <div x-show="recipeEdit" :class="{ 'show': recipeEdit, '': !recipeEdit }" class="modal-personal"
-        tabindex="-1" aria-hidden="true">
+    <div x-show="recipeEdit" :class="{ 'show': recipeEdit, '': !recipeEdit }" class="modal-personal" tabindex="-1"
+        aria-hidden="true">
         <div class="mt-20 overflow-hidden modal-personal-dialog modal-lg">
             <div class="modal-content" @click.away="recipeEdit = false, Livewire.emit('resetVariables')">
                 <div class="p-10 text-center modal-body">
@@ -834,7 +903,7 @@ use App\Models\Staff;
 
                     <div class="mt-4">
                         <button class="mr-1 btn btn-primary" wire:click="resetVariables"
-                            @click="recipeEdit = false">Cerrar</button>
+                            @click="recipeEdit = false, Livewire.emit('resetVariables')">Cerrar</button>
 
                         @if ($recipeControl == 0)
                             <button wire:click="addRecipe" class="mr-1 btn btn-primary">Agregar</button>
@@ -850,6 +919,7 @@ use App\Models\Staff;
             </div>
         </div>
     </div>
+
     @push('scripts')
         <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/decoupled-document/ckeditor.js"></script>
 

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->foreignId('staff_id')->constrained()->onDelete('cascade');
 
             $table->longText('description')->nullable();
-            $table->enum('status',  [Consultation::FIRST, Consultation::SECOND, Consultation::THIRD])->nullable();
+            $table->enum('infirmary',  ['0', '1'])->default('0');
+            $table->enum('status',  [Consultation::FIRST, Consultation::SECOND, Consultation::THIRD, Consultation::DERIVE])->nullable();
             $table->string('diagnostic')->nullable();
 
             $table->timestamps();

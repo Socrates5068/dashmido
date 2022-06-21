@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Recipe;
 use Livewire\Component;
 use App\Models\Consultation;
+use App\Models\Product;
 use Livewire\WithPagination;
 
 class MedicalConsultation extends Component
@@ -24,7 +25,20 @@ class MedicalConsultation extends Component
     // variables for recipes
     public $quantity, $medicine, $instruction, $descriptionRecipe = [], $recipeControl = 0, $auxRecipe, $auxRecipeObject;
 
-    protected $listeners = ['save', 'resetVariables'];
+    // variables for medicines
+    public $gnames, $gname, $gnameId;
+
+    public $pro;
+
+    protected $rules = [
+        'gnames.*.id' => '',
+        'gnames.*.gname' => '',
+
+        'pro.id' => '',
+        'pro.gname' => '',
+    ];
+
+    protected $listeners = ['save', 'resetVariables', 'resetRecipe'];
 
     public function mount($patient_id)
     {
@@ -124,13 +138,18 @@ class MedicalConsultation extends Component
     {
         $this->validate([
             'quantity' => 'required',
-            'medicine' => 'required',
+            'gname' => 'required',
             'instruction' => 'required'
         ]);
 
         $description = [];
-        array_push($description, $this->quantity, $this->medicine, $this->instruction);
+        array_push($description, $this->quantity, $this->gname, $this->instruction);
         array_push($this->descriptionRecipe, $description);
+
+        // save medicine on database
+        $medicine = new Product();
+        $medicine->gname = $this->gname;
+        $medicine->save();
 
         $this->reset('quantity', 'medicine', 'instruction');
     }
@@ -144,7 +163,7 @@ class MedicalConsultation extends Component
         $recipe->description = json_encode($this->descriptionRecipe);
         $recipe->save();
 
-        $this->reset('quantity', 'medicine', 'instruction');
+        $this->resetRecipe();
         $this->emit('saved');
     }
 
@@ -193,6 +212,56 @@ class MedicalConsultation extends Component
     {
         $this->reset('orderDescription', 'consultationDescription', 'diagnostic');
         $this->resetValidation();
+    }
+
+    public function resetRecipe()
+    {
+        $this->reset('quantity', 'gname', 'instruction', 'descriptionRecipe');
+        $this->resetValidation();
+    }
+
+    public function infirmary()
+    {
+        $this->consult->infirmary = '1';
+        $this->consult->save();
+        $this->emit('saved');
+    }
+
+    public function deriveDepartment()
+    {
+        $consultation = Consultation::find($this->conAux);
+        $consultation->description = $this->consultationDescription;
+        $consultation->diagnostic = $this->diagnostic;
+        $consultation->save();
+
+        $pdf = \PDF::loadView('pdf.derive', [
+            'consultation' => $consultation
+        ])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            'Orden_derivación_' . now() . '.pdf'
+        );
+    }
+
+    public function updatedGnameId()
+    {
+        $this->pro = Product::find($this->gnameId);
+    }
+
+    public function updatedGname()
+    {
+        $this->getGnames();
+    }
+
+    public function getGnames()
+    {
+        $this->gnames = Product::query()
+            ->when($this->gname, function ($query, $gname) {
+                return $query->where('gname', 'LIKE', '%' . $gname . '%');
+            })
+            ->orderBy('gname')
+            ->get();
     }
 
     public function render()

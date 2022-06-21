@@ -16,7 +16,6 @@ class Positions extends Component
 
     public function mount()
     {
-        
     }
 
     public function saveDepartment()
@@ -120,6 +119,21 @@ class Positions extends Component
     {
         $this->reset('department', 'aux', 'position', 'description');
         $this->resetValidation();
+    }
+
+    public function printDepartments()
+    {
+        $departments = Department::where('name', '!=', 'Administración')
+            ->where('name', '!=', 'Enfermería')->get();
+
+        $pdf = \PDF::loadView('pdf.departments', [
+            'departments' => $departments
+        ])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            'Espacialidades-' . now() . '.pdf'
+        );
     }
 
     public function render()

@@ -25,6 +25,7 @@ class PrecedentSeeder extends Seeder
             'Desnutrición' => array(false, false, false, false, false,),
         ];
 
+        #Patient 1
         $precedent = new Precedent();
         $precedent->patient_id = 1;
         $precedent->familiar = json_encode($array);
@@ -36,6 +37,34 @@ class PrecedentSeeder extends Seeder
 
         $nonPathologicalPrecedent = new NonPathologicalPrecedent();
         $nonPathologicalPrecedent->patient_id = 1;
+        $nonPathologicalPrecedent->save();
+
+        #Patient 2
+        $precedent = new Precedent();
+        $precedent->patient_id = 2;
+        $precedent->familiar = json_encode($array);
+        $precedent->save();
+
+        $personalPrecedent = new PersonalPrecedent();
+        $personalPrecedent->patient_id = 2;
+        $personalPrecedent->save();
+
+        $nonPathologicalPrecedent = new NonPathologicalPrecedent();
+        $nonPathologicalPrecedent->patient_id = 2;
+        $nonPathologicalPrecedent->save();
+
+        #Patient 3
+        $precedent = new Precedent();
+        $precedent->patient_id = 3;
+        $precedent->familiar = json_encode($array);
+        $precedent->save();
+
+        $personalPrecedent = new PersonalPrecedent();
+        $personalPrecedent->patient_id = 3;
+        $personalPrecedent->save();
+
+        $nonPathologicalPrecedent = new NonPathologicalPrecedent();
+        $nonPathologicalPrecedent->patient_id = 3;
         $nonPathologicalPrecedent->save();
     }
 }

@@ -17,19 +17,7 @@
         <div class="flex flex-wrap items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
             <button class="mr-2 shadow-md btn btn-primary" @click="modalSlide = true">Agregar
                 paciente</button>
-            {{-- <div wire:ignore class="dropdown">
-                <button class="px-2 dropdown-toggle btn box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="flex items-center justify-center w-5 h-5"> <i class="w-4 h-4"
-                            data-lucide="plus"></i> </span>
-                </button>
-            </div> --}}
             <div class="hidden mx-auto md:block text-slate-500">{{ $users->links('pagination::message') }}</div>
-            {{-- <div x-data="{ message: '' }" class="w-full mt-3 sm:w-auto sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="relative w-56 text-slate-500">
-                    <input type="text" class="w-56 pr-10 form-control box" placeholder="Buscar..." x-model="message" @input="Livewire.emit('updateSearch', message)">
-                    <i class="absolute inset-y-0 right-0 w-4 h-4 my-auto mr-3 " data-lucide="search"></i>
-                </div>
-            </div> --}}
         </div>
 
         {{-- BEGIN: User list --}}

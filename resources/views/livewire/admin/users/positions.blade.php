@@ -4,11 +4,25 @@
         <div class="w-full max-w-lg mx-auto mt-6 alert alert-success show" role="alert">Registro exitoso</div>
     </x-jet-action-message>
 
-    <div class="col-span-2 gap-4 mb-5 md:grid md:grid-cols-2">
+    <div class="col-span-2 gap-4 mb-5">
         <div class="mt-6">
             <div class="items-center block h-10 intro-y sm:flex">
                 <h2 class="mr-5 text-lg font-medium truncate">Especialidades</h2>
                 <div class="flex items-center mt-3 sm:ml-auto sm:mt-0">
+                    <div class="mr-2">
+                        <button wire:click="printDepartments" class="flex items-center btn box text-slate-600 dark:text-slate-300">
+                            <svg class="mr-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" icon-name="printer" data-lucide="printer"
+                                class="lucide lucide-printer block mx-auto">
+                                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
+                                <rect x="6" y="14" width="12" height="8"></rect>
+                            </svg> Imprimir
+                        </button>
+
+                    </div>
+
                     <button @click="department = true"
                         class="flex items-center btn box text-slate-600 dark:text-slate-300">
                         <span wire:ignore class="flex w-5 h-5"> <i class="w-4 h-4 -ml-1" data-lucide="plus"></i>
@@ -36,32 +50,36 @@
                                 <td>
                                     {{-- <b class="font-medium whitespace-nowrap">{{ substr($depa->description, 0, 20) . '...' }}</b> --}}
                                     <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                        {{ substr($depa->description, 0, 20) . '...' }}</div>
+                                        {{ substr($depa->description, 0, 80) . '...' }}</div>
                                 </td>
                                 <td class="w-56 table-report__action">
                                     <div wire:ignore class="flex items-center justify-center">
                                         <p wire:click="editDepartment('{{ $depa->id }}')"
                                             @click="editDepartment = !editDepartment"
                                             class="flex items-center mr-3 cursor-pointer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
+                                            </svg> Editar
                                         </p>
                                         <p @click="Livewire.emit('destroyDepartment', {{ $depa->id }})"
                                             class="flex items-center cursor-pointer text-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" icon-name="trash-2"
-                                                data-lucide="trash-2" class="w-4 h-4 mr-1 lucide lucide-trash-2">
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                icon-name="trash-2" data-lucide="trash-2"
+                                                class="w-4 h-4 mr-1 lucide lucide-trash-2">
                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                 <path
                                                     d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2">
                                                 </path>
-                                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                                            </svg>
+                                                <line x1="10" y1="11" x2="10" y2="17">
+                                                </line>
+                                                <line x1="14" y1="11" x2="14" y2="17">
+                                                </line>
+                                            </svg> Eliminar
                                         </p>
                                     </div>
                                 </td>

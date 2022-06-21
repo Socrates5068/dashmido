@@ -2,13 +2,22 @@
 
 namespace App\Http\Livewire\Admin\Infirmary;
 
+use App\Models\Order;
+use App\Models\Recipe;
 use App\Models\Patient;
 use Livewire\Component;
 use App\Models\Attention;
+use App\Models\Consultation;
 
 class Infirmary extends Component
 {
-    public $description, $patient_id, $aux;
+    public $description, $aux;
+
+    // Variables for consultations
+    public $show = 0;
+
+    // variables for consultation
+    public $consult, $conAux, $consultationDescription, $diagnostic, $patientId;
 
     protected $listeners = ['resetVariables'];
 
@@ -23,11 +32,10 @@ class Infirmary extends Component
     {
         $this->validate([
             'description' => 'required',
-            'patient_id' => 'required',
         ]);
 
         $attention = new Attention();
-        $attention->patient_id = $this->patient_id;
+        $attention->patient_id = $this->patientId;
         $attention->staff_id = auth()->user()->person->staff->id;
         $attention->description = $this->description;
         $attention->save();
@@ -48,14 +56,40 @@ class Infirmary extends Component
 
     public function resetVariables()
     {
-        $this->reset('description', 'patient_id');
+        $this->reset('description');
+    }
+
+    public function editDiagnosis(Consultation $consultation)
+    {
+        $this->consult = $consultation;
+        $this->conAux = $consultation->id;
+        $this->consultationDescription = $consultation->description;
+        $this->diagnostic = $consultation->diagnostic;
+        $this->patientId = $consultation->patient_id;
     }
 
     public function render()
     {
-        $patients = Patient::all();
-        $attentions = Attention::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);
+        if ($this->consult) {
+            $patients = Patient::all();
+            $consultations = Consultation::where('infirmary', '1')->orderBy('id', 'desc')->paginate(10);
+            $attentions = Attention::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);
+            
+            $orders = Order::where('patient_id', $this->patientId)
+                ->where('consultation_id', $this->consult->id)
+                ->orderBy('id', 'desc')->paginate(5);
 
-        return view('livewire.admin.infirmary.infirmary', compact('patients', 'attentions'))->layout('layouts.admin');
+            $recipes = Recipe::where('patient_id', $this->patientId)
+                ->where('consultation_id', $this->consult->id)
+                ->orderBy('id', 'desc')->paginate(5);
+
+                return view('livewire.admin.infirmary.infirmary', compact('consultations', 'attentions', 'patients', 'orders', 'recipes'));
+        } else {
+            $patients = Patient::all();
+            $consultations = Consultation::where('infirmary', '1')->orderBy('id', 'desc')->paginate(10);
+            $attentions = Attention::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);
+
+            return view('livewire.admin.infirmary.infirmary', compact('consultations', 'attentions', 'patients'))->layout('layouts.admin');
+        }
     }
 }

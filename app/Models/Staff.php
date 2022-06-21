@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Person;
 use App\Models\Department;
+use App\Models\Consultation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,5 +34,10 @@ class Staff extends Model
     public function recipe()
     {
         return $this->hasMany(Recipe::class);
+    }
+
+    public function contultations()
+    {
+        return $this->hasMany(Consultation::class);
     }
 }

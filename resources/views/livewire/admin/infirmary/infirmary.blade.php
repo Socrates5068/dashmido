@@ -1,3 +1,7 @@
+@php
+use App\Models\Consultation;
+use App\Models\Staff;
+@endphp
 <div x-data="{ attention: false, editAttention: false }">
     <div wire:ignore>
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Enfermería'])
@@ -26,13 +30,17 @@
             <a href="{{ route('admin.patients') }}" class="mb-2 mr-1 w-36 btn btn-primary">Registrar paciente</a>
         </div>
         <div class="">
-            <button @click="attention = true" class="mb-2 mr-1 w-36 btn btn-primary">Nueva atención</button>
+            {{-- <button @click="attention = true" class="mb-2 mr-1 w-36 btn btn-primary">Nueva atención</button> --}}
         </div>
         <div class="">
         </div>
     </div>
 
-    <div class="intro-y">
+    {{-- Attentions --}}
+    <div class="intro-y mt-8">
+        <h2 class="mr-auto text-lg font-medium">
+            Atenciones
+        </h2>
         @if ($attentions->count())
             <!-- ====== Table Section Start -->
             <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
@@ -73,7 +81,6 @@
                                         <button wire:click="edit('{{ $attention->id }}')"
                                             @click="editAttention = true"
                                             class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Editar</button>
-                                        {{-- @endif --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -92,18 +99,298 @@
             <div class="p-10">
                 <div class="mb-2 alert alert-secondary show" role="alert">
                     <div class="flex items-center">
-                        <div class="text-lg font-medium">Este paciente aún no tiene consultas registradas.</div>
-                    </div>
-                    <div class="mt-3">
-                        <p>
-                            Para registrar uan nueva consultas haga clic en el botón <a
-                                class="font-semibold text-blue-600 underline" href="{{ route('admin.patients') }}">
-                                +Nueva
-                                consulta </a> </p>
+                        <div class="text-lg font-medium">Aún no hay registros.</div>
                     </div>
                 </div>
             </div>
         @endif
+    </div>
+
+    {{-- Consultations --}}
+    <div class="{{ $show == 0 ? 'block' : 'hidden' }} intro-y">
+        <h2 class="mr-auto text-lg font-medium">
+            Derivaciones
+        </h2>
+        @if ($consultations->count())
+            <!-- ====== Table Section Start -->
+            <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
+                <h2 class="mb-4 text-lg font-bold intro-y">
+                    Consultas del paciente
+                </h2>
+                <div class="intro-y">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">
+                                    Nº
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Fecha
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Estado
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Médico
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Diagnostico
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($consultations as $key => $consultation)
+                                <tr>
+                                    <td>
+                                        {{ $consultation->id }}
+                                    </td>
+                                    <td>
+                                        {{ date('d-m-Y', strtotime($consultation->created_at)) }}
+                                    </td>
+                                    <td>
+                                        @if ($consultation->status == Consultation::FIRST)
+                                            <button
+                                                class="mb-2 mr-1 text-xs btn btn-rounded-secondary">{{ $consultation->status }}</button>
+                                        @elseif ($consultation->status == Consultation::SECOND)
+                                            <button
+                                                class="mb-2 mr-1 text-xs btn btn-rounded-pending">{{ $consultation->status }}</button>
+                                        @elseif ($consultation->status == Consultation::THIRD)
+                                            <button
+                                                class="mb-2 mr-1 text-xs btn btn-rounded-success">{{ $consultation->status }}</button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ Staff::find($consultation->staff_id)->person->name }}
+                                        {{ Staff::find($consultation->staff_id)->person->f_last_name }}
+                                    </td>
+                                    <td>
+                                        {{ $consultation->diagnostic }}
+                                    </td>
+                                    <td>
+                                        <button wire:click="editDiagnosis('{{ $consultation->id }}')"
+                                            @click="$wire.set('show', 1)"
+                                            class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Ver</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- ====== Table Section End -->
+            <nav class="hidden w-full mt-4 md:block">
+                {{ $consultations->links() }}
+            </nav>
+            <nav class="w-full mt-4 sm:w-auto sm:mr-auto md:hidden">
+                {{ $consultations->links('pagination::tailwind') }}
+            </nav>
+        @else
+            <div class="p-10">
+                <div class="mb-2 alert alert-secondary show" role="alert">
+                    <div class="flex items-center">
+                        <div class="text-lg font-medium">Aún no hay pacientes derivados a este módulo.</div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    {{-- Edit diagnosis --}}
+    <div class="{{ $show == 1 ? 'block' : 'hidden' }} px-5 pt-5 intro-y">
+        <div class="flex flex-col items-center mt-2 intro-y sm:flex-row">
+            <h2 class="mr-auto text-lg font-medium">
+                Ver
+            </h2>
+            <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
+                <button wire:click="resetVariables" @click="$wire.set('show', 0,), $wire.set('saveControl', 0,)"
+                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-danger" aria-expanded="false"
+                    data-tw-toggle="dropdown"> Atras
+                </button>
+                <div class="">
+                    <button @click="attention = true" class="mb-2 mr-1 w-36 btn btn-primary">Nueva atención</button>
+                </div>
+            </div>
+        </div>
+        <div class="gap-5 mt-5 post intro-y">
+            <!-- BEGIN: Post Content -->
+            <div class="intro-y lg:col-span-8">
+                <div class="mt-5 overflow-hidden post intro-y box">
+                    <div class="post__content tab-content">
+                        <div id="content" class="p-5 tab-pane active" role="tabpanel"
+                            aria-labelledby="content-tab">
+                            <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
+                                <div
+                                    class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+                                    Descripción
+                                </div>
+                                <textarea disabled wire:model="consultationDescription" class="form-control w-full h-40"></textarea>
+                                <label for="regular-form-1" class="form-label">Diagnostico</label>
+                                <input disabled wire:model="diagnostic" type="text" class="form-control"
+                                    placeholder="Ej. Gastroenteritis">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Orders --}}
+        <div class="gap-5 mt-5 post intro-y">
+            <h2 class="mr-auto text-lg font-medium">
+                Ordenes
+            </h2>
+            @isset($orders)
+                @if ($orders->count())
+                    <!-- ====== Table Section Start -->
+                    <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
+                        <div class="intro-y">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="whitespace-nowrap">
+                                            Nº
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Fecha
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Médico
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Descripción
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Acciones
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $key => $order)
+                                        <tr>
+                                            <td>
+                                                {{ $order->id }}
+                                            </td>
+                                            <td>
+                                                {{ date('d-m-Y', strtotime($order->created_at)) }}
+                                            </td>
+                                            <td>
+                                                {{ Staff::find($order->staff_id)->person->name }}
+                                                {{ Staff::find($order->staff_id)->person->f_last_name }}
+                                                {{ Staff::find($order->staff_id)->person->m_last_name }}
+                                            </td>
+                                            <td>
+                                                {{ substr($order->description, 0, 10) }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.showOrder', $order->id) }}" target="_blank"
+                                                    class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Mostrar</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- ====== Table Section End -->
+                    <nav class="hidden w-full mt-4 md:block">
+                        {{ $orders->links() }}
+                    </nav>
+                    <nav class="w-full mt-4 sm:w-auto sm:mr-auto md:hidden">
+                        {{ $orders->links('pagination::tailwind') }}
+                    </nav>
+                @else
+                    <div class="p-10">
+                        <div class="mb-2 alert alert-secondary show" role="alert">
+                            <div class="flex items-center">
+                                <div class="text-lg font-medium">Este paciente aún no tiene ordenes registradas.</div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endisset
+        </div>
+
+        {{-- Recipes --}}
+        <div class="gap-5 mt-5 post intro-y">
+            <h2 class="mr-auto text-lg font-medium">
+                Recetas
+            </h2>
+            @isset($recipes)
+                @if ($recipes->count())
+                    <!-- ====== Table Section Start -->
+                    <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
+                        <div class="intro-y">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="whitespace-nowrap">
+                                            Nº
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Fecha
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Médico
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Descripción
+                                        </th>
+                                        <th class="whitespace-nowrap">
+                                            Acciones
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($recipes as $key => $recipe)
+                                        <tr>
+                                            <td>
+                                                {{ $recipe->id }}
+                                            </td>
+                                            <td>
+                                                {{ date('d-m-Y', strtotime($recipe->created_at)) }}
+                                            </td>
+                                            <td>
+                                                {{ Staff::find($recipe->staff_id)->person->name }}
+                                                {{ Staff::find($recipe->staff_id)->person->f_last_name }}
+                                                {{ Staff::find($recipe->staff_id)->person->m_last_name }}
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $des = json_decode($recipe->description, true);
+                                                @endphp
+                                                {{ substr($des[0][1], 0, 10) }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.showRecipe', $recipe->id) }}" target="_blank"
+                                                    class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Mostrar</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- ====== Table Section End -->
+                    <nav class="hidden w-full mt-4 md:block">
+                        {{ $orders->links() }}
+                    </nav>
+                    <nav class="w-full mt-4 sm:w-auto sm:mr-auto md:hidden">
+                        {{ $orders->links('pagination::tailwind') }}
+                    </nav>
+                @else
+                    <div class="p-10">
+                        <div class="mb-2 alert alert-secondary show" role="alert">
+                            <div class="flex items-center">
+                                <div class="text-lg font-medium">Este paciente aún no tiene recetas registradas.</div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endisset
+        </div>
     </div>
 
     <!-- BEGIN: Modal create attention -->
@@ -111,18 +398,6 @@
         <div class="mt-20 overflow-hidden modal-personal-dialog">
             <div class="modal-content" @click.away="attention = false">
                 <div class="p-10 text-center modal-body">
-                    <div>
-                        <label>Paciente</label>
-                        <div class="mt-2">
-                            <select wire:model="patient_id" name="" id="">
-                                <option value="">Seleccion un paciente</option>
-                                @foreach ($patients as $patient)
-                                    <option value="{{ $patient->id }}">{{ $patient->person->name . ' ' . $patient->f_last_name . ' ' . $patient->m_last_name}}</option>
-                                @endforeach
-                            </select>
-                            <x-jet-input-error for="patient_id" />
-                        </div>
-                    </div>
                     <div class="mt-5">
                         <label>Descripción</label>
                         <div>
@@ -152,18 +427,6 @@
         <div class="mt-20 overflow-hidden modal-personal-dialog">
             <div class="modal-content" @click.away="editAttention = false, Livewire.emit('resetVariables')">
                 <div class="p-10 text-center modal-body">
-                    <div>
-                        <label>Paciente</label>
-                        <div class="mt-2">
-                            <select wire:model="patient_id" name="" id="">
-                                <option value="">Seleccion un paciente</option>
-                                @foreach ($patients as $patient)
-                                    <option value="{{ $patient->id }}">{{ $patient->person->name . ' ' . $patient->f_last_name . ' ' . $patient->m_last_name}}</option>
-                                @endforeach
-                            </select>
-                            <x-jet-input-error for="patient_id" />
-                        </div>
-                    </div>
                     <div class="mt-5">
                         <label>Descripción</label>
                         <div>
