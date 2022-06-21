@@ -30,6 +30,12 @@ use App\Models\Person;
     </x-notification-message>
 
     <h2 class="mt-10 mb-5 text-lg font-medium intro-y">
+        {{ auth()->user()->person->name }}
+        {{ auth()->user()->person->f_last_name }}
+        {{ auth()->user()->person->m_last_name }}
+        ({{ auth()->user()->person->staff->department->name }})
+    </h2>
+    <h2 class="mt-10 mb-5 text-lg font-medium intro-y">
         Seguimiento del paciente
     </h2>
     <div class="grid grid-cols-3 gap-6 ">
