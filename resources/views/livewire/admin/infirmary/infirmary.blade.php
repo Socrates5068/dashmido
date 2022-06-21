@@ -75,7 +75,7 @@ use App\Models\Staff;
                                         {{ date('d-m-Y', strtotime($attention->created_at)) }}
                                     </td>
                                     <td>
-                                        {{ substr($attention->description, 0, 10)}}
+                                        {{ substr($attention->description, 0, 10) }}
                                     </td>
                                     <td>
                                         <button wire:click="edit('{{ $attention->id }}')"
@@ -114,9 +114,6 @@ use App\Models\Staff;
         @if ($consultations->count())
             <!-- ====== Table Section Start -->
             <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
-                <h2 class="mb-4 text-lg font-bold intro-y">
-                    Consultas del paciente
-                </h2>
                 <div class="intro-y">
                     <table class="table">
                         <thead>
@@ -128,10 +125,10 @@ use App\Models\Staff;
                                     Fecha
                                 </th>
                                 <th class="whitespace-nowrap">
-                                    Estado
+                                    Médico
                                 </th>
                                 <th class="whitespace-nowrap">
-                                    Médico
+                                    Paciente
                                 </th>
                                 <th class="whitespace-nowrap">
                                     Diagnostico
@@ -151,20 +148,20 @@ use App\Models\Staff;
                                         {{ date('d-m-Y', strtotime($consultation->created_at)) }}
                                     </td>
                                     <td>
-                                        @if ($consultation->status == Consultation::FIRST)
-                                            <button
-                                                class="mb-2 mr-1 text-xs btn btn-rounded-secondary">{{ $consultation->status }}</button>
-                                        @elseif ($consultation->status == Consultation::SECOND)
-                                            <button
-                                                class="mb-2 mr-1 text-xs btn btn-rounded-pending">{{ $consultation->status }}</button>
-                                        @elseif ($consultation->status == Consultation::THIRD)
-                                            <button
-                                                class="mb-2 mr-1 text-xs btn btn-rounded-success">{{ $consultation->status }}</button>
-                                        @endif
+                                        <p>
+                                            {{ Staff::find($consultation->staff_id)->person->name }}
+                                            {{ Staff::find($consultation->staff_id)->person->f_last_name }}
+                                        </p>
+                                        <div class="text-slate-500 text-xs mt-0.5">
+                                            {{ Staff::find($consultation->staff_id)->department->name }}
+                                        </div>
                                     </td>
                                     <td>
-                                        {{ Staff::find($consultation->staff_id)->person->name }}
-                                        {{ Staff::find($consultation->staff_id)->person->f_last_name }}
+                                        <p>
+                                            {{ $consultation->patient->person->name }}
+                                            {{ $consultation->patient->person->f_last_name }}
+                                            {{ $consultation->patient->person->m_last_name }}
+                                        </p>
                                     </td>
                                     <td>
                                         {{ $consultation->diagnostic }}
@@ -172,7 +169,7 @@ use App\Models\Staff;
                                     <td>
                                         <button wire:click="editDiagnosis('{{ $consultation->id }}')"
                                             @click="$wire.set('show', 1)"
-                                            class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Ver</button>
+                                            class="w-16 mb-2 btn btn-sm btn-primary">Ver</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -202,15 +199,24 @@ use App\Models\Staff;
     <div class="{{ $show == 1 ? 'block' : 'hidden' }} px-5 pt-5 intro-y">
         <div class="flex flex-col items-center mt-2 intro-y sm:flex-row">
             <h2 class="mr-auto text-lg font-medium">
-                Ver
+                <span class="font-bold">Paciente: </span>
+
+                @if ($consult)
+                    {{ $consult->patient->person->name }}
+                    {{ $consult->patient->person->f_last_name }}
+                    {{ $consult->patient->person->m_last_name }}
+                @endif
             </h2>
             <div class="flex w-full mt-4 sm:w-auto sm:mt-0">
-                <button wire:click="resetVariables" @click="$wire.set('show', 0,), $wire.set('saveControl', 0,)"
-                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-danger" aria-expanded="false"
-                    data-tw-toggle="dropdown"> Atras
+                <button wire:click="resetVariables" @click="$wire.set('show', 0,)" class="mr-4 btn btn-danger h-10">
+                    Atras
                 </button>
                 <div class="">
                     <button @click="attention = true" class="mb-2 mr-1 w-36 btn btn-primary">Nueva atención</button>
+                </div>
+                <div class="">
+                    <button wire:click="changeStatus" @click="$wire.set('show', 0,)" class="mb-2 mr-1 btn
+                        btn-primary">Marcar como tratado</button>
                 </div>
             </div>
         </div>
@@ -219,8 +225,7 @@ use App\Models\Staff;
             <div class="intro-y lg:col-span-8">
                 <div class="mt-5 overflow-hidden post intro-y box">
                     <div class="post__content tab-content">
-                        <div id="content" class="p-5 tab-pane active" role="tabpanel"
-                            aria-labelledby="content-tab">
+                        <div id="content" class="p-5 tab-pane active" role="tabpanel" aria-labelledby="content-tab">
                             <div class="p-5 border rounded-md border-slate-200/60 dark:border-darkmode-400">
                                 <div
                                     class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
@@ -394,7 +399,8 @@ use App\Models\Staff;
     </div>
 
     <!-- BEGIN: Modal create attention -->
-    <div x-show="attention" :class="{'show':attention, '': !attention}" class="modal-personal" tabindex="-1" aria-hidden="true">
+    <div x-show="attention" :class="{ 'show': attention, '': !attention }" class="modal-personal" tabindex="-1"
+        aria-hidden="true">
         <div class="mt-20 overflow-hidden modal-personal-dialog">
             <div class="modal-content" @click.away="attention = false">
                 <div class="p-10 text-center modal-body">
@@ -411,8 +417,7 @@ use App\Models\Staff;
                             @click="attention = false">Cerrar</button>
                         <!-- END: Hide Modal Toggle -->
                         <!-- BEGIN: Toggle Modal Toggle -->
-                        <button wire:click="save"
-                            @click="Livewire.on('saved', () => { attention = false; } )"
+                        <button wire:click="save" @click="Livewire.on('saved', () => { attention = false; } )"
                             class="mr-1 btn btn-primary">Guardar</button>
                         <!-- END: Toggle Modal Toggle -->
                     </div>
@@ -423,7 +428,8 @@ use App\Models\Staff;
     <!-- END: Modal create attention -->
 
     <!-- BEGIN: Modal edit attention -->
-    <div x-show="editAttention" :class="{'show':editAttention, '': !editAttention}" class="modal-personal" tabindex="-1" aria-hidden="true">
+    <div x-show="editAttention" :class="{ 'show': editAttention, '': !editAttention }" class="modal-personal"
+        tabindex="-1" aria-hidden="true">
         <div class="mt-20 overflow-hidden modal-personal-dialog">
             <div class="modal-content" @click.away="editAttention = false, Livewire.emit('resetVariables')">
                 <div class="p-10 text-center modal-body">

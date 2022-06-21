@@ -33,9 +33,9 @@ use App\Models\Person;
         Seguimiento del paciente
     </h2>
     <div class="grid grid-cols-3 gap-6 ">
-        <div class="">
+        <div class="z-50">
             <label for="patient" class="form-label">Buscar un paciente</label>
-            <x-lwa::autocomplete name="patient-name" wire:model-text="name" wire:model-id="patientId"
+            <x-lwa::autocomplete  name="patient-name" wire:model-text="name" wire:model-id="patientId"
                 wire:model-results="patients" :options="[
                     'text' => 'name',
                     'allow-new' => 'false',
@@ -44,7 +44,7 @@ use App\Models\Person;
         </div>
         <div class="">
             <label for="patient" class="form-label">Acción</label> </br>
-            <button wire:click="diagnostic" class="mb-2 mr-1 w-36 btn btn-primary">Nueva consulta</button>
+            <button wire:click="diagnostic" class="mb-2 mr-1 w-36 btn btn-primary">Consultar paciente</button>
         </div>
         <div class="">
             <label for="patient" class="form-label">Nuevo paciente</label> </br>

@@ -745,7 +745,7 @@ use App\Models\Staff;
             <div class="mt-4 mb-6">
                 <!-- Modal title -->
                 <p class="mb-2 text-lg font-semibold text-green-700 dark:text-green-700">
-                    Nueva receta {{  $gname }}
+                    Nueva receta
                 </p>
                 <div class="p-10 text-center modal-body">
                     <div class="grid grid-cols-12 gap-6">

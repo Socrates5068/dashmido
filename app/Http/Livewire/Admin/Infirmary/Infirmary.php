@@ -68,6 +68,13 @@ class Infirmary extends Component
         $this->patientId = $consultation->patient_id;
     }
 
+    public function changeStatus()
+    {
+        $this->consult->infirmary = '0';
+        $this->consult->save();
+        $this->emit('saved');
+    }
+
     public function render()
     {
         if ($this->consult) {

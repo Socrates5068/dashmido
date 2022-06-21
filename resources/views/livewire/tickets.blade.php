@@ -179,7 +179,7 @@ use App\Models\Staff;
                                                                 <button wire:click="checkTicket('{{ $ticket->id }}')"
                                                                     @click="$wire.set('ticketId', {{ $ticket->id }})"
                                                                     class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white rounded cursor-pointer bg-primary">
-                                                                    Reservar {{ $con }}
+                                                                    Reservar
                                                                 </button>
                                                             </td>
                                                         @else
