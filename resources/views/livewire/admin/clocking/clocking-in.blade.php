@@ -3,6 +3,7 @@ use App\Models\Department;
 use App\Models\Person;
 use App\Models\Staff;
 use App\Models\Patient;
+use App\Models\Consultation;
 @endphp
 <div x-data="{ newPatient: false, status: false }">
     <div wire:ignore>
