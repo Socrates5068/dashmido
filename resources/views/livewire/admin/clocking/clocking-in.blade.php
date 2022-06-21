@@ -1,5 +1,6 @@
 @php
-use App\Models\Consultation;
+use App\Models\Department;
+use App\Models\Person;
 use App\Models\Staff;
 use App\Models\Patient;
 @endphp
@@ -41,7 +42,7 @@ use App\Models\Person;
     <div class="grid grid-cols-3 gap-6 ">
         <div class="z-50">
             <label for="patient" class="form-label">Buscar un paciente</label>
-            <x-lwa::autocomplete  name="patient-name" wire:model-text="name" wire:model-id="patientId"
+            <x-lwa::autocomplete name="patient-name" wire:model-text="name" wire:model-id="patientId"
                 wire:model-results="patients" :options="[
                     'text' => 'name',
                     'allow-new' => 'false',
@@ -181,9 +182,9 @@ use App\Models\Person;
                                     <td>
                                         @isset($ticket->patient_id)
                                             <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                                {{ Person::find($ticket->patient_id)->name }}
-                                                {{ Person::find($ticket->patient_id)->f_last_name }}
-                                                {{ Person::find($ticket->patient_id)->m_last_name }}
+                                                {{ Patient::find($ticket->patient_id)->person->name }}
+                                                {{ Patient::find($ticket->patient_id)->person->f_last_name }}
+                                                {{ Patient::find($ticket->patient_id)->person->m_last_name }}
                                             </div>
                                         @else
                                             Ningún usuario registrado
