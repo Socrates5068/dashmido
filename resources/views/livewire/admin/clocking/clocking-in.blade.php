@@ -4,9 +4,6 @@ use App\Models\Person;
 use App\Models\Staff;
 use App\Models\Patient;
 @endphp
-@php
-use App\Models\Person;
-@endphp
 <div x-data="{ newPatient: false, status: false }">
     <div wire:ignore>
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Fichajes'])
