@@ -206,7 +206,7 @@ use App\Models\Consultation;
                                     <td class="w-52 table-report__action">
                                         @if (!is_null($ticket->patient_id))
                                             <a class="font-semibold text-blue-600 underline"
-                                                href="{{ route('admin.history', $ticket->patient_id) }}">Ver
+                                                href="{{ route('admin.history', Patient::find($ticket->patient_id)->person->id) }}">Ver
                                                 paciente</a>
                                             <button @click="$wire.set('statusId', {{ $ticket->id }}), status = true"
                                                 class="h-5 ml-3 btn btn-sm btn-primary w-30">ESTADO</button>
