@@ -11,10 +11,10 @@
                 <div class="flex items-center mt-3 sm:ml-auto sm:mt-0">
                     <div class="mr-2">
                         <button wire:click="printDepartments" class="flex items-center btn box text-slate-600 dark:text-slate-300">
-                            <svg class="mr-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" icon-name="printer" data-lucide="printer"
-                                class="lucide lucide-printer block mx-auto">
+                                class="block mx-auto lucide lucide-printer">
                                 <polyline points="6 9 6 2 18 2 18 9"></polyline>
                                 <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
                                 <rect x="6" y="14" width="12" height="8"></rect>
@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($departments as $depa)
+                        @foreach ($departments as $key => $depa)
                             <tr class="intro-x">
                                 <td>
                                     <a @click="setTimeout(() => showUsers = true, 300)"
@@ -64,6 +64,7 @@
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg> Editar
                                         </p>
+                                        @if ($key !== 0)
                                         <p @click="Livewire.emit('destroyDepartment', {{ $depa->id }})"
                                             class="flex items-center cursor-pointer text-danger">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -81,6 +82,7 @@
                                                 </line>
                                             </svg> Eliminar
                                         </p>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
