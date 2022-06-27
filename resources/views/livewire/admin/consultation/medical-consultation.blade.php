@@ -314,10 +314,33 @@ use App\Models\Staff;
                     class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-pending " aria-expanded="false"
                     data-tw-toggle="dropdown"> Derivar a enfermería
                 </button>
-                <button wire:click="deriveDepartment"
-                    class="flex items-center mr-4 shadow-md dropdown-toggle btn btn-pending " aria-expanded="false"
-                    data-tw-toggle="dropdown"> Derivar a especialidad
-                </button>
+
+                <div class="dropdown mr-2">
+                    <button id="drop" class="flex items-center shadow-md dropdown-toggle btn btn-primary"
+                        aria-expanded="false" data-tw-toggle="dropdown"> Derivar especialidad
+                        <svg width="12" height="12" class="ml-2 fill-white" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <polyline fill="" stroke="#000" stroke-width="2"
+                                points="7.086 3.174 17.086 13.174 7.086 23.174"
+                                transform="scale(1 -1) rotate(-89 -1.32 0)" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu w-52">
+                        <ul class="dropdown-content">
+                            @foreach ($departments as $department)
+                                @if ($department->id !== auth()->user()->person->staff->department->id)
+                                    <li>
+                                        <button wire:click="deriveDepartment('{{ $department->id }}')"
+                                            class="dropdown-item" aria-expanded="false" data-tw-toggle="dropdown">
+                                            Derivar a {{ $department->name }}
+                                        </button>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="dropdown">
                     <button id="drop" class="flex items-center shadow-md dropdown-toggle btn btn-primary"
                         aria-expanded="false" data-tw-toggle="dropdown"> Actualizar
@@ -378,6 +401,10 @@ use App\Models\Staff;
                         </div>
                     </div>
                 </div>
+                <button wire:click="printConsultation"
+                    class="mt-2 flex items-center mr-4 shadow-md dropdown-toggle btn btn-primary" aria-expanded="false"
+                    data-tw-toggle="dropdown"> Imprimir diagnostico
+                </button>
             </div>
         </div>
 
@@ -631,92 +658,10 @@ use App\Models\Staff;
     </div>
 
     {{-- modal Create recipes --}}
-    {{-- <div x-show="recipeCreate" :class="{ 'show': recipeCreate, '': !recipeCreate }" class="modal-personal"
-        tabindex="-1" aria-hidden="true">
-        <div class="mt-20 overflow-hidden modal-personal-dialog modal-lg">
-            <div class="modal-content" @click.away="recipeCreate = false, Livewire.emit('resetVariables')">
-                <div class="p-10 text-center modal-body">
-                    <div class="grid grid-cols-12 gap-6">
-                        <div class="col-span-2">
-                            <label>Cantidad</label>
-                            <input wire:model="quantity" type="number" class="form-control" min="0"
-                                max="100">
-                            <x-jet-input-error for="quantity" />
-                        </div>
-                        <div class="col-span-7">
-                            <label>Medicamento</label>
-                            <input wire:model="medicine" type="text" class="form-control">
-                            <x-jet-input-error for="medicine" />
-                        </div>
-                        <div class="col-span-3">
-                            <label>Indicación</label>
-                            <input wire:model="instruction" type="text" class="form-control">
-                            <x-jet-input-error for="instruction" />
-                        </div>
-                    </div>
-
-                    <div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="whitespace-nowrap">
-                                        Cantidad
-                                    </th>
-                                    <th class="whitespace-nowrap">
-                                        Medicamento
-                                    </th>
-                                    <th class="whitespace-nowrap">
-                                        indicación
-                                    </th>
-                                    <th class="whitespace-nowrap">
-                                        Acción
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($descriptionRecipe as $key => $desRecipe)
-                                    <tr>
-                                        <td>
-                                            {{ $desRecipe[0] }}
-                                        </td>
-                                        <td>
-                                            {{ $desRecipe[1] }}
-                                        </td>
-                                        <td>
-                                            {{ $desRecipe[2] }}
-                                        </td>
-                                        <td>
-                                            <button wire:click="editRecipe('{{ $key }}')">editar</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt-4">
-                        <button class="mr-1 btn btn-primary" wire:click="resetVariables"
-                            @click="recipeCreate = false">Cerrar</button>
-
-                        @if ($recipeControl == 0)
-                            <button wire:click="addRecipe" class="mr-1 btn btn-primary">Agregar</button>
-                        @else
-                            <button wire:click="updateRecipe" class="mr-1 btn btn-primary">Actualizar</button>
-                        @endif
-                        <button wire:click="saveRecipe"
-                            @click="print, Livewire.on('saved', () => {recipeCreate = false; } )"
-                            class="mr-1 btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- Modal para registrar productos --}}
-    <div x-show="recipeCreate" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    <div x-show="recipeCreate" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
         class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
         <!-- Modal -->
         <div x-transition:enter="transition ease-out duration-150"
@@ -758,15 +703,12 @@ use App\Models\Staff;
                         <div class="col-span-7">
                             <label>Medicamento</label>
                             <x-lwa::autocomplete
-                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                            name="generic-name"
-                            wire:model-text="gname"
-                            wire:model-id="gnameId"
-                            wire:model-results="gnames"
-                            :options="[
-                                'text'=> 'gname',
-                                'allow-new'=> 'true',
-                            ]" />
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                name="generic-name" wire:model-text="gname" wire:model-id="gnameId"
+                                wire:model-results="gnames" :options="[
+                                    'text' => 'gname',
+                                    'allow-new' => 'true',
+                                ]" />
                             <x-jet-input-error for="gname" />
                         </div>
                         <div class="col-span-3">
@@ -835,7 +777,6 @@ use App\Models\Staff;
             </footer>
         </div>
     </div>
-
 
     {{-- modal Edit recipes --}}
     <div x-show="recipeEdit" :class="{ 'show': recipeEdit, '': !recipeEdit }" class="modal-personal" tabindex="-1"

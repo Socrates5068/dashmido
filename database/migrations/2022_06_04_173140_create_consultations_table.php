@@ -23,6 +23,8 @@ return new class extends Migration
             $table->enum('infirmary',  ['0', '1'])->default('0');
             $table->enum('status',  [Consultation::FIRST, Consultation::SECOND, Consultation::THIRD, Consultation::DERIVE])->nullable();
             $table->string('diagnostic')->nullable();
+            $table->integer('fromDepartment')->nullable();
+            $table->integer('toDepartment')->nullable();
 
             $table->timestamps();
         });

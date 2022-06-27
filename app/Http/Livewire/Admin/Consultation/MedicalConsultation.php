@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Admin\Consultation;
 
 use App\Models\Order;
 use App\Models\Recipe;
-use Livewire\Component;
-use App\Models\Consultation;
 use App\Models\Product;
+use Livewire\Component;
+use App\Models\Department;
+use App\Models\Consultation;
 use Livewire\WithPagination;
 
 class MedicalConsultation extends Component
@@ -126,6 +127,9 @@ class MedicalConsultation extends Component
         $consultation->description = $this->consultationDescription;
         $consultation->status = $status;
         $consultation->diagnostic = $this->diagnostic;
+        if ($status === 'TERMINADO') {
+            $consultation->fromDepartment = null;
+        }
         $consultation->save();
 
         $this->show = 0;
@@ -227,11 +231,12 @@ class MedicalConsultation extends Component
         $this->emit('saved');
     }
 
-    public function deriveDepartment()
+    public function deriveDepartment($department_id)
     {
         $consultation = Consultation::find($this->conAux);
         $consultation->description = $this->consultationDescription;
         $consultation->diagnostic = $this->diagnostic;
+        $consultation->fromDepartment = $department_id;
         $consultation->save();
 
         $pdf = \PDF::loadView('pdf.derive', [
@@ -264,6 +269,23 @@ class MedicalConsultation extends Component
             ->get();
     }
 
+    public function printConsultation()
+    {
+        $consultation = Consultation::find($this->conAux);
+        $consultation->description = $this->consultationDescription;
+        $consultation->diagnostic = $this->diagnostic;
+        $consultation->save();
+
+        $pdf = \PDF::loadView('pdf.consultation', [
+            'consultation' => $consultation
+        ])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            'Diagnostico_' . now() . '.pdf'
+        );
+    }
+
     public function render()
     {
         if ($this->consult) {
@@ -276,11 +298,16 @@ class MedicalConsultation extends Component
                 ->where('consultation_id', $this->consult->id)
                 ->orderBy('id', 'desc')->paginate(5);
 
-            return view('livewire.admin.consultation.medical-consultation', compact('consultations', 'orders', 'recipes'));
+                $departments = Department::where('name', '!=', 'Administración')
+                ->where('name', '!=', 'Enfermería')->get();
+
+            return view('livewire.admin.consultation.medical-consultation', compact('consultations', 'orders', 'recipes', 'departments'));
         } else {
             $consultations = Consultation::where('patient_id', $this->patient_id)->orderBy('id', 'desc')->paginate(5);
+            $departments = Department::where('name', '!=', 'Administración')
+                                    ->where('name', '!=', 'Enfermería')->get();
 
-            return view('livewire.admin.consultation.medical-consultation', compact('consultations'));
+            return view('livewire.admin.consultation.medical-consultation', compact('consultations', 'departments'));
         }
     }
 }

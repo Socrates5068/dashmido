@@ -106,7 +106,7 @@ use App\Models\Staff;
         @endif
     </div>
 
-    {{-- Consultations --}}
+    {{-- Derives --}}
     <div class="{{ $show == 0 ? 'block' : 'hidden' }} intro-y">
         <h2 class="mr-auto text-lg font-medium">
             Derivaciones

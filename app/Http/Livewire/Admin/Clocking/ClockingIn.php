@@ -131,6 +131,8 @@ class ClockingIn extends Component
             ->get();
         $consultations = Consultation::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);
 
-        return view('livewire.admin.clocking.clocking-in', compact('tickets', 'consultations'))->layout('layouts.admin');
+        $deriveConsultations = Consultation::where('fromDepartment', auth()->user()->person->staff->department_id)->orderBy('id', 'desc')->paginate(5);
+
+        return view('livewire.admin.clocking.clocking-in', compact('tickets', 'consultations', 'deriveConsultations'))->layout('layouts.admin');
     }
 }

@@ -57,7 +57,8 @@ class ClokingTomorrow extends Component
 
         $ticket = Ticket::find($this->aux);
 
-        $ticket->patient_id = $this->patientId;
+        $person = Person::find($this->patientId);
+        $ticket->patient_id = $person->patient->id;
         $ticket->status = '1';
         $ticket->save();
 

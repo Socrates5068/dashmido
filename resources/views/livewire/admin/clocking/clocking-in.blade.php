@@ -28,12 +28,44 @@ use App\Models\Consultation;
         <!-- END: Notification Content -->
     </x-notification-message>
 
-    <h2 class="mt-10 mb-5 text-lg font-medium intro-y">
-        {{ auth()->user()->person->name }}
-        {{ auth()->user()->person->f_last_name }}
-        {{ auth()->user()->person->m_last_name }}
-        ({{ auth()->user()->person->staff->department->name }})
-    </h2>
+    @if (auth()->user()->person->staff->department->id == 3)
+        <div class="alert alert-primary show mb-2" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+            </div>
+            <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
+                {{ auth()->user()->person->f_last_name }}
+                {{ auth()->user()->person->m_last_name }}</div>
+        </div>
+    @elseif (auth()->user()->person->staff->department->id == 4)
+        <div class="alert alert-success show mb-2" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+            </div>
+            <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
+                {{ auth()->user()->person->f_last_name }}
+                {{ auth()->user()->person->m_last_name }}</div>
+        </div>
+    @elseif (auth()->user()->person->staff->department->id == 5)
+        <div class="alert alert-warning show mb-2" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+            </div>
+            <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
+                {{ auth()->user()->person->f_last_name }}
+                {{ auth()->user()->person->m_last_name }}</div>
+        </div>
+    @else
+        <div class="alert alert-pending show mb-2" role="alert">
+            <div class="flex items-center">
+                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+            </div>
+            <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
+                {{ auth()->user()->person->f_last_name }}
+                {{ auth()->user()->person->m_last_name }}</div>
+        </div>
+    @endif
+
     <h2 class="mt-10 mb-5 text-lg font-medium intro-y">
         Seguimiento del paciente
     </h2>
@@ -58,6 +90,7 @@ use App\Models\Consultation;
         </div>
     </div>
 
+    {{-- Consultations --}}
     <h2 class="mt-10 mb-5 text-lg font-medium intro-y">
         Últimas consultas del médico
     </h2>
@@ -143,6 +176,94 @@ use App\Models\Consultation;
                 <div class="mb-2 alert alert-secondary show" role="alert">
                     <div class="flex items-center">
                         <div class="text-lg font-medium">Aún no hay consultas registradas.</div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    {{-- Derives --}}
+    <div class="intro-y">
+        <h2 class="mr-auto text-lg font-medium">
+            Derivaciones
+        </h2>
+        @if ($deriveConsultations->count())
+            <!-- ====== Table Section Start -->
+            <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
+                <div class="intro-y">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">
+                                    Nº
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Fecha
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Médico
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Paciente
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Diagnostico
+                                </th>
+                                <th class="whitespace-nowrap">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($deriveConsultations as $key => $consultation)
+                                <tr>
+                                    <td>
+                                        {{ $consultation->id }}
+                                    </td>
+                                    <td>
+                                        {{ date('d-m-Y', strtotime($consultation->created_at)) }}
+                                    </td>
+                                    <td>
+                                        <p>
+                                            {{ Staff::find($consultation->staff_id)->person->name }}
+                                            {{ Staff::find($consultation->staff_id)->person->f_last_name }}
+                                        </p>
+                                        <div class="text-slate-500 text-xs mt-0.5">
+                                            {{ Staff::find($consultation->staff_id)->department->name }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            {{ $consultation->patient->person->name }}
+                                            {{ $consultation->patient->person->f_last_name }}
+                                            {{ $consultation->patient->person->m_last_name }}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        {{ $consultation->diagnostic }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.history', Patient::find($consultation->patient_id)->person->id) }}"
+                                            class="w-16 mb-2 btn btn-sm btn-primary">Ver</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- ====== Table Section End -->
+            <nav class="hidden w-full mt-4 md:block">
+                {{ $consultations->links() }}
+            </nav>
+            <nav class="w-full mt-4 sm:w-auto sm:mr-auto md:hidden">
+                {{ $consultations->links('pagination::tailwind') }}
+            </nav>
+        @else
+            <div class="p-10">
+                <div class="mb-2 alert alert-secondary show" role="alert">
+                    <div class="flex items-center">
+                        <div class="text-lg font-medium">Aún no hay pacientes derivados a este módulo.</div>
                     </div>
                 </div>
             </div>

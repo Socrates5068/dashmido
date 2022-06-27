@@ -6,6 +6,7 @@ use App\Http\Livewire\Login;
 use App\Http\Livewire\Tickets;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DarkModeController;
+use App\Http\Livewire\Register;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +22,17 @@ use App\Http\Controllers\Admin\DarkModeController;
 Route::get('dark-mode-switcher2', [DarkModeController::class, 'switch'])->name('dark-mode-switcher2');
 Route::get('/', Home::class)->name('home');
 Route::get('/login', Login::class)->name('login');
-Route::get('/fichaje', Tickets::class)->name('tickets')->middleware('auth');
-Route::get('/fichas', Cards::class)->name('cards')->middleware('auth');
+Route::get('/registro', Register::class)->name('register');
+Route::get('/fichaje', Tickets::class)->name('tickets')->middleware('auth', 'verified');
+Route::get('/fichas', Cards::class)->name('cards')->middleware('auth', 'verified');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
+Route::get('/verification/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.verify');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

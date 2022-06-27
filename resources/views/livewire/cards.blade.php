@@ -44,8 +44,8 @@ use App\Models\Person;
                                         {{ $card->time }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ Person::find($card->staff_id)->name }}
-                                        {{ Person::find($card->staff_id)->f_last_name }}
+                                        {{ $card->staff->person->name }}
+                                        {{ $card->staff->person->f_last_name }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ Department::find($card->department_id)->name }}

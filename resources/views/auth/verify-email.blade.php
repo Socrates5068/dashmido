@@ -3,16 +3,42 @@
         <!-- BEGIN: Error Page -->
         <div class="error-page flex flex-col lg:flex-row items-center justify-center h-screen text-center lg:text-left">
             <div class="-intro-x lg:mr-20">
-                <img alt="Midone - HTML Admin Template" class="h-48 lg:h-auto" src="{{asset('midone/dist/images/error-illustration.svg')}}">
+                <img alt="Midone - HTML Admin Template" class="h-48 lg:h-auto"
+                    src="{{ asset('midone/dist/images/error-illustration.svg') }}">
             </div>
             <div class="text-white mt-10 lg:mt-0">
                 <div class="intro-x text-8xl font-medium">404</div>
                 <div class="intro-x text-xl lg:text-3xl font-medium mt-5">Ups. Esta página no es visible.</div>
-                <div class="intro-x text-lg mt-3">Su usuario no está dado de alta, por favor comuniquese con un administrador.</div>
+                @if (auth()->user()->email)
+                    <div class="intro-x text-lg mt-3">Su usuario no está dado de alta, por favor active su cuenta 
+                        con el enlace que le enviamos a su correo al momento de regisrarse en el sistema, o comuniquese con un administrador.</div>
+                    @if (session('status') == 'verification-link-sent')
+                        <div class="mb-4 font-medium text-sm text-green-600">
+                            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                        </div>
+                    @endif
+                    <div class="mt-4 flex items-center justify-between">
+                        <form method="POST" action="{{ route('verification.send') }}">
+                            @csrf
+            
+                            <div>
+                                <button type="submit"
+                                class="intro-x btn py-3 px-4 text-white border-white dark:border-darkmode-400 dark:text-slate-200 mt-10">
+                                    {{ __('Resend Verification Email') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                @else
+                    <div class="intro-x text-lg mt-3">Su usuario no está dado de alta, por favor comuniquese con un
+                        administrador.</div>
+                @endif
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-    
-                    <button type="submit" class="intro-x btn py-3 px-4 text-white border-white dark:border-darkmode-400 dark:text-slate-200 mt-10">
+
+                    <button type="submit"
+                        class="intro-x btn py-3 px-4 text-white border-white dark:border-darkmode-400 dark:text-slate-200 mt-10">
                         {{ __('Log Out') }}
                     </button>
                 </form>
