@@ -2,6 +2,7 @@
 use App\Models\Department;
 use App\Models\Person;
 use App\Models\Staff;
+use App\Models\Card;
 @endphp
 <div x-data="{ paypal: @entangle('paypal') }">
     <x-notification-message-frontend on="save" time="9000">
@@ -164,7 +165,7 @@ use App\Models\Staff;
                                                 @php
                                                     $status = json_decode(auth()->user()->status, true);
                                                     $con = 0;
-                                                    foreach (auth()->user()->person->patient->cards as $card) {
+                                                    foreach (Card::all() as $card) {
                                                         if ($card->time == $ticket->time) {
                                                             $con ++;
                                                         }
