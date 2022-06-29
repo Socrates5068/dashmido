@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Card;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Schedule;
-use App\Models\Department;
 use App\Models\TimeTable;
+use App\Models\Department;
 use Illuminate\Console\Command;
 
 class MakeTickets extends Command
@@ -34,7 +35,7 @@ class MakeTickets extends Command
     {
         //delete all 
         Ticket::truncate(); //delete for production
-        
+        Card::truncate(); //
         // reset the estatus of all users
         foreach (User::where('status', '!=', null)->get() as $user) {
             $user->status = null;

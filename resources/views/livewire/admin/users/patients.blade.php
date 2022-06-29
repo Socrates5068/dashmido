@@ -35,25 +35,30 @@
                                 <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
                                     <a {{-- href="{{ route('admin.history', $user->id) }}" --}} class="font-medium">{{ $user->name }}</a>
                                     <div class="text-slate-500 text-xs mt-0.5">
-                                        {{ !is_null($user->user) ? $user->user->getRoleNames()->first() : 'Paciente'}}</div>
+                                        {{ !is_null($user->user) ? $user->user->getRoleNames()->first() : 'Paciente' }}
+                                    </div>
                                 </div>
                                 <div class="flex mt-4 lg:mt-0">
-                                    @can('create users')
-                                        @isset($user->user->email_verified_at)
-                                            <button wire:click="register('{{ $user->id }}')"
-                                                class="px-2 py-1 mr-2 btn btn-success">
-                                                Activo
-                                            </button>
-                                        @else
-                                            <button wire:click="register('{{ $user->id }}')"
-                                                class="px-2 py-1 mr-2 btn btn-danger">
-                                                Inactivo
-                                            </button>
-                                        @endisset
-                                    @endcan
-                                    </button>
-                                    <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
-                                        class="px-2 py-1 btn btn-outline-secondary">Editar</button>
+                                    @if ($user->user)
+                                        @can('create users')
+                                            @isset($user->user->email_verified_at)
+                                                <button wire:click="register('{{ $user->id }}')"
+                                                    class="px-2 py-1 mr-2 btn btn-success">
+                                                    Activo
+                                                </button>
+                                            @else
+                                                <button wire:click="register('{{ $user->id }}')"
+                                                    class="px-2 py-1 mr-2 btn btn-danger">
+                                                    Inactivo
+                                                </button>
+                                            @endisset
+                                        @endcan
+                                        </button>
+                                        <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
+                                            class="px-2 py-1 btn btn-outline-secondary">Editar</button>
+                                    @endif
+                                        {{-- <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
+                                            class="px-2 py-1 btn btn-outline-secondary">Editar</button> --}}
                                 </div>
                             </div>
                         </div>
