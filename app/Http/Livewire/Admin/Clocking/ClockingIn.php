@@ -168,7 +168,7 @@ class ClockingIn extends Component
 
         return response()->streamDownload(
             fn () => print($pdf),
-            'Fichas_' . $this->fromConsultation . '_' . $this->toConsultation . '.pdf'
+            'Consultas_' . $this->fromConsultation . '_' . $this->toConsultation . '.pdf'
         );
     }
 
