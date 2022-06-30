@@ -42,8 +42,8 @@ class MakeTickets extends Command
             $user->save();
         }
         
-        // deletes all ticket two days ago
-        Ticket::where('date', date("Y-m-d",strtotime(now()."- 2 days")))->delete();
+        // delete all ticket two days ago
+        // Ticket::where('date', date("Y-m-d",strtotime(now()."- 2 days")))->delete();
         
         // generate all Tickets
         $departments = Department::all();

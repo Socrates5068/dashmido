@@ -22,6 +22,8 @@ class ClockingIn extends Component
         'sex' => '',
     ];
 
+    public $to, $from, $fromConsultation, $toConsultation;
+
     protected $rules = [
         'patients.*.id' => '',
         'patients.*.name' => '',
@@ -30,11 +32,11 @@ class ClockingIn extends Component
         'patient.name' => '',
     ];
 
-    protected $listeners = ['resetVariables']; 
+    protected $listeners = ['resetVariables'];
 
-    public function mount(){
+    public function mount()
+    {
         $this->departments = Department::all();
-
     }
 
     public function updatedPatientId()
@@ -124,10 +126,56 @@ class ClockingIn extends Component
         $this->resetVariables();
     }
 
+    public function cardsBeetwenDates()
+    {
+        $this->validate([
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+
+        $tickets = Ticket::whereBetween('created_at', [$this->from, $this->to])
+            ->where('department_id', auth()->user()->person->staff->department->id)->get();
+        $departmentName = auth()->user()->person->staff->department->name;
+        $staffId = auth()->user()->person->staff->id;
+
+        $pdf = \PDF::loadView('pdf.ticketsStaff', [
+            'tickets' => $tickets,
+            'departmentName' => $departmentName,
+            'staffId' => $staffId
+        ])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            'Fichas_' . $this->from . '_' . $this->to . '.pdf'
+        );
+    }
+
+    public function consultationBeetwenDates()
+    {
+        $this->validate([
+            'fromConsultation' => 'required',
+            'toConsultation' => 'required',
+        ]);
+
+        $consultations = Consultation::whereBetween('created_at', [$this->fromConsultation, $this->toConsultation])
+            ->where('staff_id', auth()->user()->person->staff->id)->get();
+        $departmentName = auth()->user()->person->staff->department->name;
+
+        $pdf = \PDF::loadView('pdf.consultations', [
+            'consultations' => $consultations,
+            'departmentName' => $departmentName
+        ])->setPaper('letter', 'portrait')->output();
+
+        return response()->streamDownload(
+            fn () => print($pdf),
+            'Fichas_' . $this->fromConsultation . '_' . $this->toConsultation . '.pdf'
+        );
+    }
+
     public function render()
     {
         $tickets = Ticket::where('staff_id', auth()->user()->person->staff->id)
-            ->where('date', date("Y-m-d",strtotime(now()))) //delete 1 day for production
+            ->where('date', date("Y-m-d", strtotime(now()))) //delete 1 day for production
             ->get();
         $consultations = Consultation::where('staff_id', auth()->user()->person->staff->id)->orderBy('id', 'desc')->paginate(5);
 

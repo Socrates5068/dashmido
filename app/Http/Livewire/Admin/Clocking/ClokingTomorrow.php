@@ -6,6 +6,7 @@ use App\Models\Card;
 use App\Models\Staff;
 use App\Models\Person;
 use App\Models\Ticket;
+use App\Models\Patient;
 use Livewire\Component;
 use App\Models\Department;
 
@@ -27,6 +28,8 @@ class ClokingTomorrow extends Component
         'patient.name' => '',
     ];
 
+    public $ticket;
+
     protected $listeners = ['resetVariables'];
 
     public function mount()
@@ -41,7 +44,9 @@ class ClokingTomorrow extends Component
             $this->list = $first->id;
         }
 
-        $this->getPatients();
+        // $this->ticket = new Ticket();
+
+        // $this->getPatients();
     }
 
     public function edit(Ticket $ticket)
@@ -108,12 +113,39 @@ class ClokingTomorrow extends Component
 
     public function getPatients()
     {
-        $this->patients = Person::query()
-            ->when($this->name, function ($query, $name) {
-                return $query->where('name', 'LIKE', '%' . $name . '%');
-            })->where('type', '1')
-            ->orderBy('name')
-            ->get();
+        $ticket = Ticket::find($this->ticket);
+        if ($ticket) {
+            $card = Card::where("time", $ticket->time)
+                    ->where('date', $ticket->date)->first();
+
+            if ($card) {
+                $this->patients = Person::query()
+                    ->when($this->name, function ($query, $name) {
+                        return $query->where('name', 'LIKE', '%' . $name . '%');
+                    })->where('type', '1')->where('id', '!=', $card->patient->person->id)
+                    ->orderBy('name')
+                    ->get();
+            } else {
+                $this->patients = Person::query()
+                    ->when($this->name, function ($query, $name) {
+                        return $query->where('name', 'LIKE', '%' . $name . '%');
+                    })->where('type', '1')
+                    ->orderBy('name')
+                    ->get();
+            }
+        } else {
+            $this->patients = Person::query()
+                ->when($this->name, function ($query, $name) {
+                    return $query->where('name', 'LIKE', '%' . $name . '%');
+                })->where('type', '1')
+                ->orderBy('name')
+                ->get();
+        }
+    }
+
+    public function differUser(Ticket $ticket)
+    {
+        $this->ticket = $ticket;
     }
 
     public function resetVariables()
@@ -127,21 +159,23 @@ class ClokingTomorrow extends Component
         $staffId = Staff::find($this->tickets->first()->staff_id)->id;
 
         $pdf = \PDF::loadView('pdf.tickets', [
-            'tickets' => $this->tickets, 
+            'tickets' => $this->tickets,
             'departmentName' => $departmentName,
-            'staffId' => $staffId])->setPaper('letter', 'portrait')->output();
+            'staffId' => $staffId
+        ])->setPaper('letter', 'portrait')->output();
 
         return response()->streamDownload(
-            fn() => print($pdf), 'Fichas_' . now() . '_' . $departmentName . '.pdf'
+            fn () => print($pdf),
+            'Fichas_' . now() . '_' . $departmentName . '.pdf'
         );
     }
 
     public function render()
     {
         $this->tickets = Ticket::where('department_id', $this->list)
-            ->where('date', date("Y-m-d", strtotime(now()." + 1 days")))
+            ->where('date', date("Y-m-d", strtotime(now() . " + 1 days")))
             ->get();
-            
+
         return view('livewire.admin.clocking.cloking-tomorrow')->layout('layouts.admin');
     }
 }

@@ -21,10 +21,14 @@ use App\Http\Livewire\Register;
 
 Route::get('dark-mode-switcher2', [DarkModeController::class, 'switch'])->name('dark-mode-switcher2');
 Route::get('/', Home::class)->name('home');
-Route::get('/login', Login::class)->name('login');
+// Route::get('/login', Login::class)->name('login');
 Route::get('/registro', Register::class)->name('register');
 Route::get('/fichaje', Tickets::class)->name('tickets')->middleware('auth', 'verified');
 Route::get('/fichas', Cards::class)->name('cards')->middleware('auth', 'verified');
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

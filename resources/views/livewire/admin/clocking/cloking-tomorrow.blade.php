@@ -12,6 +12,24 @@ use App\Models\Staff;
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Pacientes'])
     </div>
 
+    <x-notification-message on="save">
+        <!-- BEGIN: Notification Content -->
+        <div id="save" class="flex toastify-content">
+            <div class="relative flex w-full max-w-lg mx-auto my-auto bg-white rounded-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div class="ml-4 mr-4">
+                    <div class="font-medium">¡Registro exitoso!</div>
+                    <div class="mt-1 text-slate-500">El horario a sido agregado correctamente.</div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Notification Content -->
+    </x-notification-message>
+
     @if ($list)
         <div class="mb-5 ">
             @if ($tickets->count())
@@ -50,16 +68,16 @@ use App\Models\Staff;
             <div class="relative p-8 mt-8 bg-white rounded-lg shadow-lg">
                 <div class="flex justify-between">
                     @php
-                        $departmentName = Department::find($title)->name
+                        $departmentName = Department::find($title)->name;
                     @endphp
                     <h2 class="mb-4 text-lg font-bold intro-y">
                         {{ $departmentName }}
                     </h2>
-                    <button wire:click="printTickets('{{ $departmentName }}')" class="btn btn-dark w-28 mb-2">
-                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" icon-name="printer" data-lucide="printer"
-                            class="lucide lucide-printer block mx-auto">
+                    <button wire:click="printTickets('{{ $departmentName }}')" class="mb-2 btn btn-dark w-28">
+                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" icon-name="printer" data-lucide="printer"
+                            class="block mx-auto lucide lucide-printer">
                             <polyline points="6 9 6 2 18 2 18 9"></polyline>
                             <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
                             <rect x="6" y="14" width="12" height="8"></rect>
@@ -75,7 +93,7 @@ use App\Models\Staff;
                                 </th>
                                 <th class="whitespace-nowrap">
                                     Hora
-                                    
+
                                 </th>
                                 <th class="whitespace-nowrap">
                                     Médico
@@ -128,7 +146,9 @@ use App\Models\Staff;
                                     @endif
                                     @if ($ticket->status == '0')
                                         <td>
-                                            <span @click="modal = true, $wire.set('aux', {{ $ticket->id }})"
+                                            <span 
+                                                @click="modal = true, $wire.set('aux', {{ $ticket->id }}), $wire.set('ticket', {{ $ticket->id }}),
+                                                $wire.getPatients()" 
                                                 class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white rounded cursor-pointer bg-primary">
                                                 Reservar
                                             </span>

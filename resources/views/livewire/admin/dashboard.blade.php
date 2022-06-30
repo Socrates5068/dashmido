@@ -1,7 +1,6 @@
 <div>
-
     <div>
-        @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Dashboard'])
+        @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Administrador'])
     </div>
 
     <div>

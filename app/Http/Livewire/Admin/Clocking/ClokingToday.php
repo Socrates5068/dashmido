@@ -27,6 +27,8 @@ class ClokingToday extends Component
         'patient.name' => '',
     ];
 
+    public $ticket;
+
     protected $listeners = ['resetVariables'];
 
     public function mount()
@@ -108,12 +110,34 @@ class ClokingToday extends Component
 
     public function getPatients()
     {
-        $this->patients = Person::query()
-            ->when($this->name, function ($query, $name) {
-                return $query->where('name', 'LIKE', '%' . $name . '%');
-            })->where('type', '1')
-            ->orderBy('name')
-            ->get();
+        $ticket = Ticket::find($this->ticket);
+        if ($ticket) {
+            $card = Card::where("time", $ticket->time)
+                    ->where('date', $ticket->date)->first();
+
+            if ($card) {
+                $this->patients = Person::query()
+                    ->when($this->name, function ($query, $name) {
+                        return $query->where('name', 'LIKE', '%' . $name . '%');
+                    })->where('type', '1')->where('id', '!=', $card->patient->person->id)
+                    ->orderBy('name')
+                    ->get();
+            } else {
+                $this->patients = Person::query()
+                    ->when($this->name, function ($query, $name) {
+                        return $query->where('name', 'LIKE', '%' . $name . '%');
+                    })->where('type', '1')
+                    ->orderBy('name')
+                    ->get();
+            }
+        } else {
+            $this->patients = Person::query()
+                ->when($this->name, function ($query, $name) {
+                    return $query->where('name', 'LIKE', '%' . $name . '%');
+                })->where('type', '1')
+                ->orderBy('name')
+                ->get();
+        }
     }
 
     public function resetVariables()

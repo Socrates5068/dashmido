@@ -29,36 +29,36 @@ use App\Models\Consultation;
     </x-notification-message>
 
     @if (auth()->user()->person->staff->department->id == 3)
-        <div class="alert alert-primary show mb-2" role="alert">
+        <div class="mb-2 alert alert-primary show" role="alert">
             <div class="flex items-center">
-                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+                <div class="text-5xl font-medium">{{ auth()->user()->person->staff->department->name }}</div>
             </div>
             <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
                 {{ auth()->user()->person->f_last_name }}
                 {{ auth()->user()->person->m_last_name }}</div>
         </div>
     @elseif (auth()->user()->person->staff->department->id == 4)
-        <div class="alert alert-success show mb-2" role="alert">
+        <div class="mb-2 alert alert-success show" role="alert">
             <div class="flex items-center">
-                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+                <div class="text-5xl font-medium">{{ auth()->user()->person->staff->department->name }}</div>
             </div>
             <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
                 {{ auth()->user()->person->f_last_name }}
                 {{ auth()->user()->person->m_last_name }}</div>
         </div>
     @elseif (auth()->user()->person->staff->department->id == 5)
-        <div class="alert alert-warning show mb-2" role="alert">
+        <div class="mb-2 alert alert-warning show" role="alert">
             <div class="flex items-center">
-                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+                <div class="text-5xl font-medium">{{ auth()->user()->person->staff->department->name }}</div>
             </div>
             <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
                 {{ auth()->user()->person->f_last_name }}
                 {{ auth()->user()->person->m_last_name }}</div>
         </div>
     @else
-        <div class="alert alert-pending show mb-2" role="alert">
+        <div class="mb-2 alert alert-pending show" role="alert">
             <div class="flex items-center">
-                <div class="font-medium text-5xl">{{ auth()->user()->person->staff->department->name }}</div>
+                <div class="text-5xl font-medium">{{ auth()->user()->person->staff->department->name }}</div>
             </div>
             <div class="mt-3 text-3xl">Médico: {{ auth()->user()->person->name }}
                 {{ auth()->user()->person->f_last_name }}
@@ -311,17 +311,17 @@ use App\Models\Consultation;
                                     </td>
                                     <td>
                                         @if ($ticket->status == '0')
-                                            <button class="h-5 btn btn-rounded btn-secondary-soft w-24 text-xs">Sin
+                                            <button class="w-24 h-5 text-xs btn btn-rounded btn-secondary-soft">Sin
                                                 reservar</button>
                                         @elseif($ticket->status == '1')
                                             <button
-                                                class="h-5 btn btn-rounded btn-pending-soft w-24 text-xs">Pendiente</button>
+                                                class="w-24 h-5 text-xs btn btn-rounded btn-pending-soft">Pendiente</button>
                                         @elseif($ticket->status == '2')
-                                            <button class="h-5 btn btn-rounded btn-warning-soft w-24 text-xs">En
+                                            <button class="w-24 h-5 text-xs btn btn-rounded btn-warning-soft">En
                                                 atención</button>
                                         @elseif($ticket->status == '3')
                                             <button
-                                                class="h-5 btn btn-rounded btn-success-soft w-24 text-xs">Atendido</button>
+                                                class="w-24 h-5 text-xs btn btn-rounded btn-success-soft">Atendido</button>
                                         @endif
                                     </td>
                                     <td class="w-52 table-report__action">
@@ -358,6 +358,52 @@ use App\Models\Consultation;
         </div>
     @endif
 
+    <div class="flex justify-between mt-10 mb-5">
+        <h2 class="text-lg font-medium  intro-y">
+            Reportes
+        </h2>
+
+    </div>
+    <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
+        <h2 class="text-lg font-medium  intro-y">
+            Fichas registradas en el consultorio
+        </h2>
+        <div class="grid grid-cols-3 gap-6 mt-4 mb-4">
+            <div class="col-span-1">
+                <label for="regular-form-1" class="form-label">Fecha inicio</label>
+                <input wire:model="from" id="regular-form-1" type="date" class="form-control" placeholder="Input text">
+                <x-jet-input-error for="from" />
+            </div>
+            <div class="col-span-1">
+                <label for="regular-form-1" class="form-label">Fecha fin</label>
+                <input wire:model="to" id="regular-form-1" type="date" class="form-control" placeholder="Input text">
+                <x-jet-input-error for="to" />
+            </div>
+            <div class="col-span-1">
+                <button wire:click="cardsBeetwenDates" class="mt-5 btn btn-primary">Generar reporte</button>
+            </div>
+        </div>
+
+        <h2 class="mt-8 text-lg font-medium intro-y">
+            Consultas realizadas por el médico
+        </h2>
+        <div class="grid grid-cols-3 gap-6 mt-4 mb-4">
+            <div class="col-span-1">
+                <label for="regular-form-1" class="form-label">Fecha inicio</label>
+                <input wire:model="fromConsultation" id="regular-form-1" type="date" class="form-control" placeholder="Input text">
+                <x-jet-input-error for="fromConsultation" />
+            </div>
+            <div class="col-span-1">
+                <label for="regular-form-1" class="form-label">Fecha fin</label>
+                <input wire:model="toConsultation" id="regular-form-1" type="date" class="form-control" placeholder="Input text">
+                <x-jet-input-error for="toConsultation" />
+            </div>
+            <div class="col-span-1">
+                <button wire:click="consultationBeetwenDates" class="mt-5 btn btn-primary">Generar reporte</button>
+            </div>
+        </div>
+    </div>
+
     <!-- BEGIN: New Patient -->
     <div x-show="newPatient" :class="{ 'show': newPatient, '': !newPatient }" class="modal-personal" tabindex="-1"
         aria-hidden="true">
@@ -387,7 +433,7 @@ use App\Models\Consultation;
                             <x-jet-input-error for="newPatient.m_last_name" />
                         </div>
                     </div>
-                    <div class="mt-3 gap-4 md:grid md:grid-cols-2">
+                    <div class="gap-4 mt-3 md:grid md:grid-cols-2">
                         <div class="mt-3">
                             <label for="m_last_name" class="form-label">*Dirección</label>
                             <input wire:model="newPatient.address" id="m_last_name" type="text"

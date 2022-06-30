@@ -83,7 +83,7 @@
                 <div class="invoice">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h4>From:</h4>
+                            {{-- <h4>From:</h4> --}}
                             <address>
                                 <strong>Clinica Vida y Salud</strong><br>
                                 Av. Arce #525 <br>
