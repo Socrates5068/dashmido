@@ -21,7 +21,7 @@ use App\Models\Staff;
 
     <div>
         <div class="text-center">
-            <h3>Fichaje {{ $departmentName }}</h3>
+            <h3>Consultas del médico ({{ $departmentName }})</h3>
         </div>
         <hr>
 
