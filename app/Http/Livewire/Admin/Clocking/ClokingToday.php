@@ -73,11 +73,13 @@ class ClokingToday extends Component
             $person->user->status = json_encode($status);
             $person->user->save();
         } else {
-            $status = [];
-            array_push($status, $ticket->department_id);
+            if ($person->user) {
+                $status = [];
+                array_push($status, $ticket->department_id);
 
-            $person->user->status = json_encode($status);
-            $person->user->save();
+                $person->user->status = json_encode($status);
+                $person->user->save();
+            }
         }
 
         $card = new Card();
