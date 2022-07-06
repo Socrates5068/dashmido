@@ -1,5 +1,5 @@
 <div>
-    <aside class="relative overflow-hidden text-gray-300 bg-gray-100 lg:flex mb-20">
+    <aside class="relative mb-20 overflow-hidden text-gray-300 bg-gray-100 lg:flex">
         <div class="w-full p-12 text-center lg:w-1/2 sm:p-16 lg:p-24 lg:text-left">
             <div class="max-w-xl mx-auto lg:ml-0">
                 <p class="text-sm font-medium">Cuidamos lo más importante que tenemos.</p>
@@ -8,7 +8,7 @@
                     Clínica Vida y Salud
                 </p>
 
-                <p class="hidden lg:mt-4 lg:block text-teal-600">
+                <p class="hidden text-teal-600 lg:mt-4 lg:block">
                     La Clínica Vida y Salud es un centro asistencial de alta complejidad con
                     actividad docente. Contamos con una moderna infraestructura, tecnología
                     médica de vanguardia y procesos eficientes implementados por un equipo de
@@ -32,7 +32,7 @@
     <hr>
 
     {{-- Especialidades --}}
-    <section class="text-teal-600 bg-gray-100 mb-10">
+    <section class="mb-10 text-teal-600 bg-gray-100">
         <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
             <div class="max-w-lg mx-auto text-center">
                 <h2 class="text-3xl font-bold sm:text-4xl">Especialidades</h2>
@@ -40,7 +40,7 @@
 
             <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 ">
                 @foreach ($departments as $department)
-                    <a class="bg-gray-900 block p-8 transition border border-gray-800 shadow-xl rounded-xl hover:shadow-pink-500/10 hover:border-pink-500/10"
+                    <a class="block p-8 transition bg-gray-900 border border-gray-800 shadow-xl rounded-xl hover:shadow-pink-500/10 hover:border-pink-500/10"
                         href="/services/digital-campaigns">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-500" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
@@ -86,8 +86,8 @@
             </div>
 
             <div class="grid grid-cols-1 gap-8 mt-8 lg:gap-16 lg:grid-cols-2">
-                <div class="relative border-double h-64 overflow-hidden sm:h-80 lg:h-full">
-                    <img class="border rounded-lg" src="{{ asset('dist/images/mapa.jpg') }}" alt="">
+                <div class="relative h-64 overflow-hidden border-double sm:h-80 lg:h-full">
+                    <img class="border rounded-lg" src="{{ asset('midone/dist/images/mapa.jpg') }}" alt="">
                 </div>
 
                 <div class="lg:py-16">
