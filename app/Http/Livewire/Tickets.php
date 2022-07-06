@@ -12,6 +12,7 @@ use App\Models\Department;
 class Tickets extends Component
 {
     public $departments, $list, $priceSchedule;
+    public $confirm = false, $confirmTicket;
 
     #Paypal
     public $ticketId, $price, $paypal = false;
@@ -117,6 +118,15 @@ class Tickets extends Component
         $card->date = $ticket->date;
         $card->time = $ticket->time;
         $card->save();
+
+        #reset modal
+        $this->reset('confirm', 'confirmTicket');
+    }
+
+    public function confirm($key)
+    {
+        $this->confirm = true;
+        $this->confirmTicket = $key;
     }
 
     public function render()

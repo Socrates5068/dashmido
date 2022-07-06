@@ -189,7 +189,7 @@ use App\Models\Staff;
                                                                     class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white bg-gray-600 rounded">
                                                                     Reservar
                                                                 </span>
-                                                                <button wire:click="changeTicket('{{ $ticket->id }}')"
+                                                                <button wire:click="confirm('{{ $ticket->id }}')"
                                                                     class="inline-block px-2 py-1 m-2 text-sm font-semibold text-white bg-yellow-600 rounded">
                                                                     Cambiar
                                                                 </button>
@@ -245,8 +245,7 @@ use App\Models\Staff;
         @endif
     </div>
 
-    <!-- BEGIN: Slide create user -->
-
+    <!-- BEGIN: Slide payment -->
     <div wire:ignore>
         <div x-show="paypal" x-transition.opacity class="fixed inset-0 bg-black/25"></div>
 
@@ -262,9 +261,26 @@ use App\Models\Staff;
             </div>
         </div>
     </div>
+    <!-- END: Slide payment -->
 
+    {{-- modal for confirm dialog --}}
+    <x-jet-dialog-modal wire:model="confirm">
+        <x-slot name="title">
+            ¿Esta seguro que quiere cambiar de horario?
+        </x-slot>
 
-    <!-- END: Slide create user -->
+        <x-slot name="content">
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-button wire:click="$set('confirm', false)" class="mr-4" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-button>
+            <x-jet-button wire:click="changeTicket('{{ $confirmTicket }}')" wire:loading.attr="disabled">
+                Sí
+            </x-jet-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 
     @push('scripts')
         <script src="https://www.paypal.com/sdk/js?client-id={{ config('services.paypal.client_id') }}&currency=USD">

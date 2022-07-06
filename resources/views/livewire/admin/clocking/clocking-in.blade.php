@@ -293,7 +293,7 @@ use App\Models\Consultation;
                             @foreach ($tickets as $ticket)
                                 <tr class="intro-x">
                                     <td>
-                                        <b class="font-medium whitespace-nowrap">{{ $ticket->date }} </b>
+                                        <b class="font-medium whitespace-nowrap">{{ date('d-m-Y', strtotime($ticket->date)) }} </b>
                                     </td>
                                     <td>
                                         <b class="font-medium whitespace-nowrap">{{ $ticket->time }} </b>
@@ -359,13 +359,13 @@ use App\Models\Consultation;
     @endif
 
     <div class="flex justify-between mt-10 mb-5">
-        <h2 class="text-lg font-medium  intro-y">
+        <h2 class="text-lg font-medium intro-y">
             Reportes
         </h2>
 
     </div>
-    <div class="relative p-8 mt-4 bg-white rounded-lg shadow-lg">
-        <h2 class="text-lg font-medium  intro-y">
+    <div class="relative p-8 mt-4 rounded-lg shadow-lg box">
+        <h2 class="text-lg font-medium intro-y">
             Fichas registradas en el consultorio
         </h2>
         <div class="grid grid-cols-3 gap-6 mt-4 mb-4">

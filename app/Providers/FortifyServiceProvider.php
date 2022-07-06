@@ -41,30 +41,52 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
+        $this->app->instance(LogoutResponse::class, new class implements LogoutResponse
+        {
             public function toResponse($request)
             {
                 return redirect('/login');
             }
         });
 
-        $this->app->instance(LoginResponse ::class, new class implements LoginResponse  {
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse
+        {
             public function toResponse($request)
             {
-                foreach(Auth()->user()->getRoleNames() as $rol){
+                foreach (Auth()->user()->getRoleNames() as $rol) {
                     if ($rol == 'Paciente') {
                         return redirect(route('cards'));
-                    }
-
-                    if ($rol == 'Médico') {
+                    } elseif ($rol == 'Médico' && Auth()->user()->person->staff->department->name == 'Ginecología') {
+                        session([
+                            'color_scheme' => 'theme-2'
+                        ]);
                         return redirect(route('admin.clocking'));
-                    }
-
-                    if ($rol == 'Enfermera') {
+                    } elseif ($rol == 'Médico' && Auth()->user()->person->staff->department->name == 'Pediatría') {
+                        session([
+                            'color_scheme' => 'theme-3'
+                        ]);
+                        return redirect(route('admin.clocking'));
+                    } elseif ($rol == 'Médico' && Auth()->user()->person->staff->department->name == 'Medicina general') {
+                        session([
+                            'color_scheme' => 'theme-4'
+                        ]);
+                        return redirect(route('admin.clocking'));
+                    } elseif ($rol == 'Médico') {
+                        session([
+                            'dark_mode' => true
+                        ]);
+                        return redirect(route('admin.clocking'));
+                    } elseif ($rol == 'Enfermera') {
+                        session([
+                            'color_scheme' => 'theme-1'
+                        ]);
                         return redirect(route('admin.infirmary'));
                     }
-                }                          
-               
+                }
+
+                session([
+                    'color_scheme' => 'default'
+                ]);
                 return redirect(route('admin.dashboard'));
             }
         });
@@ -75,9 +97,11 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('username', $request->username)->first();
-     
-            if ($user &&
-                Hash::check($request->password, $user->password)) {
+
+            if (
+                $user &&
+                Hash::check($request->password, $user->password)
+            ) {
                 return $user;
             }
         });
@@ -85,7 +109,7 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
 
-            return Limit::perMinute(5)->by($email.$request->ip());
+            return Limit::perMinute(5)->by($email . $request->ip());
         });
 
         RateLimiter::for('two-factor', function (Request $request) {

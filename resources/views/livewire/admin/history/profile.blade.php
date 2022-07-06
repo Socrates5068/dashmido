@@ -21,7 +21,7 @@
             </div>
             <div
                 class="flex-1 px-5 pt-5 mt-6 border-t border-l border-r lg:mt-0 border-slate-200/60 dark:border-darkmode-400 lg:border-t-0 lg:pt-0">
-                <div class="font-medium text-center lg:text-left lg:mt-3">Información</div> {{ asset('midone/dist/images/avatar.jpg') }}
+                <div class="font-medium text-center lg:text-left lg:mt-3">Información</div>
                 <div class="flex flex-col items-center justify-center mt-4 prose lg:items-start">
                     <div class="flex items-center truncate sm:whitespace-normal">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"

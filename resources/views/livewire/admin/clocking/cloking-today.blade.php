@@ -95,7 +95,7 @@ use App\Models\Patient;
                             @foreach ($tickets as $ticket)
                                 <tr>
                                     <td>
-                                        {{ $ticket->date }}
+                                        {{ date('d-m-Y', strtotime($ticket->date)) }}
                                     </td>
                                     <td>
                                         {{ $ticket->time }}

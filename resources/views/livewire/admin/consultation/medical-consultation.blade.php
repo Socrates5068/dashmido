@@ -31,6 +31,7 @@ use App\Models\Staff;
         <!-- END: Notification Content -->
     </x-notification-message>
 
+    {{-- table of diagnostics --}}
     <div class="{{ $show == 0 ? 'block' : 'hidden' }} intro-y">
         <div class="mt-4">
             <button x-on:click="$wire.set('show', 1)" class="mb-2 mr-1 btn btn-sm btn-primary w-30">+ Nuevo
@@ -98,15 +99,15 @@ use App\Models\Staff;
                                         {{ $consultation->diagnostic }}
                                     </td>
                                     <td>
-                                        {{-- @if ($consultation->status == Consultation::THIRD)
-                                            <p class="inline-block w-24 mb-2 mr-1 btn btn-sm btn-outline-secondary">
-                                                Editar
-                                            </p>
-                                        @else --}}
-                                        <button wire:click="editDiagnosis('{{ $consultation->id }}')"
-                                            @click="$wire.set('show', 3)"
-                                            class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Editar</button>
-                                        {{-- @endif --}}
+                                        @if (auth()->user()->person->staff->id == $consultation->staff_id)
+                                            <button wire:click="editDiagnosis('{{ $consultation->id }}')"
+                                                @click="$wire.set('show', 3)"
+                                                class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Editar</button>
+                                        @else
+                                            <button wire:click="editDiagnosis('{{ $consultation->id }}')"
+                                                @click="$wire.set('show', 3)"
+                                                class="w-24 mb-2 mr-1 btn btn-sm btn-primary">Mostrar</button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -205,7 +206,7 @@ use App\Models\Staff;
                                     class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                                     Descripción
                                 </div>
-                                <textarea wire:model="consultationDescription" class="form-control w-full h-40"></textarea>
+                                <textarea wire:model="consultationDescription" class="w-full h-40 form-control"></textarea>
                                 <label for="regular-form-1" class="form-label">Diagnostico</label>
                                 <input wire:model="diagnostic" type="text" class="form-control"
                                     placeholder="Ej. Gastroenteritis">
@@ -315,7 +316,7 @@ use App\Models\Staff;
                     data-tw-toggle="dropdown"> Derivar a enfermería
                 </button>
 
-                <div class="dropdown mr-2">
+                <div class="mr-2 dropdown">
                     <button id="drop" class="flex items-center shadow-md dropdown-toggle btn btn-primary"
                         aria-expanded="false" data-tw-toggle="dropdown"> Derivar especialidad
                         <svg width="12" height="12" class="ml-2 fill-white" viewBox="0 0 24 24"
@@ -393,17 +394,22 @@ use App\Models\Staff;
                                     class="flex items-center pb-5 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
                                     Descripción
                                 </div>
-                                <textarea wire:model="consultationDescription" class="form-control w-full h-40"></textarea>
-                                <label for="regular-form-1" class="form-label">Diagnostico</label>
-                                <input wire:model="diagnostic" type="text" class="form-control"
-                                    placeholder="Ej. Gastroenteritis">
+                                @if ($consult)
+                                    <textarea {{ auth()->user()->person->staff->id == $consult->staff_id ? '' : 'disabled' }}
+                                        wire:model="consultationDescription" class="w-full h-40 form-control"></textarea>
+                                    <label for="regular-form-1" class="form-label">Diagnostico</label>
+                                    <input
+                                        {{ auth()->user()->person->staff->id == $consult->staff_id ? '' : 'disabled' }}
+                                        wire:model="diagnostic" type="text" class="form-control"
+                                        placeholder="Ej. Gastroenteritis">
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <button wire:click="printConsultation"
-                    class="mt-2 flex items-center mr-4 shadow-md dropdown-toggle btn btn-primary" aria-expanded="false"
-                    data-tw-toggle="dropdown"> Imprimir diagnostico
+                    class="flex items-center mt-2 mr-4 shadow-md dropdown-toggle btn btn-primary"
+                    aria-expanded="false" data-tw-toggle="dropdown"> Imprimir diagnostico
                 </button>
             </div>
         </div>

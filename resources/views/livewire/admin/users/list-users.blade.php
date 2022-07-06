@@ -371,7 +371,7 @@
                         <label for="department" class="form-label">*Asignar una especialidad</label>
                         <select wire:model="user.department" data-placeholder="Select your favorite actors"
                             class="w-full form-control" id="role">
-                            <option value=" " selected>Seleccione un departemento</option>
+                            <option value=" " selected>Seleccione un especialidad</option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach
@@ -486,7 +486,7 @@
                         <label for="department" class="form-label">*Asignar una especialidad</label>
                         <select wire:model="user.department" data-placeholder="Select your favorite actors"
                             class="w-full form-control" id="role">
-                            <option value=" " selected>Seleccione un departemento</option>
+                            <option value=" " selected>Seleccione un especialidad</option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach

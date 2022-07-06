@@ -48,6 +48,19 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'user.email'            => 'correo electrónico',
+        'user.name'             => 'nombre',
+        'user.f_last_name'      => 'apellido paterno',
+        'user.m_last_name'      => 'apellido materno',
+        'user.ci'               => 'C.I.',
+        'user.address'          => 'dirección',
+        'user.telephone'        => 'teléfono',
+        'user.sex'              => 'sexo',
+        'user.department'       => 'especialidad',
+        'department'            => 'especialidad',
+        'time.start'            => 'hora inicial',
+        'time.end'              => 'hora final',
+
     ],
     'accepted'             => ':attribute debe ser aceptado.',
     'accepted_if'          => ':attribute debe ser aceptado cuando :other sea :value.',
@@ -170,9 +183,6 @@ return [
         ],
         'password' => [
             'min' => 'La :attribute debe contener más de :min caracteres',
-        ],
-        'lat' => [
-            'required' => 'La ubicación en el mapa es obligatoria.',
         ],
     ],
 ];
