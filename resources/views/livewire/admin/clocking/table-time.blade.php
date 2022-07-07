@@ -42,8 +42,9 @@
         @foreach ($schedules as $schedule)
             <div class="relative p-8 mt-8 bg-white rounded-lg shadow-lg">
                 <div class="absolute right-0 p-5 -mt-8">
-                    <svg  wire:click="deleteTime({{ $schedule->id }})" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-600 cursor-pointer"
-                        viewBox="0 0 20 20" fill="currentColor">
+                    <svg @click="deleteTime({{ $schedule->id }})" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 h-8 text-red-600 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                             clip-rule="evenodd" />
@@ -81,9 +82,8 @@
                                             <div class="flex">
                                                 <svg wire:click="edit('{{ $schedule->id }}', '{{ $i }}')"
                                                     class="w-6 h-6 ml-1 mr-1 text-green-600 cursor-pointer"
-                                                    xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                    stroke-width="2">
+                                                    xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
@@ -175,6 +175,25 @@
             @if (session()->has('message'))
                 message()
             @endif
+        </script>
+
+        <script>
+            function deleteTime(id) {
+                Swal.fire({
+                    title: '¿Está seguro?',
+                    text: "¿Desea eliminar la tabla?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, eliminar!',
+                    cancelButtonText: '¡No!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit('deleteTime', id)
+                    }
+                })
+            }
         </script>
     @endpush
 </div>

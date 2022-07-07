@@ -60,6 +60,10 @@ return [
         'department'            => 'especialidad',
         'time.start'            => 'hora inicial',
         'time.end'              => 'hora final',
+        'from'                  => 'fecha inicio',
+        'to'                    => 'fecha fin',
+        'fromConsultation'      => 'fecha inicio',
+        'toConsultation'        => 'fecha fin',
 
     ],
     'accepted'             => ':attribute debe ser aceptado.',

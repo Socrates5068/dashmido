@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Backups extends Component
 {
+    protected $listeners = ['delete'];
+
     public function create()
     {
         try {

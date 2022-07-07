@@ -1,4 +1,4 @@
-<div x-data="{ modal: false, modalDelete: false, modalSlide: false, editUser: false }">
+<div x-data="{ modal: false, modalDelete: false, modalSlide: false, editUser: @entangle('editUser') }">
     <x-jet-action-message class="" on="save">
         <div class="w-full max-w-lg mx-auto mt-6 alert alert-success show" role="alert">Registro exitoso</div>
     </x-jet-action-message>
@@ -405,11 +405,11 @@
     <div x-show="editUser" :class="{ 'show': editUser, '': !editUser }" class="modal-personal modal-slide-over"
         tabindex="-1" aria-hidden="true">
         <div class="modal-personal-dialog">
-            <div class="modal-content" @click.away="editUser = false, Livewire.emit('resetVariables')">
+            <div class="modal-content" {{-- @click.away="editUser = false, Livewire.emit('resetVariables')" --}}>
                 <div class="p-5 modal-header">
                     <h2 class="mr-auto text-base font-medium">Editar usuario</h2>
                 </div>
-                <x-jet-validation-errors class="mt-4 mb-4" />
+                {{-- <x-jet-validation-errors class="mt-4 mb-4" /> --}}
                 <div class="p-10 -mt-4 modal-body">
                     <div class="mb-4 text-slate-500">
                         Los campos marcados con un <span class="font-bold">(*)</span> son obligatorios.
@@ -504,8 +504,8 @@
                     <button @click=" editUser=false, Livewire.emit('resetVariables')"
                         class="mt-10 mr-2 shadow-md btn btn-danger">Cerrar</button>
 
-                    <button wire:click="updateUser('{{ $aux }}')" class="mr-2 shadow-md btn btn-primary"
-                        @click="Livewire.on('save', () => {editUser = false; } )">Guardar</button>
+                    <button @click="updateUser('{{ $aux }}')" class="mr-2 shadow-md btn btn-primary"
+                        @click="Livewire.on('save', () => {editUser = false; } )">actualizar</button>
 
                     <button wire:click="resetPassword('{{ $aux }}')" class="mr-2 shadow-md btn btn-warning"
                         @click="Livewire.on('save', () => {editUser = false; } )">Restablecer
@@ -515,4 +515,25 @@
         </div>
     </div>
     <!-- END: Slide edit user -->
+
+    @push('scripts')
+        <script>
+            function updateUser(id) {
+                Swal.fire({
+                    title: '¿Está seguro?',
+                    text: "¿Desea actualizar al usuario?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, actualizar!',
+                    cancelButtonText: '¡No!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit('updateUser', id)
+                    }
+                })
+            }
+        </script>
+    @endpush
 </div>

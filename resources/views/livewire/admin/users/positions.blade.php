@@ -221,7 +221,6 @@
 
     @push('scripts')
         <script src="{{ asset('midone/dist/js/ckeditor-classic.js') }}" defer></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             Livewire.on('destroyDepartment', Id => {
                 const swalWithBootstrapButtons = Swal.mixin({

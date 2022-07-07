@@ -20,7 +20,7 @@ class TableTime extends Component
         'aux' => NULL
     ];
 
-    protected $listeners = ['resetVariables', 'render']; 
+    protected $listeners = ['resetVariables', 'render', 'deleteTime']; 
 
     public function saveTableTime()
     {

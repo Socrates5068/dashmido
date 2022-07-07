@@ -3,7 +3,7 @@ use App\Models\Department;
 use App\Models\TimeTable;
 use App\Models\Staff;
 @endphp
-<div>
+<div x-data>
     <div wire:ignore class="">
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Fichajes'])
     </div>
@@ -99,11 +99,11 @@ use App\Models\Staff;
                 <label class="">Acciones</label>
                 <div class="flex justify-center mt-2">
                     @isset($aux)
-                        <button wire:click='update' class="w-18 mb-2 mr-1 btn btn-warning">Actualizar</button>
-                        <button wire:click='resetVariables' class="w-18 mb-2 mr-1 btn btn-danger">Cancelar</button>
+                        <button wire:click='update' class="mb-2 mr-1 w-18 btn btn-warning">Actualizar</button>
+                        <button wire:click='resetVariables' class="mb-2 mr-1 w-18 btn btn-danger">Cancelar</button>
                     @else
-                        <button wire:click='save' class="w-18 mb-2 mr-1 btn btn-primary">Agregar</button>
-                        <button wire:click='resetVariables' class="w-18 mb-2 mr-1 btn btn-danger">Cancelar</button>
+                        <button wire:click='save' class="mb-2 mr-1 w-18 btn btn-primary">Agregar</button>
+                        <button wire:click='resetVariables' class="mb-2 mr-1 w-18 btn btn-danger">Cancelar</button>
                     @endisset
                 </div>
             </div>
@@ -153,14 +153,14 @@ use App\Models\Staff;
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" icon-name="check-square"
-                                            data-lucide="check-square" class="w-4 h-4 mr-1 lucide lucide-check-square">
+                                            data-lucide="check-square"
+                                            class="w-4 h-4 mr-1 lucide lucide-check-square">
                                             <polyline points="9 11 12 14 22 4"></polyline>
                                             <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
                                         </svg> Edit
                                     </p>
-                                    <p wire:click="delete({{ $schedule->id }})"
-                                        class="flex items-center cursor-pointer text-danger" data-tw-toggle="modal"
-                                        data-tw-target="#delete-confirmation-modal">
+                                    <p @click="deleteSchedule({{ $schedule->id }})"
+                                        class="flex items-center cursor-pointer text-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -191,6 +191,25 @@ use App\Models\Staff;
                 var selectedDepartment = department.options[department.selectedIndex].value;
                 // console.log(selectedDepartment)
                 Livewire.emit('selectDepartment', selectedDepartment)
+            }
+        </script>
+
+        <script>
+            function deleteSchedule(id) {
+                Swal.fire({
+                    title: '¿Está seguro?',
+                    text: "¿Desea eliminar la tabla?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, eliminar!',
+                    cancelButtonText: '¡No!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit('delete', id)
+                    }
+                })
             }
         </script>
     @endpush

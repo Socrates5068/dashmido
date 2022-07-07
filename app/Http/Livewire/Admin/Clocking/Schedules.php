@@ -12,14 +12,15 @@ class Schedules extends Component
 {
     public $personal, $time, $department, $aux, $selectedDepartment, $price;
 
-    protected $listeners = ['selectDepartment'];
+    protected $listeners = ['selectDepartment', 'delete'];
 
     public function save()
     {
         $this->validate([
             'personal' => 'required',
             'time' => 'required',
-            'department' => 'required'
+            'department' => 'required',
+            'price' => 'required|numeric'
         ]);
 
         $table = TimeTable::find($this->time);
@@ -38,6 +39,7 @@ class Schedules extends Component
             $ticket->type = 4;
         }
         $ticket->time_table_id = $this->time;
+        $ticket->price = $this->price;
         $ticket->save();
         
         $this->resetVariables();

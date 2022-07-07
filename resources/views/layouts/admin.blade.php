@@ -23,6 +23,7 @@
     @livewireStyles
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js" integrity="sha256-6DBhCk8kLxWN6B/oKVfvB0ieNTCY2r0rlFlkAjLmrsM=" crossorigin="anonymous"></script>
     <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('midone/dist/js/app.js') }}" defer></script>
     <!-- BEGIN: Midone JS Assets-->

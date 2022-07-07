@@ -14,7 +14,9 @@ use Spatie\Permission\PermissionRegistrar;
 class Patients extends Component
 {
     use WithPagination;
-    
+
+    public $editUser = false;
+
     public $user = [
         'name' => '',
         'f_last_name' => '',
@@ -42,11 +44,11 @@ class Patients extends Component
         'read_history' => false,
         'update_history' => false,
         'delete_history' => false,
-    ] ;
+    ];
     public $roles, $role, $deleteRole;
     public $aux;
 
-    protected $listeners = ['updateSearch', 'resetVariables']; 
+    protected $listeners = ['updateSearch', 'resetVariables', 'updateUser'];
 
     public function mount()
     {
@@ -134,77 +136,106 @@ class Patients extends Component
 
     public function updateUser(Person $person)
     {
-        if ($this->user['ci'] == $person->ci){
-            $this->validate([
-                'user.name' => 'required|min:3',
-                'user.f_last_name' => 'required|min:3',
-                'user.m_last_name' => 'required|min:3',
-                'user.ci' => 'required|exists:people,ci',
-                'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric',
-                'user.blood_type' => 'nullable|max:5',
-                'user.weight' => 'nullable|max:8|min:1',
-                'user.height' => 'nullable|max:8|min:1',
-                'user.old' => 'nullable|numeric|max:120|min:0',
-                'user.sex' => 'required',
-            ]);
-    
-            $person->name = $this->user['name'];
-            $person->f_last_name = $this->user['f_last_name'];
-            $person->m_last_name = $this->user['m_last_name'];
-            $person->ci = $this->user['ci'];
-            $person->address = $this->user['address'];
-            $person->sex = $this->user['sex'];
-            $person->telephone = $this->user['telephone'];
-            $person->save();
+        if ($person->ci == $this->user['ci']) {
+            if ($person->telephone == $this->user['telephone']) {
+                $this->validate([
+                    'user.name' => 'required|min:3',
+                    'user.f_last_name' => 'required|min:3',
+                    'user.m_last_name' => 'required|min:3',
+                    'user.ci' => 'required|exists:people,ci',
+                    'user.address' => 'required|min:6',
+                    'user.telephone' => 'required|numeric|exists:people,telephone',
+                ]);
 
-            $patient = $person->patient;
-            $patient->blood_type = $this->user['blood_type'];
-            $patient->weight = $this->user['weight'];
-            $patient->height = $this->user['height'];
-            $patient->old = $this->user['old'];
-            $patient->save();
-    
-            $user = User::where('person_id', $person->id)->first();
-            $user->name = $person->name;
-            $user->username = $person->ci;
-            $user->save();
+                $person->name = $this->user['name'];
+                $person->f_last_name = $this->user['f_last_name'];
+                $person->m_last_name = $this->user['m_last_name'];
+                $person->ci = $this->user['ci'];
+                $person->address = $this->user['address'];
+                $person->telephone = $this->user['telephone'];
+                $person->sex = $this->user['sex'];
+                $person->save();
+
+                $user = User::where('person_id', $person->id)->first();
+                $user->name = $person->name;
+                $user->save();
+            } else {
+                $this->validate([
+                    'user.name' => 'required|min:3',
+                    'user.f_last_name' => 'required|min:3',
+                    'user.m_last_name' => 'required|min:3',
+                    'user.ci' => 'required|exists:people,ci',
+                    'user.address' => 'required|min:6',
+                    'user.telephone' => 'required|numeric|unique:people,telephone',
+                ]);
+
+                $person->name = $this->user['name'];
+                $person->f_last_name = $this->user['f_last_name'];
+                $person->m_last_name = $this->user['m_last_name'];
+                $person->ci = $this->user['ci'];
+                $person->address = $this->user['address'];
+                $person->telephone = $this->user['telephone'];
+                $person->sex = $this->user['sex'];
+                $person->save();
+
+                $user = User::where('person_id', $person->id)->first();
+                $user->name = $person->name;
+                $user->save();
+            }
         } else {
-            $this->validate([
-                'user.name' => 'required|min:3',
-                'user.f_last_name' => 'required|min:3',
-                'user.m_last_name' => 'required|min:3',
-                'user.ci' => 'required|unique:people,ci',
-                'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric',
-                'user.blood_type' => 'nullable|max:5',
-                'user.weight' => 'nullable|max:8|min:1',
-                'user.height' => 'nullable|max:8|min:1',
-                'user.old' => 'nullable|numeric|max:120|min:0',
-            ]);
-    
-            $person->name = $this->user['name'];
-            $person->f_last_name = $this->user['f_last_name'];
-            $person->m_last_name = $this->user['m_last_name'];
-            $person->ci = $this->user['ci'];
-            $person->address = $this->user['address'];
-            $person->telephone = $this->user['telephone'];
-            $person->sex = $this->user['sex'];
-            $person->save();
+            if ($person->telephone == $this->user['telephone']) {
+                $this->validate([
+                    'user.name' => 'required|min:3',
+                    'user.f_last_name' => 'required|min:3',
+                    'user.m_last_name' => 'required|min:3',
+                    'user.ci' => 'required|unique:people,ci',
+                    'user.address' => 'required|min:6',
+                    'user.telephone' => 'required|numeric|exists:people,telephone',
+                ]);
 
-            $patient = $person->patient;
-            $patient->blood_type = $this->user['blood_type'];
-            $patient->weight = $this->user['weight'];
-            $patient->height = $this->user['height'];
-            $patient->old = $this->user['old'];
-            $patient->save();
-    
-            $user = User::where('person_id', $person->id)->first();
-            $user->name = $person->name;
-            $user->username = $person->ci;
-            $user->save();
+                $person->name = $this->user['name'];
+                $person->f_last_name = $this->user['f_last_name'];
+                $person->m_last_name = $this->user['m_last_name'];
+                $person->ci = $this->user['ci'];
+                $person->address = $this->user['address'];
+                $person->telephone = $this->user['telephone'];
+                $person->sex = $this->user['sex'];
+                $person->save();
+
+                $user = User::where('person_id', $person->id)->first();
+                $user->name = $person->name;
+                $user->save();
+            } else {
+                $this->validate([
+                    'user.name' => 'required|min:3',
+                    'user.f_last_name' => 'required|min:3',
+                    'user.m_last_name' => 'required|min:3',
+                    'user.ci' => 'required|unique:people,ci',
+                    'user.address' => 'required|min:6',
+                    'user.telephone' => 'required|numeric|unique:people,telephone',
+                ]);
+
+                $person->name = $this->user['name'];
+                $person->f_last_name = $this->user['f_last_name'];
+                $person->m_last_name = $this->user['m_last_name'];
+                $person->ci = $this->user['ci'];
+                $person->address = $this->user['address'];
+                $person->telephone = $this->user['telephone'];
+                $person->sex = $this->user['sex'];
+                $person->save();
+
+                $user = User::where('person_id', $person->id)->first();
+                $user->name = $person->name;
+                $user->save();
+            }
         }
-        
+
+        $user = User::where('person_id', $person->id)->first();
+        $user->username = $person->ci;
+        $user->save();
+
+        $this->editUser = false;
+
         $this->emit('save');
         $this->reset('user', 'aux');
     }
@@ -244,9 +275,9 @@ class Patients extends Component
 
     public function render()
     {
-        $users = Person::where(function($query){
+        $users = Person::where(function ($query) {
             $query->where('type', '1');
-            $query->where('name', 'like', '%'.$this->search.'%');
+            $query->where('name', 'like', '%' . $this->search . '%');
             // $query->orwhere('address', 'like', '%'.$this->search.'%');
         })->orderBy('created_at', 'desc')->paginate($this->paginate);
 

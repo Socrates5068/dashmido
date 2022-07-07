@@ -1,4 +1,4 @@
-<div>
+<div x-data>
     <x-notification-message on="success">
         <!-- BEGIN: Notification Content -->
         <div id="save" class="flex toastify-content">
@@ -93,7 +93,7 @@
                                             <button wire:click="download('{{ $backup['file_name'] }}')"
                                                 class="btn btn-success"><i class="fa fa-cloud-download"></i>
                                                 Descargar</button>
-                                            <button wire:click="delete('{{ $backup['file_name'] }}')"
+                                            <button @click="deleteBackup('{{ $backup['file_name'] }}')"
                                                 class="btn btn-danger"><i class="fa fa-trash-o"></i>
                                                 Eliminar</button>
                                         </td>
@@ -141,6 +141,30 @@
                         document.getElementsByTagName('html')[0].style.overflow = 'auto'
                     }
                 }
+            }
+        </script>
+
+        <script>
+            function deleteBackup(name) {
+                Swal.fire({
+                    title: '¿Está seguro?',
+                    text: "¡Esta acción no se puede revertir!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, eliminar!',
+                    cancelButtonText: '¡No!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit('delete', name)
+
+                        Swal.fire(
+                            '¡Eliminado!',
+                            'Tu archivo a sido eliminado.'
+                        )
+                    }
+                })
             }
         </script>
     @endpush

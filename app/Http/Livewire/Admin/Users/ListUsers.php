@@ -15,7 +15,9 @@ use Spatie\Permission\PermissionRegistrar;
 class ListUsers extends Component
 {
     use WithPagination;
-    
+
+    public $editUser = false;
+
     public $user = [
         'name' => '',
         'f_last_name' => '',
@@ -41,11 +43,11 @@ class ListUsers extends Component
         'read_history' => false,
         'update_history' => false,
         'delete_history' => false,
-    ] ;
+    ];
     public $roles, $role, $deleteRole;
     public $aux;
 
-    protected $listeners = ['updateSearch', 'resetVariables']; 
+    protected $listeners = ['updateSearch', 'resetVariables', 'updateUser'];
 
     public function mount()
     {
@@ -66,7 +68,7 @@ class ListUsers extends Component
     }
 
     public function saveRole()
-    {       
+    {
         // create roles 
         $this->validate([
             'role' => 'required|min:4|unique:roles,name',
@@ -166,57 +168,222 @@ class ListUsers extends Component
     public function updateUser(Person $person)
     {
         if ($person->ci == $this->user['ci']) {
-            $this->validate([
-                'user.name' => 'required|min:3',
-                'user.f_last_name' => 'required|min:3',
-                'user.m_last_name' => 'required|min:3',
-                'user.ci' => 'required|exists:users,username',
-                'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric|exists:people,telephone',
-                'user.email' => 'nullable|email|exists:staff,email',
-                'role' => 'required',
-                'user.department' => 'required',
-            ]);
+            if ($person->telephone == $this->user['telephone']) {
+                if ($person->staff->email == $this->user['email']) {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|exists:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|exists:people,telephone',
+                        'user.email' => 'nullable|email|exists:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
 
-            $person->name = $this->user['name'];
-            $person->f_last_name = $this->user['f_last_name'];
-            $person->m_last_name = $this->user['m_last_name'];
-            $person->ci = $this->user['ci'];
-            $person->address = $this->user['address'];
-            $person->telephone = $this->user['telephone'];
-            $person->sex = $this->user['sex'];
-            $person->save();
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
 
-            $user = User::where('person_id', $person->id)->first();
-            $user->name = $person->name;
-            $user->save();
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                } else {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|exists:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|exist:people,telephone',
+                        'user.email' => 'nullable|email|unique:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                }
+            } else {
+                if ($person->staff->email == $this->user['email']) {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|exists:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|unique:people,telephone',
+                        'user.email' => 'nullable|email|exists:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                } else {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|exists:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|unique:people,telephone',
+                        'user.email' => 'nullable|email|unique:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                }
+            }
         } else {
-            $this->validate([
-                'user.name' => 'required|min:3',
-                'user.f_last_name' => 'required|min:3',
-                'user.m_last_name' => 'required|min:3',
-                'user.ci' => 'required|unique:users,username',
-                'user.address' => 'required|min:6',
-                'user.telephone' => 'required|numeric|unique:people,telephone',
-                'user.email' => 'nullable|email|unique:staff,email',
-                'role' => 'required',
-                'user.department' => 'required',
-            ]);
+            if ($person->telephone == $this->user['telephone']) {
+                if ($person->staff->email == $this->user['email']) {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|unique:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|exists:people,telephone',
+                        'user.email' => 'nullable|email|exists:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
 
-            $person->name = $this->user['name'];
-            $person->f_last_name = $this->user['f_last_name'];
-            $person->m_last_name = $this->user['m_last_name'];
-            $person->ci = $this->user['ci'];
-            $person->address = $this->user['address'];
-            $person->telephone = $this->user['telephone'];
-            $person->sex = $this->user['sex'];
-            $person->save();
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
 
-            $user = User::where('person_id', $person->id)->first();
-            $user->name = $person->name;
-            $user->username = $person->ci;
-            $user->save();
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                } else {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|unique:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|exists:people,telephone',
+                        'user.email' => 'nullable|email|unique:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                }
+            } else {
+                if ($person->staff->email == $this->user['email']) {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|unique:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|unique:people,telephone',
+                        'user.email' => 'nullable|email|exists:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                } else {
+                    $this->validate([
+                        'user.name' => 'required|min:3',
+                        'user.f_last_name' => 'required|min:3',
+                        'user.m_last_name' => 'required|min:3',
+                        'user.ci' => 'required|unique:people,ci',
+                        'user.address' => 'required|min:6',
+                        'user.telephone' => 'required|numeric|unique:people,telephone',
+                        'user.email' => 'nullable|email|unique:staff,email',
+                        'role' => 'required',
+                        'user.department' => 'required',
+                    ]);
+
+                    $person->name = $this->user['name'];
+                    $person->f_last_name = $this->user['f_last_name'];
+                    $person->m_last_name = $this->user['m_last_name'];
+                    $person->ci = $this->user['ci'];
+                    $person->address = $this->user['address'];
+                    $person->telephone = $this->user['telephone'];
+                    $person->sex = $this->user['sex'];
+                    $person->save();
+
+                    $user = User::where('person_id', $person->id)->first();
+                    $user->name = $person->name;
+                    $user->save();
+                }
+            }
         }
+
+        $user = User::where('person_id', $person->id)->first();
+        $user->username = $person->ci;
+        $user->save();
 
         $staff = Staff::where('person_id', $person->id)->first();
         $staff->department_id = $this->user['department'];
@@ -227,6 +394,8 @@ class ListUsers extends Component
             $user->removeRole($user->getRoleNames()->first());
             $user->assignRole($this->role);
         }
+
+        $this->editUser = false;
 
         $this->emit('save');
         $this->reset('user', 'aux', 'role');

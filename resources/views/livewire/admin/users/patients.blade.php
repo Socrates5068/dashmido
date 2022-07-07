@@ -1,4 +1,4 @@
-<div x-data="{ modal: false, modalDelete: false, modalSlide: false, editUser: false }">
+<div x-data="{ modal: false, modalDelete: false, modalSlide: false, editUser: @entangle('editUser') }">
     <div wire:ignore>
         @livewire('admin.menu-bar', ['application' => config('app.name'), 'content1' => 'Pacientes'])
     </div>
@@ -57,7 +57,7 @@
                                         <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
                                             class="px-2 py-1 btn btn-outline-secondary">Editar</button>
                                     @endif
-                                        {{-- <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
+                                    {{-- <button wire:click="editUser('{{ $user->id }}')" @click="editUser = true"
                                             class="px-2 py-1 btn btn-outline-secondary">Editar</button> --}}
                                 </div>
                             </div>
@@ -233,7 +233,7 @@
         <div x-show="editUser" :class="{ 'show': editUser, '': !editUser }" class="modal-personal modal-slide-over"
             tabindex="-1" aria-hidden="true">
             <div class="modal-personal-dialog">
-                <div class="modal-content" @click.away="editUser = false, Livewire.emit('resetVariables')">
+                <div class="modal-content" {{-- @click.away="editUser = false, Livewire.emit('resetVariables')" --}}>
                     <div class="p-5 modal-header">
                         <h2 class="mr-auto text-base font-medium">Editar usuario</h2>
                     </div>
@@ -337,7 +337,7 @@
                         <button @click=" editUser=false, Livewire.emit('resetVariables')"
                             class="mt-10 mr-2 shadow-md btn btn-danger">Cerrar</button>
 
-                        <button wire:click="updateUser('{{ $aux }}')" class="mr-2 shadow-md btn btn-primary"
+                        <button @click="updateUser('{{ $aux }}')" class="mr-2 shadow-md btn btn-primary"
                             @click="Livewire.on('save', () => {editUser = false; } )">Guardar</button>
 
                         <button wire:click="resetPassword('{{ $aux }}')"
@@ -350,4 +350,24 @@
         </div>
         <!-- END: Slide edit user -->
     </div>
+    @push('scripts')
+        <script>
+            function updateUser(id) {
+                Swal.fire({
+                    title: '¿Está seguro?',
+                    text: "¿Desea actualizar al usuario?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Sí, actualizar!',
+                    cancelButtonText: '¡No!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit('updateUser', id)
+                    }
+                })
+            }
+        </script>
+    @endpush
 </div>
