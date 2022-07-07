@@ -140,6 +140,7 @@
                     @endif
                 @else
                 <a href="{{ route('login') }}" class="underline">Ingresar</a>
+                <a href="{{ route('register') }}" class="underline ml-4">Registrarse</a>
                 @endif
 
             </div>
